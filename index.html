@@ -146,6 +146,8 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
 .fig .mk { fill: var(--muted); }
 .testbar { background: var(--warn-soft); color: var(--warn); border: 1px dashed var(--warn); border-radius: var(--r); padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; font-size: 0.9375rem; }
 .testbar .ghost { border-color: var(--warn); color: var(--warn); }
+.video { display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); color: var(--accent); text-decoration: none; }
+.video span { color: var(--muted); font-size: 0.875rem; }
 </style>
 
 </head>
@@ -570,6 +572,37 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
   });
   var IDX = {}; ITEMS.forEach(function (it, i) { IDX[it.id] = i; });
 
+  // Where Mr. Dickie teaches each idea: [recording id, start in seconds, what the link is called].
+  // Minutes come from the transcripts of his recordings and are accurate to about a minute.
+  var V = {
+    share:   ["KRqX-H8b1VQ", 1204, "Topic 18: Electricity Intro (2)"],
+    elem:    ["762JRFgQkPY", 541,  "Topic 18: Electricity Introduction"],
+    charge:  ["1GbvsUPshDQ", 0,    "Topic 19: Charging Objects (Part 2)"],
+    ground:  ["1GbvsUPshDQ", 360,  "Topic 19: Charging Objects (Part 2)"],
+    control: ["oPbnvYr61Fw", 300,  "Topic 20: Coulomb's Law"],
+    inverse: ["oPbnvYr61Fw", 600,  "Topic 20: Coulomb's Law"],
+    coulomb: ["oPbnvYr61Fw", 720,  "Topic 20: Coulomb's Law"],
+    gravity: ["oPbnvYr61Fw", 782,  "Topic 20: Coulomb's Law"],
+    hang:    ["AoOtsbLPFBc", 301,  "Electric Force Tension Problem"],
+    point:   ["bGFzir_WswU", 182,  "Topic 21: Electric Fields (Part 2)"],
+    fq:      ["bGFzir_WswU", 300,  "Topic 21: Electric Fields (Part 2)"],
+    net:     ["bGFzir_WswU", 420,  "Topic 21: Electric Fields (Part 2)"],
+    plates:  ["jxcxsQiMDBM", 782,  "Topic 21: Electric Fields (Part 3, uniform field)"],
+    accel:   ["jxcxsQiMDBM", 1022, "Topic 21: Electric Fields (Part 3, uniform field)"],
+    toward:  ["OMILaFKzdzs", 600,  "Topic 21: Electric Fields"],
+    lines:   ["OMILaFKzdzs", 1022, "Topic 21: Electric Fields"],
+    scalar:  ["OMILaFKzdzs", 301,  "Topic 21: Electric Fields"],
+    energy:  ["5FvprRae81A", 421,  "Topic 23: Conservation of Energy"]
+  };
+  var VMAP = {
+    ws1: "point", ws3: "point", ws5: "fq", ws7: "fq", ws8: "net", ws9: "net", ws10: "plates", ws12a: "plates", ws12b: "fq", ws12c: "accel",
+    notes46: "net", notes47: "plates", notes48: "accel", notes49: "point", notes50: "point", notes51: "inverse", notes52: "net", notes53: "plates",
+    notes32: "share", notes33: "elem", notes34: "charge", notes35: "ground", notes36: "ground", notes37: "charge", notes38: "charge", notes39: "charge",
+    notes40: "control", notes41: "gravity", notes42: "coulomb", notes43: "coulomb", notes44: "toward", notes45: "scalar", notes54: "lines", notes55: "coulomb",
+    notes56: "energy", notes57: "energy", notes60: "energy", notes61: "ground", notes62: "hang", notes63: "hang", notes64: "inverse", notes65: "point"
+  };
+  ITEMS.forEach(function (it) { if (VMAP[it.id]) it.v = V[VMAP[it.id]]; });
+
   var LETTERS = ["A", "B", "C", "D"];
   var SESSION = 4;            // cards in a daily review: one easy opener, two mixed, one paper problem
   var EXTRA = 2;              // cards added by "Two more"
@@ -784,7 +817,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     if (!st.bumped) {
       st.bumped = true;
       sched(state.rv, C.it.id, st, st.at || now());
-      if (C.review) state.rv.log.push({ id: C.it.id, at: st.at, first: first(st), solved: st.solved, hints: st.hints, wrong: st.wrong, slip: st.slip, flag: st.flag });
+      if (C.review) state.rv.log.push({ id: C.it.id, at: st.at, first: first(st), solved: st.solved, hints: st.hints, wrong: st.wrong, slip: st.slip, flag: st.flag, video: !!st.video });
     }
     if (C.review) {
       var d = state.rv.day;
@@ -813,11 +846,11 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     ITEMS.forEach(function (it, i) {
       var st = state.items[i];
       if (it.r < 0 || !st.done) return;
-      out.push({ at: st.at || 0, set: ROUNDS[it.r].set, it: it, first: first(st), solved: st.solved, hints: st.hints, wrong: st.wrong, slip: st.slip, flag: st.flag });
+      out.push({ at: st.at || 0, set: ROUNDS[it.r].set, it: it, first: first(st), solved: st.solved, hints: st.hints, wrong: st.wrong, slip: st.slip, flag: st.flag, video: !!st.video });
     });
     state.rv.log.forEach(function (e) {
       var it = ITEMS[IDX[e.id]]; if (!it) return;
-      out.push({ at: e.at || 0, set: "Daily review (phone)", it: it, first: e.first, solved: e.solved, hints: e.hints, wrong: e.wrong, slip: e.slip, flag: e.flag });
+      out.push({ at: e.at || 0, set: "Daily review (phone)", it: it, first: e.first, solved: e.solved, hints: e.hints, wrong: e.wrong, slip: e.slip, flag: e.flag, video: !!e.video });
     });
     out.sort(function (a, b) { return a.at - b.at; });
     return out;
@@ -831,6 +864,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
       if (isMC(e.it)) note.push("multiple choice");
       if (!e.solved) note.push("answer shown");
       if (e.flag) note.push("student flagged the key");
+      if (e.video) note.push("opened the lesson video");
       if (e.wrong > 0) note.push(e.wrong + " wrong " + (e.wrong === 1 ? "try" : "tries"));
       lines.push("| " + [ymd(e.at), e.set, (e.it.src === "ws" ? "sheet " : "notes ") + e.it.q, e.it.t, e.it.kind, e.first ? "yes" : "no", e.hints,
         e.wrong > 0 ? (e.slip || "not tagged") : "-", e.first ? "-" : (e.solved ? "yes" : "no"), note.join("; ")].join(" | ") + " |");
@@ -929,6 +963,12 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     }
     return h;
   }
+  function videoHtml(it, st) {
+    if (!it.v) return "";
+    var m = Math.floor(it.v[1] / 60), sec = ("0" + (it.v[1] % 60)).slice(-2);
+    return '<a class="video" id="video" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=' + it.v[0] + "&t=" + it.v[1] + 's">' +
+           "<strong>Watch Mr. Dickie on this</strong><span>" + esc(it.v[2]) + ", from " + m + ":" + sec + ". Opens YouTube.</span></a>";
+  }
   function tagFor(C) {
     var S = state.rv.sched[C.it.id];
     if (C.review) return S && S.last && S.last !== "first" && !C.st.bumped ? "Back again: you missed this one before" : "";
@@ -979,6 +1019,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
         h += "</div>";
       }
       h += hintsHtml(it, st, true);
+      if (st.wrong > 0) h += videoHtml(it, st);
       h += '<button class="primary" id="check" type="button">' + (st.wrong > 0 ? "Check again" : "Check") + "</button>";
       if (!mc && st.wrong > 4) h += '<button class="ghost" id="reveal" type="button">Show the answer and move on</button>';
     } else {
@@ -989,6 +1030,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
         h += '<div class="result miss" id="result"><strong>Answer:</strong> <span class="answer">' + answerHtml(it) + "</span><p class=\"small\" style=\"margin-top:4px\">This one comes back tomorrow so you can try it again.</p></div>";
       }
       h += hintsHtml(it, st, false);
+      h += videoHtml(it, st);
       if (st.wrong > 0) {
         h += '<div class="panel stack"><span class="lab" style="margin:0">What tripped you up?</span><div class="chips" id="slips">' + SLIPS.map(function (s) {
              return '<button type="button" class="chip word" data-s="' + s + '" aria-pressed="' + (st.slip === s) + '">' + s + "</button>"; }).join("") + "</div></div>";
@@ -1012,6 +1054,8 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     on("check", check); on("reveal", reveal); on("next", next);
     on("flag", function () { st.flag = !st.flag; save(); render(); });
     on("home", goHome);
+    var vid = document.getElementById("video");
+    if (vid) vid.addEventListener("click", function () { st.video = true; save(); });
     function pick(id, attr, set) {
       var box = document.getElementById(id);
       if (!box) return;
