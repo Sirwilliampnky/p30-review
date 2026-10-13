@@ -581,6 +581,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     ground:  ["1GbvsUPshDQ", 360,  "Topic 19: Charging Objects (Part 2)"],
     control: ["oPbnvYr61Fw", 300,  "Topic 20: Coulomb's Law"],
     inverse: ["oPbnvYr61Fw", 600,  "Topic 20: Coulomb's Law"],
+    inverseField: ["oPbnvYr61Fw", 600, "Topic 20: Coulomb's Law (the same inverse-square idea, shown for force)"],
     coulomb: ["oPbnvYr61Fw", 720,  "Topic 20: Coulomb's Law"],
     gravity: ["oPbnvYr61Fw", 782,  "Topic 20: Coulomb's Law"],
     hang:    ["AoOtsbLPFBc", 301,  "Electric Force Tension Problem"],
@@ -596,10 +597,10 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
   };
   var VMAP = {
     ws1: "point", ws3: "point", ws5: "fq", ws7: "fq", ws8: "net", ws9: "net", ws10: "plates", ws12a: "plates", ws12b: "fq", ws12c: "accel",
-    notes46: "net", notes47: "plates", notes48: "accel", notes49: "point", notes50: "point", notes51: "inverse", notes52: "net", notes53: "plates",
+    notes46: "net", notes47: "plates", notes48: "accel", notes49: "point", notes50: "point", notes51: "inverseField", notes52: "net", notes53: "plates",
     notes32: "share", notes33: "elem", notes34: "charge", notes35: "ground", notes36: "ground", notes37: "charge", notes38: "charge", notes39: "charge",
     notes40: "control", notes41: "gravity", notes42: "coulomb", notes43: "coulomb", notes44: "toward", notes45: "scalar", notes54: "lines", notes55: "coulomb",
-    notes56: "energy", notes57: "energy", notes60: "energy", notes61: "ground", notes62: "hang", notes63: "hang", notes64: "inverse", notes65: "point"
+    notes56: "energy", notes57: "energy", notes61: "ground", notes62: "hang", notes63: "hang", notes64: "inverse", notes65: "point"
   };
   ITEMS.forEach(function (it) { if (VMAP[it.id]) it.v = V[VMAP[it.id]]; });
 
