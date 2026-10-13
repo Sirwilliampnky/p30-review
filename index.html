@@ -194,8 +194,8 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     '<text x="160" y="222" text-anchor="middle" font-weight="600">P</text>' +
     '<text x="120" y="240" text-anchor="middle">1.0 m</text><text x="200" y="240" text-anchor="middle">1.0 m</text></svg>';
 
-  // Numbers and question numbers are the teacher's. Wording, diagrams and hints are Claude's.
-  // Round 1 key: worked by Claude. Round 2 key: the teacher's (notes p. 47), re-worked by Claude.
+  // Numbers and question numbers are the teacher's. Wording, diagrams and hints are rewritten.
+  // Round 1 key: worked for this page. Round 2 key: the teacher's (notes p. 47), re-checked.
   var ITEMS = [
     { r: 0, q: "1", page: 39, kind: "Field of a point charge",
       text: "A 1.00 C charge sits at a point. Find the strength and direction of the electric field 0.250 m to its right.",
@@ -368,7 +368,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     '<text x="246" y="60">20°</text><text x="202" y="150" text-anchor="middle">pith ball</text></svg>';
 
   // Review-only items: the rest of his Electricity questions in the notes (#32-45, #54-57, #60-65).
-  // Key: the teacher's, notes p. 47, each answer re-worked by Claude. #58 and #59 are momentum and are left out.
+  // Key: the teacher's, notes p. 47, each answer re-checked. #58 and #59 are momentum and are left out.
   var NEW_ITEMS = [
     { q: "32", page: 37, t: 18, kind: "Sharing charge", stem: S_AB,
       text: "After contact, the charge on sphere A is",
@@ -931,7 +931,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     } else if (d) {
       h += '<span class="status">' + d.pos + " of " + d.ids.length + '</span></div><p>You’re partway through today’s questions.</p><button class="primary" id="review" type="button">Carry on</button>';
     } else if (buildSession().length) {
-      h += '<span class="status">' + SESSION + ' questions</span></div><p>A mix from the whole unit so far: an easy one to start, two more, and one to work on paper with your data booklet. Questions you miss come back the next day.</p><button class="primary" id="review" type="button">Start today’s review</button>';
+      h += '<span class="status">' + SESSION + ' questions</span></div><p>Four questions from the whole unit so far. The first one is easy. One of them you work out on paper with your data booklet. If you miss a question, it comes back tomorrow.</p><button class="primary" id="review" type="button">Start today’s review</button>';
     } else {
       h += "</div><p>Nothing left to review today.</p>";
     }
@@ -947,8 +947,8 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
            (dn === n ? "" : '<button class="ghost" id="go' + r + '" type="button">' + (begun ? "Carry on" : "Start") + "</button>") + "</div>";
     });
     if (entries().length) h += '<button class="ghost" id="tolog" type="button">See my log</button>';
-    h += '<p class="muted small">If an answer isn’t right you get one hint at a time, not the answer. Your answers stay on this device until you choose to copy them.</p>';
-    h += '<p class="muted small">The numbers and question numbers are Mr. Dickie’s, so you can find each one on your own copy. The wording, diagrams and hints were written by Claude. Answers to the practice-sheet questions were worked by Claude; answers to the notes questions are the key from his notes. If your answer disagrees and your working looks right, flag the question.</p>';
+    h += '<p class="muted small">If you get one wrong, you get a hint instead of the answer. You can ask for more hints, one at a time. Your answers stay on this phone unless you copy them.</p>';
+    h += '<p class="muted small">The numbers and question numbers match Mr. Dickie’s sheets, so you can find each question on your own copy. The wording and diagrams are different. Answers to the notes questions come from his key. Answers to the practice-sheet questions were worked out for this page, so they aren’t his official key. If you think an answer here is wrong, tap “I think the key is wrong on this one” under that question.</p>';
     paint(h);
     on("review", openReview); on("more", moreToday);
     ROUNDS.forEach(function (R, r) { on("go" + r, function () { startRound(r); }); });
@@ -987,7 +987,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     if (it.stem) h += '<p class="stem">' + fmt(it.stem) + "</p>";
     if (it.fig) h += '<div class="fig">' + it.fig + "</div>";
     h += '<p class="question">' + fmt(it.text) + "</p>";
-    if (C.review && !mc) h += '<p class="muted small">This is today’s paper question. Work it out in full before you enter anything.</p>';
+    if (C.review && !mc) h += '<p class="muted small">This is today’s paper question. Work the whole thing out on paper before you type anything.</p>';
     h += "</div>";
 
     if (!st.done) {
@@ -1002,7 +1002,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
              '<span class="times">× 10^</span>' +
              '<button class="sign" id="sign" type="button" aria-label="Exponent sign, now ' + (st.neg ? "negative" : "positive") + '">' + (st.neg ? "−" : "+") + "</button>" +
              '<input id="expo" inputmode="numeric" autocomplete="off" placeholder="d" value="' + esc(st.e) + '" aria-label="Power of ten">' +
-             "</div><p class=\"muted small\" style=\"margin-top:6px\">Leave the power blank for an ordinary number.</p></div>";
+             "</div><p class=\"muted small\" style=\"margin-top:6px\">If your answer isn’t in scientific notation, leave the second box empty.</p></div>";
         h += '<div><span class="lab">Unit</span><div class="chips" id="units">' + UNITS.map(function (u) {
                return '<button type="button" class="chip' + (u === "no unit" ? " word" : "") + '" data-u="' + esc(u) + '" aria-pressed="' + (st.unit === u) + '">' + esc(u) + "</button>"; }).join("") + "</div></div>";
         if (it.dir) h += '<div><span class="lab">Direction</span><div class="chips" id="dirs">' + DIRS.map(function (d) {
@@ -1092,7 +1092,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     h += '<button class="ghost" id="copy" type="button">Copy my log</button>';
     if (state.copied) h += '<p class="muted" role="status">' + esc(state.copied) + "</p>";
     h += '<textarea class="log" id="logbox" readonly aria-label="Your log">' + esc(logText()) + "</textarea>";
-    h += '<p class="muted small">Nothing is sent anywhere. The log leaves this device only if you copy it and pass it on.</p>';
+    h += '<p class="muted small">Nothing is sent anywhere. The log only leaves this phone if you copy it and send it to someone.</p>';
     h += state.confirmReset
       ? '<div class="row"><span>Clear every answer and the review schedule?</span><button class="ghost" id="yes" type="button">Yes, clear</button><button class="ghost" id="no" type="button">Keep them</button></div>'
       : '<button class="link" id="reset" type="button">Start over</button>';
