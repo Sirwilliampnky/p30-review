@@ -1,0 +1,1070 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<style>html{color-scheme:light}body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>Electric Fields Practice</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: one question per screen in a single phone-width column. Round 1 answers are
+   entered like a numerical response (a.bc x 10^d, unit, direction); round 2 is A to D. */
+:root {
+  --bg: #eef1f4;
+  --surface: #ffffff;
+  --ink: #17212b;
+  --muted: #586675;
+  --line: #cfd6dd;
+  --accent: #1f5f8b;
+  --accent-ink: #ffffff;
+  --accent-soft: #dde9f2;
+  --good: #1d6b45;
+  --good-soft: #dff0e6;
+  --warn: #8a5a00;
+  --warn-soft: #f6ead0;
+  --font-body: "Atkinson Hyperlegible", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #10161c; --surface: #19222b; --ink: #e6ecf1; --muted: #9aa8b5; --line: #2f3c48;
+    --accent: #7db8e0; --accent-ink: #0c1620; --accent-soft: #1f3344;
+    --good: #7fd0a2; --good-soft: #17322a; --warn: #e5b85c; --warn-soft: #3a2f16;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #10161c; --surface: #19222b; --ink: #e6ecf1; --muted: #9aa8b5; --line: #2f3c48;
+  --accent: #7db8e0; --accent-ink: #0c1620; --accent-soft: #1f3344;
+  --good: #7fd0a2; --good-soft: #17322a; --warn: #e5b85c; --warn-soft: #3a2f16;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 17px; line-height: 1.5;
+  padding-inline: 16px; padding-block: 16px 40px;
+}
+#app { max-width: 34rem; margin-inline: auto; display: flex; flex-direction: column; gap: 16px; }
+h1 { font-size: 1.5rem; line-height: 1.2; margin: 0; text-wrap: balance; }
+h2 { font-size: 1.05rem; margin: 0; }
+p { margin: 0; }
+sup { font-size: 0.7em; line-height: 0; }
+.muted { color: var(--muted); }
+.small { font-size: 0.875rem; }
+.stack { display: flex; flex-direction: column; gap: 12px; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; }
+
+.top { display: flex; align-items: center; gap: 12px; }
+.top .count { font-family: var(--font-data); font-size: 0.875rem; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.bar { flex: 1; height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+.bar > i { display: block; height: 100%; background: var(--accent); }
+
+.source { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+.tag { display: inline-block; font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; background: var(--warn-soft); color: var(--warn); }
+.stem { color: var(--muted); border-left: 3px solid var(--line); padding-left: 12px; }
+.question { font-size: 1.125rem; }
+.fig { border: 1px solid var(--line); border-radius: 8px; padding: 8px; background: var(--bg); }
+.fig svg { display: block; max-width: 100%; height: auto; margin-inline: auto; }
+.fig text { font-family: var(--font-data); font-size: 13px; fill: var(--ink); }
+.fig .fine { stroke: var(--muted); stroke-width: 1; fill: none; }
+.fig .dot { fill: var(--ink); }
+.fig .onink { fill: var(--surface); font-size: 20px; font-weight: 600; }
+
+label.lab, .lab { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
+.entry { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-family: var(--font-data); font-size: 1.125rem; }
+.entry input {
+  font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line);
+  border-radius: 8px; padding: 10px 10px; min-width: 0;
+}
+.entry input#mant { width: 6.5ch; flex: 1 1 6.5ch; max-width: 9ch; }
+.entry input#expo { width: 4.5ch; }
+.entry .times { white-space: nowrap; }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.sign { font-family: var(--font-data); width: 44px; height: 44px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  min-height: 44px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line);
+  background: var(--surface); font-family: var(--font-data); font-size: 1rem;
+}
+.chip.word { font-family: var(--font-body); }
+.chip[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.opts { display: flex; flex-direction: column; gap: 8px; }
+.opt {
+  display: flex; gap: 12px; align-items: baseline; text-align: left; width: 100%;
+  min-height: 48px; padding: 10px 14px; border-radius: var(--r); border: 1px solid var(--line); background: var(--surface);
+}
+.opt b { font-family: var(--font-data); font-weight: 600; }
+.opt span { min-width: 0; }
+.opt[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.opt[disabled] { color: var(--muted); text-decoration: line-through; cursor: not-allowed; background: transparent; }
+.primary {
+  min-height: 52px; width: 100%; border: 0; border-radius: var(--r);
+  background: var(--accent); color: var(--accent-ink); font-weight: 700; font-size: 1.0625rem;
+}
+.primary[disabled] { opacity: 0.45; cursor: not-allowed; }
+.ghost { min-height: 44px; padding: 8px 14px; border-radius: var(--r); border: 1px solid var(--line); background: transparent; }
+.link { border: 0; background: none; padding: 8px 0; color: var(--muted); text-decoration: underline; font-size: 0.875rem; text-align: left; }
+
+.round { display: flex; flex-direction: column; gap: 10px; }
+.round .head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.round .status { font-family: var(--font-data); font-size: 0.875rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.round .status.done { color: var(--good); }
+
+.result { border-radius: var(--r); padding: 12px 14px; }
+.result.good { background: var(--good-soft); color: var(--good); }
+.result.miss { background: var(--warn-soft); color: var(--warn); }
+.result strong { font-weight: 700; }
+.parts { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 0.9375rem; margin-top: 4px; }
+.hint { border: 1px solid var(--line); border-radius: var(--r); padding: 10px 14px; background: var(--accent-soft); }
+.hint .lab { margin-bottom: 2px; }
+.answer { font-family: var(--font-data); font-weight: 600; }
+.err { color: var(--warn); font-size: 0.9375rem; }
+
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 12px; }
+.stat b { display: block; font-family: var(--font-data); font-size: 1.5rem; font-variant-numeric: tabular-nums; }
+.stat span { font-size: 0.8125rem; color: var(--muted); }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.875rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { font-weight: 400; color: var(--muted); font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; }
+textarea {
+  font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line);
+  border-radius: 8px; padding: 10px; width: 100%; min-height: 4.5rem; resize: vertical;
+}
+textarea.log { font-family: var(--font-data); font-size: 0.75rem; min-height: 10rem; white-space: pre; }
+ol.plain { margin: 0; padding-left: 1.25rem; display: flex; flex-direction: column; gap: 6px; }
+.today { border-color: var(--accent); border-width: 2px; }
+h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); font-weight: 400; margin-top: 8px; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 0.9375rem; }
+.check input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--accent); flex: none; }
+.fig .mk { fill: var(--muted); }
+.testbar { background: var(--warn-soft); color: var(--warn); border: 1px dashed var(--warn); border-radius: var(--r); padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; font-size: 0.9375rem; }
+.testbar .ghost { border-color: var(--warn); color: var(--warn); }
+</style>
+
+</head>
+<body>
+<main id="app" aria-live="polite"></main>
+
+<script>
+(function () {
+  "use strict";
+
+  var UNITS = ["N/C", "V/m", "N", "V", "C", "J", "m", "m/s²", "m/s", "no unit"];
+  var DIRS = ["left", "right", "up", "down"];
+  var HINT_LABELS = ["What it's asking", "The idea", "The setup", "First step"];
+  var SLIPS = ["concept", "setup", "algebra", "units", "direction"];
+  var TOL = 0.01; // within 1% of the key, i.e. the same answer to three significant digits
+
+  var ROUNDS = [
+    { name: "Round 1: work it out", set: "Electric fields pilot (phone)",
+      blurb: "Ten type-in answers from his Topic 21 practice sheet, pages 39 to 41. About 30 minutes." },
+    { name: "Round 2: quiz format", set: "Notes #46-53 (phone)",
+      blurb: "Eight questions from his notes, #46 to #53: seven multiple choice and one numerical response. About 15 minutes." }
+  ];
+
+  var STEM12 = "An electron sits between two parallel plates 10.0 cm apart. The field between the plates is 2.50 x 10^3 N/C.";
+  var STEM47 = "A car's transformer puts 20 000 V across the 2.0 mm gap of a spark plug.";
+
+  var FIG46 =
+    '<svg viewBox="0 0 320 112" role="img" aria-label="Particle I, negative, on the left and particle II, positive, on the right, 9.0 cm apart">' +
+    '<text x="70" y="16" text-anchor="middle">I</text><text x="250" y="16" text-anchor="middle">II</text>' +
+    '<circle class="dot" cx="70" cy="46" r="18"></circle><circle class="dot" cx="250" cy="46" r="18"></circle>' +
+    '<text class="onink" x="70" y="53" text-anchor="middle">−</text><text class="onink" x="250" y="53" text-anchor="middle">+</text>' +
+    '<path class="fine" d="M70 78 V94 M250 78 V94 M70 86 H128 M192 86 H250"></path>' +
+    '<text x="160" y="91" text-anchor="middle">9.0 cm</text></svg>';
+  var FIG52 =
+    '<svg viewBox="0 0 320 250" role="img" aria-label="Point P with q3 1.0 m to its left, q4 1.0 m to its right, q2 1.0 m above it and q1 2.0 m above it">' +
+    '<path class="fine" stroke-dasharray="3 4" d="M160 46 V114 M160 126 V194 M86 200 H154 M166 200 H234"></path>' +
+    '<circle class="dot" cx="160" cy="40" r="5"></circle><circle class="dot" cx="160" cy="120" r="5"></circle>' +
+    '<circle class="dot" cx="80" cy="200" r="5"></circle><circle class="dot" cx="240" cy="200" r="5"></circle>' +
+    '<circle class="fine" cx="160" cy="200" r="4"></circle>' +
+    '<text x="172" y="44">q₁ = −12 µC</text><text x="172" y="124">q₂ = +3.0 µC</text>' +
+    '<text x="148" y="84" text-anchor="end">1.0 m</text><text x="148" y="164" text-anchor="end">1.0 m</text>' +
+    '<text x="80" y="186" text-anchor="middle">+5.0 µC</text><text x="240" y="186" text-anchor="middle">+5.0 µC</text>' +
+    '<text x="80" y="222" text-anchor="middle">q₃</text><text x="240" y="222" text-anchor="middle">q₄</text>' +
+    '<text x="160" y="222" text-anchor="middle" font-weight="600">P</text>' +
+    '<text x="120" y="240" text-anchor="middle">1.0 m</text><text x="200" y="240" text-anchor="middle">1.0 m</text></svg>';
+
+  // Numbers and question numbers are the teacher's. Wording, diagrams and hints are Claude's.
+  // Round 1 key: worked by Claude. Round 2 key: the teacher's (notes p. 47), re-worked by Claude.
+  var ITEMS = [
+    { r: 0, q: "1", page: 39, kind: "Field of a point charge",
+      text: "A 1.00 C charge sits at a point. Find the strength and direction of the electric field 0.250 m to its right.",
+      value: 1.4384e11, show: ["1.44", 11], units: ["N/C"], dir: "right",
+      hints: ["You want the field's strength at one point, and which way it points there. There is no second charge.",
+              "This is the field of a single point charge. It points away from a positive charge.",
+              "E = kq / r², with k from the data booklet, q = 1.00 C and r = 0.250 m.",
+              "Square the distance first: (0.250)² = 0.0625 m²."] },
+    { r: 0, q: "3", page: 39, kind: "Field of a point charge",
+      text: "Find the strength and direction of the electric field 8.50 cm to the left of a 300 µC charge.",
+      value: 3.7329e8, show: ["3.73", 8], units: ["N/C"], dir: "left",
+      hints: ["Same kind as the last one: strength and direction at a point 8.50 cm to the left of one positive charge.",
+              "Point-charge field again. Both given values need converting to base units before you use them.",
+              "E = kq / r², with q in coulombs and r in metres.",
+              "Convert first: 300 µC = 3.00 x 10^-4 C and 8.50 cm = 0.0850 m."] },
+    { r: 0, q: "5", page: 40, kind: "Field from a force",
+      text: "An electron feels a net force of 6.50 x 10^-16 N to the right. Find the size and direction of the electric field it is in.",
+      value: 4062.5, show: ["4.06", 3], units: ["N/C"], dir: "left",
+      hints: ["You're given the force on an electron and asked for the field causing it: size and direction.",
+              "Field is force per unit of charge. For a negative charge, the force points opposite to the field.",
+              "E = F / q, using the size of the electron's charge from the data booklet.",
+              "Leave the minus sign out of the division: 6.50 x 10^-16 ÷ 1.60 x 10^-19. Decide the direction separately."] },
+    { r: 0, q: "7", page: 40, kind: "Force from a field",
+      text: "An electron is in an electric field of 1.00 x 10^3 N/C pointing upward. Find the size and direction of the net force on it.",
+      value: 1.6e-16, show: ["1.60", -16], units: ["N"], dir: "down",
+      hints: ["The reverse of the last one: you have the field and want the force on an electron, with its direction.",
+              "A charge in a field feels a force. An electron is pushed opposite to the field's direction.",
+              "F = qE, with the size of the elementary charge.",
+              "Multiply 1.60 x 10^-19 by 1.00 x 10^3, then get the direction from the electron's sign."] },
+    { r: 0, q: "8", page: 40, kind: "Net field, charges in a line",
+      text: "Two charges lie on a line. The first is 5.00 x 10^-5 C. The second is −2.50 x 10^-5 C and sits 4.50 cm to the right of the first. Find the strength and direction of the net field at the point midway between them.",
+      value: 1.33185e9, show: ["1.33", 9], units: ["N/C"], dir: "right",
+      hints: ["Two charges in a line. You want the total field at the point halfway between them, with a direction.",
+              "Find each charge's field at that point separately, each with its own direction, then add them.",
+              "Use E = kq / r² twice. Each r runs from that charge to the midpoint, not from one charge to the other.",
+              "The midpoint is 2.25 cm = 0.0225 m from each charge. Picture a positive test charge there: the + charge pushes it away and the − charge pulls it in. Which way is each?"] },
+    { r: 0, q: "9", page: 40, kind: "Net field, charges in a line",
+      text: "Three charges lie on a line. The first is 2.50 x 10^-2 C. The second, −4.00 x 10^-2 C, is 60.0 mm to the right of the first. The third, 3.00 x 10^-2 C, is 5.00 cm to the right of the second. Find the strength and direction of the net field 2.00 cm to the right of the third charge.",
+      value: 6.1416e11, show: ["6.14", 11], units: ["N/C"], dir: "right",
+      hints: ["Three charges in a line. You want the total field at a point 2.00 cm to the right of the last one.",
+              "Same method as two charges: three separate fields at the point, each with a direction, then add.",
+              "E = kq / r² three times. Each r runs from that charge to the point.",
+              "The distances to the point are 0.130 m, 0.070 m and 0.020 m. The point is to the right of all three, so each + charge pushes right and the − charge pulls left."] },
+    { r: 0, q: "10", page: 41, kind: "Parallel plates",
+      text: "Two parallel plates are 360 cm apart with a potential difference of 200 V between them. Find the size of the electric field between the plates.",
+      value: 55.556, show: ["55.6", 0], units: ["V/m", "N/C"], dir: null,
+      hints: ["Parallel plates. You want only the size of the field between them.",
+              "Between parallel plates the field is uniform, so the point-charge equation doesn't apply here.",
+              "E = ΔV / d, with d in metres.",
+              "Convert first: 360 cm = 3.60 m."] },
+    { r: 0, q: "12a", page: 41, kind: "Parallel plates", stem: STEM12,
+      text: "Find the potential difference across the plates.",
+      value: 250, show: ["250", 0], units: ["V"], dir: null,
+      hints: ["You have the field and the plate spacing, and you want the potential difference across the plates.",
+              "A uniform field ties together field, voltage and spacing.",
+              "ΔV = E d, with d in metres.",
+              "10.0 cm = 0.100 m."] },
+    { r: 0, q: "12b", page: 41, kind: "Force from a field", stem: STEM12,
+      text: "Find the size of the electric force on the electron.",
+      value: 4.0e-16, show: ["4.00", -16], units: ["N"], dir: null,
+      hints: ["You want the size of the electric force on the electron sitting in that field.",
+              "A charge in a field feels a force. The plate spacing isn't needed for this one.",
+              "F = qE, with the elementary charge.",
+              "1.60 x 10^-19 x 2.50 x 10^3."] },
+    { r: 0, q: "12c", page: 41, kind: "Force to acceleration", stem: STEM12,
+      text: "Find the electron's acceleration.",
+      value: 4.3908e14, show: ["4.39", 14], units: ["m/s²"], dir: null,
+      hints: ["You want the electron's acceleration caused by the electric force on it.",
+              "Newton's second law, with the electron's mass from the data booklet.",
+              "a = F / m.",
+              "First the force: F = qE = 1.60 x 10^-19 x 2.50 x 10^3. Then divide by m = 9.11 x 10^-31 kg."] },
+
+    { r: 1, q: "46", page: 41, kind: "Direction of a net field", fig: FIG46,
+      stem: "Two particles of equal mass sit 9.0 cm apart. Particle I, on the left, is negative. Particle II, on the right, is positive. The charge on I is three times the size of the charge on II.",
+      text: "At the point halfway between the particles, the electric field is",
+      options: ["zero", "toward the left of the page", "toward the top of the page", "toward the right of the page"], answer: 1,
+      hints: ["You only need a direction at the midpoint, not a number.",
+              "Each charge makes its own field at that point. A field points away from a positive charge and toward a negative one.",
+              "Work out which way each of the two fields points at the midpoint, then see whether they add or oppose.",
+              "The field from the negative particle on the left points toward it. Now do the positive one on the right."] },
+    { r: 1, q: "47", page: 42, kind: "Parallel plates", stem: STEM47,
+      text: "The strength of the electric field in the gap is",
+      options: ["6.0 N/C", "6.0 x 10^3 N/C", "1.0 x 10^4 N/C", "1.0 x 10^7 N/C"], answer: 3,
+      hints: ["You have a voltage across a small gap and want the field strength in the gap.",
+              "Treat the gap like parallel plates: a uniform field set by the voltage and the spacing.",
+              "E = ΔV / d, with d in metres.",
+              "2.0 mm = 2.0 x 10^-3 m."] },
+    { r: 1, q: "48", page: 42, kind: "Force to acceleration", stem: STEM47,
+      text: "Find the acceleration of an electron crossing that gap. Two significant digits are enough.",
+      value: 1.756e18, tol: 0.03, show: ["1.8", 18], units: ["m/s²"], dir: null,
+      note: "In the notes this is a numerical response in the form a.b × 10^cd, so the answer sheet would read 1818.",
+      hints: ["You want the acceleration of one electron in the spark-plug gap. You will need the field in the gap first.",
+              "The field puts a force on the electron, and the force gives it an acceleration.",
+              "E = ΔV / d, then F = qE, then a = F / m, with the electron's charge and mass from the data booklet.",
+              "The field is 20 000 V ÷ 2.0 x 10^-3 m = 1.0 x 10^7 N/C, so the force is 1.60 x 10^-19 x 1.0 x 10^7."] },
+    { r: 1, q: "49", page: 42, kind: "Field of a point charge",
+      text: "A point charge of 6.9 x 10^-5 C produces an electric field of 1.0 x 10^3 N/C at point P. The distance from P to the charge is",
+      options: ["4.3 x 10^-2 m", "2.1 x 10^-1 m", "2.5 x 10^1 m", "6.2 x 10^2 m"], answer: 2,
+      hints: ["You know the charge and the field it makes at P. You want the distance to P.",
+              "It is the point-charge field equation, solved for a different letter.",
+              "E = kq / r², so r² = kq / E.",
+              "Work out kq / E first, then take the square root."] },
+    { r: 1, q: "50", page: 42, kind: "Field of a point charge",
+      text: "The strength and direction of the electric field 5.0 x 10^-11 m from an alpha particle is",
+      options: ["5.8 x 10^11 N/C, toward the alpha particle", "5.8 x 10^11 N/C, away from the alpha particle",
+                "1.2 x 10^12 N/C, toward the alpha particle", "1.2 x 10^12 N/C, away from the alpha particle"], answer: 3,
+      hints: ["Strength and direction of the field at a given distance from one alpha particle.",
+              "Point-charge field. You need the alpha particle's charge, and its sign gives the direction.",
+              "E = kq / r², with the alpha particle's charge from the data booklet.",
+              "Square the distance first: (5.0 x 10^-11)² = 2.5 x 10^-21 m²."] },
+    { r: 1, q: "51", page: 43, kind: "Ratio",
+      text: "At a distance x from a point charge Q, the electric field is 8.3 x 10^-4 N/C. The distance is increased to 3x and the charge is reduced to Q/4. The field is now",
+      options: ["1.9 x 10^-3 N/C", "3.7 x 10^-4 N/C", "6.9 x 10^-5 N/C", "2.3 x 10^-5 N/C"], answer: 3,
+      hints: ["Nothing to calculate from scratch: the charge and the distance both change, and you want the new field.",
+              "The field is proportional to the charge, and to one over the distance squared.",
+              "New field = old field × (change in charge) ÷ (change in distance)².",
+              "The charge factor is 1/4. The distance factor is 3, so the distance contributes 1/9."] },
+    { r: 1, q: "52", page: 43, kind: "Net field, several charges", fig: FIG52,
+      stem: "Four point charges sit around point P. Above P are q₂ = +3.0 µC at 1.0 m and q₁ = −12 µC at 2.0 m. Beside P are q₃ = +5.0 µC, 1.0 m to the left, and q₄ = +5.0 µC, 1.0 m to the right.",
+      text: "The size of the net electric field at P is",
+      options: ["5.4 x 10^4 N/C", "4.5 x 10^4 N/C", "2.7 x 10^4 N/C", "0.0 N/C"], answer: 3,
+      hints: ["Four charges, one point. You want the size of the total field at P.",
+              "Each charge makes a field at P with its own direction. Fields in opposite directions can cancel.",
+              "Look for pairs. Compare the fields from the two charges beside P, then the two above P.",
+              "The left and right charges are equal and the same distance away, so their fields at P cancel. Now compare kq / r² for the two above."] },
+    { r: 1, q: "53", page: 43, kind: "Parallel plates",
+      text: "In an air cleaner, an electric field of 7.17 x 10^4 N/C is kept between two grids, X and Y, that are 5.60 cm apart. The potential difference between the grids is",
+      options: ["1.28 x 10^6 V", "4.02 x 10^5 V", "1.28 x 10^4 V", "4.02 x 10^3 V"], answer: 3,
+      hints: ["You have the field between two grids and their spacing. You want the voltage between them.",
+              "A uniform field ties together field, voltage and spacing.",
+              "ΔV = E d, with d in metres.",
+              "5.60 cm = 0.0560 m."] }
+  ];
+
+  var S_AB = "Two conducting spheres of identical size: sphere A carries 4.50 µC and sphere B carries −2.40 µC. They touch briefly and are then set 2.50 cm apart.";
+  var S_SPRAY = "A crop-dusting plane sprays pesticide through nozzles that have a positively charged needle at the centre. Droplets passing the needle become charged, and charged droplets are less likely to be blown off the leaves they land on.";
+  var S_STORM = "The bottom of a thundercloud is negatively charged. Below it, a tree stands on open ground.";
+  var S_VDG = "A neutral pith ball of mass 2.5 x 10^-4 kg hangs on an insulating thread to the right of a charged Van de Graaff generator. The ball is pulled toward the generator, and the thread settles at 20° from the vertical.";
+  var S_DS1 = "A space probe's ion engine fires high-speed electrons at xenon atoms to ionize them, then accelerates the xenon ions (Xe⁺) through the electric field between two grids and ejects them. Ionizing one xenon atom takes 12.1 eV. A xenon atom has a mass of 2.18 x 10^-25 kg, and the ions leave at 43.0 km/s.";
+
+  var FIG36 =
+    '<svg viewBox="0 0 320 130" role="img" aria-label="A positively charged sphere on a stand beside end X of a metal rod on a stand; end Y of the rod is wired to the ground">' +
+    '<circle class="fine" cx="70" cy="40" r="24"></circle><text x="70" y="36" text-anchor="middle">+ +</text><text x="70" y="52" text-anchor="middle">+ +</text>' +
+    '<path class="fine" d="M70 64 V112 M52 112 H88"></path>' +
+    '<rect class="fine" x="120" y="30" width="110" height="20"></rect><text x="130" y="45">X</text><text x="212" y="45">Y</text>' +
+    '<path class="fine" d="M175 50 V112 M157 112 H193"></path>' +
+    '<path class="fine" d="M230 40 H272 V96 M258 96 H286 M263 102 H281 M268 108 H276"></path>' +
+    '<text x="272" y="125" text-anchor="middle">ground</text></svg>';
+  function inward(cx, cy, id) {
+    var h = "", k, a, x1, y1, x2, y2;
+    for (k = 0; k < 8; k++) {
+      a = k * Math.PI / 4;
+      x1 = cx + 50 * Math.cos(a); y1 = cy + 50 * Math.sin(a); x2 = cx + 27 * Math.cos(a); y2 = cy + 27 * Math.sin(a);
+      h += '<line class="fine" x1="' + x1.toFixed(1) + '" y1="' + y1.toFixed(1) + '" x2="' + x2.toFixed(1) + '" y2="' + y2.toFixed(1) + '" marker-end="url(#' + id + ')"></line>';
+    }
+    return h;
+  }
+  var FIG44 =
+    '<svg viewBox="0 0 320 130" role="img" aria-label="Two spheres, X and Y, each with field-line arrows pointing in toward it">' +
+    '<defs><marker id="ah44" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="mk" d="M0 0 L10 5 L0 10 z"></path></marker></defs>' +
+    inward(95, 65, "ah44") + inward(225, 65, "ah44") +
+    '<circle class="fine" cx="95" cy="65" r="18"></circle><circle class="fine" cx="225" cy="65" r="18"></circle>' +
+    '<text x="95" y="70" text-anchor="middle">X</text><text x="225" y="70" text-anchor="middle">Y</text></svg>';
+  var FIG61 =
+    '<svg viewBox="0 0 320 190" role="img" aria-label="A Van de Graaff generator on the left; to its right a pith ball hangs on a thread that leans 20 degrees from vertical toward the generator">' +
+    '<circle class="fine" cx="95" cy="92" r="38"></circle><path class="fine" d="M88 130 V168 M102 130 V168 M66 168 H124"></path>' +
+    '<text x="95" y="184" text-anchor="middle">generator</text>' +
+    '<path class="fine" d="M200 20 H280 M240 20 L202.4 123.4"></path><path class="fine" stroke-dasharray="3 4" d="M240 20 V135"></path>' +
+    '<circle class="dot" cx="202.4" cy="123.4" r="8"></circle>' +
+    '<text x="246" y="60">20°</text><text x="202" y="150" text-anchor="middle">pith ball</text></svg>';
+
+  // Review-only items: the rest of his Electricity questions in the notes (#32-45, #54-57, #60-65).
+  // Key: the teacher's, notes p. 47, each answer re-worked by Claude. #58 and #59 are momentum and are left out.
+  var NEW_ITEMS = [
+    { q: "32", page: 37, t: 18, kind: "Sharing charge", stem: S_AB,
+      text: "After contact, the charge on sphere A is",
+      options: ["1.05 µC", "2.10 µC", "3.45 µC", "6.90 µC"], answer: 0,
+      hints: ["You want the charge on one sphere after the two have touched.",
+              "Charge is conserved, and identical conductors share the total equally.",
+              "Add the two charges, signs included, then split the total in two.",
+              "4.50 µC + (−2.40 µC) = 2.10 µC in total."] },
+    { q: "33", page: 37, t: 18, kind: "Elementary charge",
+      text: "A ball has a charge of −3.60 x 10^-17 C. How many excess electrons does it carry?",
+      value: 225, show: ["2.25", 2], units: ["no unit"], unitLabel: "electrons", dir: null,
+      note: "In the notes this is a numerical response in the form a.bc × 10^d, so the answer sheet would read 2252.",
+      hints: ["You want a count of electrons, not a charge.",
+              "Every electron carries the same elementary charge, so the count is the total charge divided by the charge of one.",
+              "n = q / e, with e from the data booklet. Ignore the sign.",
+              "3.60 x 10^-17 ÷ 1.60 x 10^-19."] },
+    { q: "34", page: 37, t: 19, kind: "Charging objects", stem: S_SPRAY,
+      text: "The droplets leave the nozzle with a",
+      options: ["negative charge caused by the movement of protons onto the needle",
+                "positive charge caused by the movement of electrons onto the needle",
+                "positive charge caused by the movement of protons onto the droplets",
+                "negative charge caused by the movement of electrons onto the droplets"], answer: 1,
+      hints: ["Two things to decide: the sign of the droplets' charge, and which particles moved where.",
+              "Only electrons move when objects are charged. Protons stay put.",
+              "The needle is positive, so it attracts electrons. Where would they come from?",
+              "Electrons leave the droplets for the needle. What does losing electrons do to a droplet's charge?"] },
+    { q: "35", page: 38, t: 19, kind: "Charging objects", stem: S_SPRAY,
+      text: "The charged droplets stay on the leaves in the wind because they",
+      options: ["gain electrons from the air and transfer them to the leaves",
+                "fall faster through the air because they have similar charges",
+                "induce an opposite charge on the leaves so they are attracted to them",
+                "repel each other and spread out, thus the effect of the wind is minimized"], answer: 2,
+      hints: ["You're asked why a charged droplet clings to a neutral leaf.",
+              "A charged object can attract a neutral one.",
+              "Think about what the droplet's charge does to the charges in the leaf's surface.",
+              "The nearby charge shifts the leaf's electrons, leaving the near side with the opposite charge."] },
+    { q: "36", page: 38, t: 19, kind: "Charging objects", fig: FIG36,
+      stem: "A positively charged sphere is held near end X of a metal rod. Both are on insulated stands, and end Y of the rod is connected to the ground.",
+      text: "The charge on the rod is",
+      options: ["positive at end X and electrons move off the rod into the ground",
+                "negative at end X and electrons move off the rod into the ground",
+                "positive at end X and electrons move onto the rod from the ground",
+                "negative at end X and electrons move onto the rod from the ground"], answer: 3,
+      hints: ["Two things: the sign at the end near the sphere, and which way electrons flow through the ground wire.",
+              "This is charging by induction. The positive sphere attracts electrons toward it.",
+              "Electrons in the rod crowd toward X. The ground can supply more or carry some away: which does a positive sphere call for?",
+              "End X becomes negative, and the sphere's pull draws extra electrons up from the ground."] },
+    { q: "37", page: 38, t: 19, kind: "Charging objects", easy: true, stem: S_STORM,
+      text: "Before lightning strikes, the ground directly beneath the cloud becomes",
+      options: ["positive by induction", "negative by induction", "positive by conduction", "negative by conduction"], answer: 0,
+      hints: ["You need the sign of the ground's charge and the charging method, before anything touches.",
+              "Nothing is in contact yet, so charge can only be rearranged from a distance.",
+              "The cloud's negative underside repels electrons in the ground below.",
+              "Electrons pushed away leave the surface short of electrons, and no contact means induction."] },
+    { q: "38", page: 39, t: 19, kind: "Charging objects", stem: S_STORM,
+      text: "During a downward lightning strike, the charge on the top of the tree becomes",
+      options: ["negative by induction", "negative by conduction", "neutral by induction", "neutral by conduction"], answer: 1,
+      hints: ["You need the sign of the treetop's charge and the method, during the strike itself.",
+              "A lightning bolt is charge actually moving from the cloud to the tree.",
+              "Charge transferred by contact is conduction. What kind of charge is leaving the cloud's underside?",
+              "Electrons flow down the bolt onto the tree."] },
+    { q: "39", page: 39, t: 19, kind: "Charging objects",
+      stem: "In an air cleaner, a positively charged grid, X, strips electrons from dust particles, so they leave X with a positive charge. A second grid, Y, is negatively charged and collects them.",
+      text: "Between the grids, the particles are repelled by",
+      options: ["grid X and each other, but are attracted to grid Y",
+                "grid Y and each other, but are attracted to grid X",
+                "grid X but are attracted to each other and grid Y",
+                "grid Y but are attracted to each other and grid X"], answer: 0,
+      hints: ["Decide what each particle is pushed away from and what it is pulled toward.",
+              "Like charges repel and unlike charges attract.",
+              "The particles are positive. What sign is each grid, and what sign are the other particles?",
+              "Grid X is positive, grid Y is negative, and every particle is positive."] },
+    { q: "40", page: 40, t: 20, kind: "Coulomb's experiment", easy: true,
+      stem: "Coulomb investigated how the electric force between two charged metal spheres depends on their distance apart and on the size of their charges.",
+      text: "To find how the force depends on distance, he needed to",
+      options: ["keep the magnitude of one charge constant", "keep the magnitude of both charges constant",
+                "keep the distance between the charges constant", "vary the magnitude of one charge while varying distance between the charges"], answer: 1,
+      hints: ["It's an experimental-design question: what must stay fixed?",
+              "To see the effect of one variable, change only that variable.",
+              "The force depends on both charges and on distance. Distance is the one being tested.",
+              "So everything except distance is held constant."] },
+    { q: "41", page: 40, t: 20, kind: "Coulomb's law", easy: true,
+      text: "Newton's law of universal gravitation has the same mathematical form as a relationship developed by",
+      options: ["Coulomb", "Einstein", "Lenz", "Ohm"], answer: 0,
+      hints: ["Which scientist's law looks like the gravity equation?",
+              "Gravity: a constant times two masses, over the distance squared.",
+              "Which electrical law is a constant times two charges, over the distance squared?",
+              "It's the law you use for the force between two point charges."] },
+    { q: "42", page: 40, t: 20, kind: "Coulomb's law", stem: S_AB,
+      text: "Find the magnitude of the electric force that sphere A exerts on sphere B after they have touched and been separated.",
+      value: 15.858, show: ["15.9", 0], units: ["N"], dir: null,
+      hints: ["You want the force between the spheres after contact, at 2.50 cm apart.",
+              "First share the charge between the identical spheres, then use Coulomb's law.",
+              "Each sphere ends with 1.05 µC. F = k q₁ q₂ / r², with charges in coulombs and r in metres.",
+              "q = 1.05 x 10^-6 C on each sphere, and r = 0.0250 m."] },
+    { q: "43", page: 40, t: 20, kind: "Coulomb's law",
+      text: "A small object with a charge of 3.47 µC feels an electric force of 7.22 x 10^-2 N from a second object carrying the same charge. How far apart are they?",
+      value: 1.2245, show: ["1.22", 0], units: ["m"], dir: null,
+      hints: ["You know the force and both charges. You want the distance.",
+              "It is Coulomb's law, solved for a different letter.",
+              "F = k q² / d², so d² = k q² / F.",
+              "Convert first: 3.47 µC = 3.47 x 10^-6 C. Work out k q² / F, then take the square root."] },
+    { q: "44", page: 41, t: 21, kind: "Field lines", fig: FIG44,
+      stem: "The diagram shows the electric field lines near two charged spheres, X and Y. The arrows on the lines point in toward both spheres.",
+      text: "The charges on X and Y are, in that order,",
+      options: ["negative and negative", "negative and positive", "positive and negative", "positive and positive"], answer: 0,
+      hints: ["Read the sign of each sphere from the arrows on its field lines.",
+              "Field lines show the direction a positive test charge would be pushed.",
+              "Lines point away from positive charges and toward negative ones.",
+              "The arrows point in toward X. Check Y the same way."] },
+    { q: "45", page: 41, t: 21, kind: "Scalar and vector fields", easy: true,
+      text: "A scalar field differs from a vector field in that",
+      options: ["a scalar field acts in only one direction", "a vector field acts in only one direction",
+                "direction is irrelevant for a scalar field", "direction is irrelevant for a vector field"], answer: 2,
+      hints: ["It asks what separates a scalar quantity from a vector quantity.",
+              "A vector has a size and a direction. A scalar has only a size.",
+              "Temperature across a room is a scalar field. The electric field is a vector field.",
+              "Which of the two has no direction attached?"] },
+    { q: "54", page: 44, t: 21, kind: "Field lines",
+      stem: "In the notes the four choices are drawings. Here they are described in words.",
+      text: "The electric field between a positive point charge and a negative point charge is shown by",
+      options: ["lines that join the two charges, with arrows running from the negative charge to the positive charge",
+                "lines that join the two charges, with arrows running from the positive charge to the negative charge",
+                "lines that bend away from the space between the charges, with arrows pointing toward both charges",
+                "lines that bend away from the space between the charges, with arrows pointing away from both charges"], answer: 1,
+      hints: ["Two things to picture: whether the lines connect the charges, and which way the arrows run.",
+              "Opposite charges attract, and their field lines link up.",
+              "The arrows show the push on a positive test charge.",
+              "A positive test charge is pushed away from the positive charge and pulled toward the negative one."] },
+    { q: "55", page: 44, t: 20, kind: "Coulomb's law",
+      text: "Two charged objects 5.00 x 10^-2 m apart feel a force of 18.0 N. One has a charge of 1.30 x 10^-5 C. Find the charge on the other.",
+      value: 3.8504e-7, show: ["3.85", -7], units: ["C"], dir: null,
+      note: "In the notes this is a numerical response in the form a.bc × 10^-d, so the answer sheet would read 3857.",
+      hints: ["Force, distance and one charge are known. You want the other charge.",
+              "It is Coulomb's law, solved for a different letter.",
+              "F = k q₁ q₂ / r², so q₂ = F r² / (k q₁).",
+              "Square the distance first: (5.00 x 10^-2)² = 2.50 x 10^-3 m²."] },
+    { q: "56", page: 45, t: 23, kind: "Energy in electric fields", stem: S_DS1,
+      text: "The minimum electron speed needed to ionize a xenon atom is",
+      options: ["2.66 x 10^31 m/s", "5.15 x 10^15 m/s", "4.25 x 10^12 m/s", "2.06 x 10^6 m/s"], answer: 3,
+      hints: ["The electron's kinetic energy must at least equal the ionization energy.",
+              "Convert the energy from electron volts to joules, then use kinetic energy.",
+              "E = ½ m v², with the electron's mass, so v = √(2E / m).",
+              "12.1 eV × 1.60 x 10^-19 J/eV = 1.94 x 10^-18 J."] },
+    { q: "57", page: 45, t: 23, kind: "Energy in electric fields", stem: S_DS1,
+      text: "The potential difference across the grids needed to accelerate a xenon ion from rest to its exit speed is",
+      options: ["2.93 x 10^-5 V", "1.26 x 10^-3 V", "1.26 x 10^3 V", "4.71 x 10^29 V"], answer: 2,
+      hints: ["You want the voltage that gives one xenon ion its exit speed.",
+              "Energy is conserved: the electrical energy the ion gives up becomes kinetic energy.",
+              "q ΔV = ½ m v², with q the charge of one Xe⁺ ion and v in m/s.",
+              "43.0 km/s = 4.30 x 10^4 m/s, and a singly charged ion carries 1.60 x 10^-19 C."] },
+    { q: "60", page: 46, t: 23, kind: "Energy in electric fields",
+      text: "The energy gained by a proton that moves through a potential difference of 1.0 V is",
+      options: ["1.0 J", "1.0 eV", "6.3 x 10^18 J", "1.6 x 10^-19 eV"], answer: 1,
+      hints: ["You want the energy gained by one elementary charge crossing one volt.",
+              "That is the definition of a unit on your data sheet.",
+              "E = q ΔV. In joules that is 1.60 x 10^-19 J.",
+              "One elementary charge through one volt is one electron volt."] },
+    { q: "61", page: 46, t: 19, kind: "Charging objects", easy: true, stem: S_VDG, fig: FIG61,
+      text: "The neutral pith ball is attracted to the generator as a result of",
+      options: ["induction", "grounding", "conduction", "induction and grounding"], answer: 0,
+      hints: ["Why would a neutral object be pulled toward a charged one?",
+              "Nothing touches the ball, and nothing connects it to the ground.",
+              "The generator's charge rearranges the charges inside the ball.",
+              "The near side of the ball ends up with the opposite charge, so the pull beats the push. That rearrangement has a name."] },
+    { q: "62", page: 46, t: 20, kind: "Forces on a hanging charge", stem: S_VDG, fig: FIG61,
+      text: "The direction of the electric force on the pith ball is",
+      options: ["to the right →", "to the left ←", "up ↑", "down ↓"], answer: 1,
+      hints: ["Just a direction: which way does the electric force act on the ball?",
+              "The force is an attraction between the ball and the generator.",
+              "An attraction points from the ball toward the generator.",
+              "The generator is on the ball's left."] },
+    { q: "63", page: 46, t: 20, kind: "Forces on a hanging charge", stem: S_VDG, fig: FIG61,
+      text: "The magnitude of the electric force on the pith ball is",
+      options: ["2.5 x 10^-3 N", "2.3 x 10^-3 N", "8.9 x 10^-4 N", "8.4 x 10^-4 N"], answer: 2,
+      hints: ["The ball hangs still at 20°, and you want the sideways electric force on it.",
+              "It is in equilibrium: tension, gravity and the electric force add to zero.",
+              "Draw the force triangle. The electric force is horizontal, gravity is vertical, and the thread is 20° from vertical, so tan 20° = Fₑ / F_g.",
+              "F_g = mg = 2.5 x 10^-4 x 9.81 = 2.45 x 10^-3 N."] },
+    { q: "64", page: 46, t: 20, kind: "Ratio",
+      text: "Two charged particles a fixed distance apart exert a force of 3.80 x 10^-4 N on each other. The distance between their centres is then exactly doubled. Find the new force.",
+      value: 9.5e-5, show: ["9.50", -5], units: ["N"], dir: null,
+      note: "In the notes this is a numerical response in the form a.bc × 10^-d, so the answer sheet would read 9505.",
+      hints: ["Only the distance changes, and you want the new force.",
+              "Force is proportional to one over the distance squared.",
+              "Doubling the distance divides the force by 2².",
+              "3.80 x 10^-4 ÷ 4."] },
+    { q: "65", page: 46, t: 21, kind: "Field of a point charge",
+      text: "The electric field strength 2.0 x 10^-10 m from an alpha particle is",
+      options: ["7.2 N/C", "14 N/C", "3.4 x 10^10 N/C", "7.2 x 10^10 N/C"], answer: 3,
+      hints: ["You want the field strength at a given distance from one alpha particle.",
+              "Point-charge field, using the alpha particle's charge from the data booklet.",
+              "E = kq / r², with q = 3.20 x 10^-19 C.",
+              "Square the distance first: (2.0 x 10^-10)² = 4.0 x 10^-20 m²."] }
+  ];
+  NEW_ITEMS.forEach(function (it) { it.r = -1; it.src = "notes"; ITEMS.push(it); });
+  ITEMS.forEach(function (it) {
+    if (!it.src) it.src = it.r === 0 ? "ws" : "notes";
+    if (!it.t) it.t = 21;
+    it.id = it.src + it.q;
+  });
+  var IDX = {}; ITEMS.forEach(function (it, i) { IDX[it.id] = i; });
+
+  var LETTERS = ["A", "B", "C", "D"];
+  var SESSION = 4;            // cards in a daily review: one easy opener, two mixed, one paper problem
+  var EXTRA = 2;              // cards added by "Two more"
+  var GAPS = [2, 4, 7];       // days until an item returns after 1, 2, 3 first-time-right answers in a row
+  var TOPIC_ORDER = [21, 20, 19, 18, 23];
+
+  // Test mode: open the page with #test on the end of its address. It keeps its own separate
+  // answers and schedule, so trying things out never touches the real log.
+  var TEST = /^#test/i.test(location.hash || "");
+  var KEY = TEST ? "ef-pilot-test" : "ef-pilot-v1";
+  var OFFKEY = "ef-pilot-test-clock";
+  var testOff = 0;
+  if (TEST) { try { testOff = Number(localStorage.getItem(OFFKEY)) || 0; } catch (x) {} }
+  function now() { return Date.now() + testOff; }
+  try { window.addEventListener("hashchange", function () { location.reload(); }); } catch (x) {}
+  var app = document.getElementById("app");
+  var state = fresh();
+
+  function freshItem() {
+    return { wrong: 0, hints: 0, done: false, solved: false, revealed: false, slip: "", flag: false, at: null, bumped: false,
+             parts: null, m: "", e: "", neg: false, unit: "", dir: "", pick: -1, tried: [], err: "" };
+  }
+  function freshRv() { return { sched: {}, day: null, sessions: [], log: [], t23: false }; }
+  function fresh() {
+    return { screen: "start", ctx: "round", i: 0, items: ITEMS.map(freshItem),
+             rounds: ROUNDS.map(function () { return { s: null, f: null }; }),
+             rv: freshRv(), notes: ["", "", ""], confirmReset: false, copied: "" };
+  }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (x) {} }
+  function load() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (!raw) return;
+      var s = JSON.parse(raw);
+      if (!s || !s.items) return;
+      // Carry earlier versions of this page forward: more items, then the daily review.
+      while (s.items.length < ITEMS.length) s.items.push(freshItem());
+      s.items.forEach(function (st) { if (st.pick === undefined) st.pick = -1; if (!st.tried) st.tried = []; if (st.at === undefined) st.at = null; });
+      if (!s.rounds) s.rounds = [{ s: s.startedAt || null, f: s.finishedAt || null }, { s: null, f: null }];
+      if (!s.notes) s.notes = ["", "", ""];
+      if (!s.ctx) s.ctx = "round";
+      if (!s.rv) {
+        s.rv = freshRv();
+        // Answers already given in the rounds count toward the review schedule.
+        ITEMS.forEach(function (it, i) { var st = s.items[i]; if (st.done) { st.bumped = true; sched(s.rv, it.id, st, st.at || now()); } });
+      }
+      if (s.screen === "end") s.screen = "start";
+      s.confirmReset = false; s.copied = "";
+      state = s;
+    } catch (x) {}
+  }
+
+  /* ---------- small helpers ---------- */
+  function esc(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+  function fmt(t) { // "6.5 x 10^-16" -> proper multiplication sign and superscript
+    return esc(t).replace(/([\d)]) x ([\d(])/g, "$1 × $2")
+                 .replace(/10\^(-?\d+|cd|-d|d)/g, function (m, p) { return "10<sup>" + p.replace("-", "−") + "</sup>"; });
+  }
+  function sci(show) { return show[1] === 0 ? esc(show[0]) : esc(show[0]) + " × 10<sup>" + String(show[1]).replace("-", "−") + "</sup>"; }
+  function isMC(it) { return !!it.options; }
+  function answerHtml(it) {
+    if (isMC(it)) return LETTERS[it.answer] + ". " + fmt(it.options[it.answer]);
+    return sci(it.show) + " " + esc(it.unitLabel || it.units[0]) + (it.dir ? ", " + it.dir : "");
+  }
+  function ymd(ms) {
+    var d = new Date(ms);
+    return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
+  }
+  function dayNum(ms) { var d = new Date(ms); return Math.round(new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime() / 864e5); }
+  function today() { return dayNum(now()); }
+  function roundIdx(r) { var a = []; ITEMS.forEach(function (it, i) { if (it.r === r) a.push(i); }); return a; }
+  function roundDone(r) { return roundIdx(r).filter(function (i) { return state.items[i].done; }).length; }
+  function sourceLine(it) {
+    return it.src === "ws" ? "His practice sheet · Topic " + it.t + " #" + it.q + " · p. " + it.page
+                           : "His notes · #" + it.q + " · p. " + it.page;
+  }
+  function first(st) { return st.solved && st.wrong === 0; }
+
+  /* ---------- review schedule ---------- */
+  function sched(rv, id, st, when) {
+    var s = rv.sched[id] || { step: 0, seen: 0 }, t = dayNum(when);
+    s.seen += 1;
+    if (first(st)) { s.step = Math.min(s.step + 1, GAPS.length); s.due = t + GAPS[s.step - 1]; s.last = "first"; }
+    else { s.step = 0; s.due = t + 1; s.last = st.solved ? "hints" : "shown"; }
+    rv.sched[id] = s;
+  }
+  function pool() { return ITEMS.filter(function (it) { return it.t !== 23 || state.rv.t23; }); }
+  function candidates(exclude) {
+    var S = state.rv.sched, t = today(), due = [], later = [], byTopic = {}, freshList = [];
+    pool().forEach(function (it) {
+      if (exclude.indexOf(it.id) >= 0) return;
+      var s = S[it.id];
+      if (!s) { (byTopic[it.t] = byTopic[it.t] || []).push(it); }
+      else if (s.due <= t) due.push(it); else later.push(it);
+    });
+    due.sort(function (a, b) { return S[a.id].due - S[b.id].due || S[a.id].step - S[b.id].step; });
+    later.sort(function (a, b) { return S[a.id].due - S[b.id].due; });
+    // New questions are dealt one topic at a time, and a different topic leads each day,
+    // so the review keeps mixing the whole unit instead of working through it in order.
+    var lead = t % TOPIC_ORDER.length, order = TOPIC_ORDER.slice(lead).concat(TOPIC_ORDER.slice(0, lead));
+    for (var more = true; more;) {
+      more = false;
+      order.forEach(function (tp) { var l = byTopic[tp]; if (l && l.length) { freshList.push(l.shift()); more = true; } });
+    }
+    return { due: due, fresh: freshList, later: later };
+  }
+  function buildSession() {
+    var c = candidates([]), S = state.rv.sched, used = [];
+    function take(list, test) {
+      for (var k = 0; k < list.length; k++) if (used.indexOf(list[k].id) < 0 && (!test || test(list[k]))) { used.push(list[k].id); return list[k].id; }
+      return null;
+    }
+    // Missed questions come back first; new ones get a slot every day so the whole unit is
+    // covered before the test; questions he already got right return as the easy opener.
+    var missed = c.due.filter(function (it) { return S[it.id].last !== "first"; });
+    var kept = c.due.filter(function (it) { return S[it.id].last === "first"; });
+    var notMC = function (it) { return !isMC(it); };
+    var opener = take(c.fresh, function (it) { return it.easy; }) || take(kept, isMC) || take(kept) ||
+                 take(c.fresh, isMC) || take(c.later, isMC) || take(missed) || take(c.fresh) || take(c.later);
+    var paper = take(missed, notMC) || take(c.fresh, notMC) || take(kept, notMC) || take(c.later, notMC);
+    // The two middle cards are multiple choice where possible, so only one card needs full working.
+    var a = take(missed, isMC) || take(kept, isMC) || take(c.fresh, isMC) || take(missed) || take(kept) || take(c.fresh) || take(c.later);
+    var b = take(c.fresh, isMC) || take(missed, isMC) || take(kept, isMC) || take(c.later, isMC) || take(c.fresh) || take(missed) || take(kept) || take(c.later);
+    return [opener, a, paper, b].filter(function (x) { return !!x; });
+  }
+  function extraIds(n, exclude) {
+    var c = candidates(exclude), S = state.rv.sched;
+    var missed = c.due.filter(function (it) { return S[it.id].last !== "first"; });
+    var kept = c.due.filter(function (it) { return S[it.id].last === "first"; });
+    return missed.concat(c.fresh, kept, c.later).slice(0, n).map(function (it) { return it.id; });
+  }
+  function recordSession(d) {
+    var n = 0, f = 0;
+    d.st.forEach(function (st) { if (st.bumped) { n++; if (first(st)) f++; } });
+    if (!n) return;
+    var rec = { day: d.day, date: d.date, n: n, first: f, mins: Math.max(1, Math.round(((d.finished || d.last || now()) - d.started) / 60000)), complete: !!(d.finished || d.baseDone) };
+    var list = state.rv.sessions, k = list.length - 1;
+    if (k >= 0 && list[k].day === d.day) list[k] = rec; else list.push(rec);
+  }
+  function rollDay() { // a session left over from an earlier day is closed out as it stands
+    var d = state.rv.day;
+    if (d && d.day !== today()) { recordSession(d); state.rv.day = null; if (state.ctx === "review") { state.ctx = "round"; state.screen = "start"; } }
+  }
+  function openReview() {
+    rollDay();
+    var d = state.rv.day;
+    if (!d) {
+      var ids = buildSession();
+      if (!ids.length) return;
+      d = state.rv.day = { day: today(), date: ymd(now()), ids: ids, pos: 0, st: ids.map(freshItem), started: now(), finished: null, last: null };
+    } else if (d.pos >= d.ids.length) return;
+    state.ctx = "review"; state.screen = "card"; save(); render(); window.scrollTo(0, 0);
+  }
+  function moreToday() {
+    var d = state.rv.day; if (!d) return;
+    var ids = extraIds(EXTRA, d.ids);
+    if (!ids.length) return;
+    ids.forEach(function (id) { d.ids.push(id); d.st.push(freshItem()); });
+    d.finished = null;
+    state.ctx = "review"; state.screen = "card"; save(); render(); window.scrollTo(0, 0);
+  }
+  function sessionsLast7() { var t = today(); return state.rv.sessions.filter(function (s) { return s.complete && s.day > t - 7; }).length; }
+
+  /* ---------- the card in front of him ---------- */
+  function cur() {
+    if (state.ctx === "review" && state.rv.day) {
+      var d = state.rv.day, i = IDX[d.ids[d.pos]];
+      return { it: ITEMS[i], st: d.st[d.pos], i: i, review: true, pos: d.pos, n: d.ids.length };
+    }
+    var idx = roundIdx(ITEMS[state.i].r);
+    return { it: ITEMS[state.i], st: state.items[state.i], i: state.i, review: false, pos: idx.indexOf(state.i), n: idx.length };
+  }
+  function parseEntry(st) {
+    var m = parseFloat(String(st.m).replace(",", "."));
+    if (!isFinite(m)) return NaN;
+    var e = st.e === "" ? 0 : parseInt(st.e, 10);
+    if (!isFinite(e)) return NaN;
+    return Math.abs(m) * Math.pow(10, st.neg ? -e : e);
+  }
+  function finish(st, solved) { st.done = true; st.solved = solved; st.revealed = !solved; st.at = now(); }
+  function check() {
+    var C = cur(), it = C.it, st = C.st;
+    if (isMC(it)) {
+      if (st.pick < 0) { st.err = "Pick an answer first."; return render(); }
+      st.err = "";
+      if (st.pick === it.answer) { finish(st, true); }
+      else { st.wrong += 1; if (st.hints < 4) st.hints += 1; st.tried.push(st.pick); st.pick = -1; }
+    } else {
+      var v = parseEntry(st);
+      if (!isFinite(v)) { st.err = "Enter a number first."; return render(); }
+      if (!st.unit) { st.err = "Pick a unit."; return render(); }
+      if (it.dir && !st.dir) { st.err = "Pick a direction."; return render(); }
+      st.err = "";
+      var numOk = Math.abs(v - it.value) / it.value <= (it.tol || TOL);
+      var unitOk = it.units.indexOf(st.unit) >= 0;
+      var dirOk = it.dir ? st.dir === it.dir : true;
+      st.parts = { num: numOk, unit: unitOk, dir: dirOk };
+      if (numOk && unitOk && dirOk) { finish(st, true); }
+      else {
+        st.wrong += 1;
+        if (st.hints < 4) st.hints += 1;
+        if (!st.slip) st.slip = !unitOk ? "units" : (numOk && !dirOk ? "direction" : "");
+      }
+    }
+    save(); render();
+    var target = document.getElementById(st.done ? "result" : "hint-" + st.hints);
+    if (target && target.scrollIntoView) target.scrollIntoView({ block: "nearest", behavior: "auto" });
+  }
+  function reveal() { finish(cur().st, false); save(); render(); }
+  function next() {
+    var C = cur(), st = C.st;
+    if (!st.bumped) {
+      st.bumped = true;
+      sched(state.rv, C.it.id, st, st.at || now());
+      if (C.review) state.rv.log.push({ id: C.it.id, at: st.at, first: first(st), solved: st.solved, hints: st.hints, wrong: st.wrong, slip: st.slip, flag: st.flag });
+    }
+    if (C.review) {
+      var d = state.rv.day;
+      d.last = now(); d.pos += 1;
+      if (d.pos >= d.ids.length) { d.finished = now(); d.baseDone = true; state.ctx = "round"; state.screen = "start"; }
+      recordSession(d);
+    } else {
+      var r = C.it.r, idx = roundIdx(r), pos = idx.indexOf(state.i);
+      var later = idx.slice(pos + 1).filter(function (i) { return !state.items[i].done; });
+      var open = later.length ? later : idx.filter(function (i) { return !state.items[i].done; });
+      if (open.length) { state.i = open[0]; }
+      else { state.rounds[r].f = now(); state.screen = "start"; }
+    }
+    save(); render(); window.scrollTo(0, 0);
+  }
+  function startRound(r) {
+    var open = roundIdx(r).filter(function (i) { return !state.items[i].done; });
+    if (!open.length) return;
+    if (!state.rounds[r].s) state.rounds[r].s = now();
+    state.ctx = "round"; state.i = open[0]; state.screen = "card"; save(); render(); window.scrollTo(0, 0);
+  }
+
+  /* ---------- log ---------- */
+  function entries() {
+    var out = [];
+    ITEMS.forEach(function (it, i) {
+      var st = state.items[i];
+      if (it.r < 0 || !st.done) return;
+      out.push({ at: st.at || 0, set: ROUNDS[it.r].set, it: it, first: first(st), solved: st.solved, hints: st.hints, wrong: st.wrong, slip: st.slip, flag: st.flag });
+    });
+    state.rv.log.forEach(function (e) {
+      var it = ITEMS[IDX[e.id]]; if (!it) return;
+      out.push({ at: e.at || 0, set: "Daily review (phone)", it: it, first: e.first, solved: e.solved, hints: e.hints, wrong: e.wrong, slip: e.slip, flag: e.flag });
+    });
+    out.sort(function (a, b) { return a.at - b.at; });
+    return out;
+  }
+  function logText() {
+    var lines = [];
+    lines.push("| Date | Set | Q | Topic | Kind | Right first time | Hints | Slip | Right after hints | Note |");
+    lines.push("| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |");
+    entries().forEach(function (e) {
+      var note = [];
+      if (isMC(e.it)) note.push("multiple choice");
+      if (!e.solved) note.push("answer shown");
+      if (e.flag) note.push("student flagged the key");
+      if (e.wrong > 0) note.push(e.wrong + " wrong " + (e.wrong === 1 ? "try" : "tries"));
+      lines.push("| " + [ymd(e.at), e.set, (e.it.src === "ws" ? "sheet " : "notes ") + e.it.q, e.it.t, e.it.kind, e.first ? "yes" : "no", e.hints,
+        e.wrong > 0 ? (e.slip || "not tagged") : "-", e.first ? "-" : (e.solved ? "yes" : "no"), note.join("; ")].join(" | ") + " |");
+    });
+    lines.push("");
+    if (state.rv.sessions.length) {
+      lines.push("## Daily review sessions"); lines.push("");
+      state.rv.sessions.forEach(function (s) {
+        lines.push(s.date + ": " + s.n + " questions, " + s.first + " right first time, about " + s.mins + " min" + (s.complete ? "" : " (not finished)") + ".");
+      });
+      lines.push("Sessions in the last 7 days: " + sessionsLast7() + "."); lines.push("");
+    }
+    ROUNDS.forEach(function (R, r) {
+      var t = state.rounds[r];
+      if (t.s && t.f) lines.push(R.name + ": about " + Math.max(1, Math.round((t.f - t.s) / 60000)) + " min from first question to last.");
+    });
+    lines.push(""); lines.push("## In his words"); lines.push("");
+    lines.push("1. Which question felt different after the hint, and why?"); lines.push(state.notes[0] || "(blank)"); lines.push("");
+    lines.push("2. More or less useful than your usual way of studying for a quiz?"); lines.push(state.notes[1] || "(blank)"); lines.push("");
+    lines.push("3. Would you do ten minutes of this on a normal day?"); lines.push(state.notes[2] || "(blank)");
+    return lines.join("\n");
+  }
+  function copyLog() {
+    var text = logText();
+    var done = function (msg) { state.copied = msg; render(); var ta = document.getElementById("logbox"); if (ta && msg.indexOf("Select") === 0) { ta.focus(); ta.select(); } };
+    try {
+      navigator.clipboard.writeText(text).then(function () { done("Copied. Paste it into a message or a note."); },
+        function () { done("Select the text below and copy it."); });
+    } catch (x) { done("Select the text below and copy it."); }
+  }
+
+  /* ---------- rendering ---------- */
+  function render() {
+    rollDay();
+    if (state.screen === "end") return renderEnd();
+    if (state.screen === "card") return renderCard();
+    renderStart();
+  }
+  function on(id, fn) { var el = document.getElementById(id); if (el) el.onclick = fn; }
+  function paint(h) {
+    var bar = "";
+    if (TEST) {
+      var d = new Date(now()), months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      bar = '<div class="testbar"><strong>Test mode.</strong> Nothing here touches the real log. The page thinks today is ' + months[d.getMonth()] + " " + d.getDate() + "." +
+            '<div class="row"><button class="ghost" id="tskip" type="button">Skip to tomorrow</button><button class="ghost" id="tclear" type="button">Clear test data</button></div></div>';
+    }
+    app.innerHTML = bar + h;
+    on("tskip", function () { testOff += 864e5; try { localStorage.setItem(OFFKEY, String(testOff)); } catch (x) {} render(); window.scrollTo(0, 0); });
+    on("tclear", function () { testOff = 0; try { localStorage.removeItem(OFFKEY); localStorage.removeItem(KEY); } catch (x) {} state = fresh(); render(); window.scrollTo(0, 0); });
+  }
+  function goHome() { state.ctx = "round"; state.screen = "start"; save(); render(); window.scrollTo(0, 0); }
+
+  function renderStart() {
+    var d = state.rv.day, h = "", week = sessionsLast7();
+    h += '<p class="source">Physics 30 · Electric forces and fields</p>' +
+         '<h1>Electricity: seven minutes a day</h1>';
+
+    h += '<div class="panel round today"><div class="head"><h2>Today’s review</h2>';
+    if (d && d.finished) {
+      var n = 0, f = 0; d.st.forEach(function (st) { if (st.bumped) { n++; if (first(st)) f++; } });
+      h += '<span class="status done">done</span></div><p>' + f + " of " + n + " right first time, in about " + (function (m) { return m + (m === 1 ? " minute" : " minutes"); })(Math.max(1, Math.round((d.finished - d.started) / 60000))) + ". Next one tomorrow.</p>";
+      if (extraIds(EXTRA, d.ids).length) h += '<button class="ghost" id="more" type="button">Two more</button>';
+    } else if (d) {
+      h += '<span class="status">' + d.pos + " of " + d.ids.length + '</span></div><p>You’re partway through today’s questions.</p><button class="primary" id="review" type="button">Carry on</button>';
+    } else if (buildSession().length) {
+      h += '<span class="status">' + SESSION + ' questions</span></div><p>A mix from the whole unit so far: an easy one to start, two more, and one to work on paper with your data booklet. Questions you miss come back the next day.</p><button class="primary" id="review" type="button">Start today’s review</button>';
+    } else {
+      h += "</div><p>Nothing left to review today.</p>";
+    }
+    h += '<p class="muted small">Review sessions in the last 7 days: ' + week + ".</p>";
+    h += '<label class="check"><input type="checkbox" id="t23"' + (state.rv.t23 ? " checked" : "") + '> <span>We’ve started Topic 23 in class (energy in electric fields)</span></label>';
+    h += "</div>";
+
+    h += '<h2 class="sub">Practice rounds for the Topic 21 quiz</h2>';
+    ROUNDS.forEach(function (R, r) {
+      var n = roundIdx(r).length, dn = roundDone(r), begun = dn > 0 || roundIdx(r).some(function (i) { return state.items[i].wrong > 0; });
+      h += '<div class="panel round"><div class="head"><h2>' + esc(R.name) + '</h2><span class="status' + (dn === n ? " done" : "") + '">' + (dn === n ? "done" : dn + " of " + n) + "</span></div>" +
+           "<p>" + esc(R.blurb) + "</p>" +
+           (dn === n ? "" : '<button class="ghost" id="go' + r + '" type="button">' + (begun ? "Carry on" : "Start") + "</button>") + "</div>";
+    });
+    if (entries().length) h += '<button class="ghost" id="tolog" type="button">See my log</button>';
+    h += '<p class="muted small">If an answer isn’t right you get one hint at a time, not the answer. Your answers stay on this device until you choose to copy them.</p>';
+    h += '<p class="muted small">The numbers and question numbers are Mr. Dickie’s, so you can find each one on your own copy. The wording, diagrams and hints were written by Claude. Answers to the practice-sheet questions were worked by Claude; answers to the notes questions are the key from his notes. If your answer disagrees and your working looks right, flag the question.</p>';
+    paint(h);
+    on("review", openReview); on("more", moreToday);
+    ROUNDS.forEach(function (R, r) { on("go" + r, function () { startRound(r); }); });
+    on("tolog", function () { state.screen = "end"; save(); render(); window.scrollTo(0, 0); });
+    var box = document.getElementById("t23");
+    if (box) box.onchange = function () { state.rv.t23 = box.checked; save(); render(); };
+  }
+
+  function hintsHtml(it, st, withIds) {
+    var h = "";
+    for (var k = 0; k < st.hints; k++) {
+      h += '<div class="hint"' + (withIds ? ' id="hint-' + (k + 1) + '"' : "") + '><span class="lab">Hint ' + (k + 1) + " of 4 · " + HINT_LABELS[k] + "</span><p>" + fmt(it.hints[k]) + "</p></div>";
+    }
+    return h;
+  }
+  function tagFor(C) {
+    var S = state.rv.sched[C.it.id];
+    if (C.review) return S && S.last && S.last !== "first" && !C.st.bumped ? "Back again: you missed this one before" : "";
+    for (var k = 0; k < C.i; k++) if (ITEMS[k].r >= 0 && ITEMS[k].kind === C.it.kind && state.items[k].wrong > 0) return "Retest: same kind as one you missed";
+    return "";
+  }
+
+  function renderCard() {
+    var C = cur(), it = C.it, st = C.st, mc = isMC(it), tag = tagFor(C);
+    var label = C.review ? "Today" : "Round " + (it.r + 1);
+    var h = "";
+    h += '<div class="top"><span class="count">' + label + " · " + (C.pos + 1) + " of " + C.n + '</span><div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="' + C.n + '" aria-valuenow="' + C.pos + '"><i style="width:' + Math.round(100 * C.pos / C.n) + '%"></i></div></div>';
+    h += '<div class="panel stack">';
+    h += '<div class="row"><span class="source">' + esc(sourceLine(it)) + "</span>" + (tag ? '<span class="tag">' + tag + "</span>" : "") + "</div>";
+    if (it.stem) h += '<p class="stem">' + fmt(it.stem) + "</p>";
+    if (it.fig) h += '<div class="fig">' + it.fig + "</div>";
+    h += '<p class="question">' + fmt(it.text) + "</p>";
+    if (C.review && !mc) h += '<p class="muted small">This is today’s paper question. Work it out in full before you enter anything.</p>';
+    h += "</div>";
+
+    if (!st.done) {
+      h += '<div class="panel stack">';
+      if (mc) {
+        h += '<div><span class="lab">Your answer</span><div class="opts" id="opts">' + it.options.map(function (o, k) {
+               var tried = st.tried.indexOf(k) >= 0;
+               return '<button type="button" class="opt" data-o="' + k + '" aria-pressed="' + (st.pick === k) + '"' + (tried ? " disabled" : "") + "><b>" + LETTERS[k] + ".</b><span>" + fmt(o) + "</span></button>"; }).join("") + "</div></div>";
+      } else {
+        h += '<div><label class="lab" for="mant">Your answer</label><div class="entry">' +
+             '<input id="mant" inputmode="decimal" autocomplete="off" placeholder="a.bc" value="' + esc(st.m) + '">' +
+             '<span class="times">× 10^</span>' +
+             '<button class="sign" id="sign" type="button" aria-label="Exponent sign, now ' + (st.neg ? "negative" : "positive") + '">' + (st.neg ? "−" : "+") + "</button>" +
+             '<input id="expo" inputmode="numeric" autocomplete="off" placeholder="d" value="' + esc(st.e) + '" aria-label="Power of ten">' +
+             "</div><p class=\"muted small\" style=\"margin-top:6px\">Leave the power blank for an ordinary number.</p></div>";
+        h += '<div><span class="lab">Unit</span><div class="chips" id="units">' + UNITS.map(function (u) {
+               return '<button type="button" class="chip' + (u === "no unit" ? " word" : "") + '" data-u="' + esc(u) + '" aria-pressed="' + (st.unit === u) + '">' + esc(u) + "</button>"; }).join("") + "</div></div>";
+        if (it.dir) h += '<div><span class="lab">Direction</span><div class="chips" id="dirs">' + DIRS.map(function (d) {
+               return '<button type="button" class="chip word" data-d="' + d + '" aria-pressed="' + (st.dir === d) + '">' + d + "</button>"; }).join("") + "</div></div>";
+      }
+      if (st.err) h += '<p class="err" role="alert">' + esc(st.err) + "</p>";
+      h += "</div>";
+
+      if (st.wrong > 0) {
+        h += '<div class="result miss" id="result"><strong>Not yet.</strong>';
+        if (!mc && st.parts) h += '<div class="parts">' +
+             "<span>Number: " + (st.parts.num ? "matches" : "doesn’t match") + "</span>" +
+             "<span>Unit: " + (st.parts.unit ? "matches" : "doesn’t match") + "</span>" +
+             (it.dir ? "<span>Direction: " + (st.parts.dir ? "matches" : "doesn’t match") + "</span>" : "") + "</div>";
+        h += "</div>";
+      }
+      h += hintsHtml(it, st, true);
+      h += '<button class="primary" id="check" type="button">' + (st.wrong > 0 ? "Check again" : "Check") + "</button>";
+      if (!mc && st.wrong > 4) h += '<button class="ghost" id="reveal" type="button">Show the answer and move on</button>';
+    } else {
+      if (st.solved) {
+        h += '<div class="result good" id="result"><strong>Right' + (st.wrong === 0 ? ", first time." : ".") + '</strong> <span class="answer">' + answerHtml(it) + "</span>" +
+             (it.note ? '<p class="small" style="margin-top:4px">' + fmt(it.note) + "</p>" : "") + "</div>";
+      } else {
+        h += '<div class="result miss" id="result"><strong>Answer:</strong> <span class="answer">' + answerHtml(it) + "</span><p class=\"small\" style=\"margin-top:4px\">This one comes back tomorrow so you can try it again.</p></div>";
+      }
+      h += hintsHtml(it, st, false);
+      if (st.wrong > 0) {
+        h += '<div class="panel stack"><span class="lab" style="margin:0">What tripped you up?</span><div class="chips" id="slips">' + SLIPS.map(function (s) {
+             return '<button type="button" class="chip word" data-s="' + s + '" aria-pressed="' + (st.slip === s) + '">' + s + "</button>"; }).join("") + "</div></div>";
+      }
+      var last = C.review ? C.pos === C.n - 1 : !roundIdx(it.r).some(function (k) { return !state.items[k].done; });
+      h += '<button class="primary" id="next" type="button"' + (st.wrong > 0 && !st.slip ? " disabled" : "") + ">" +
+           (!last ? "Next question" : C.review ? "Finish today’s review" : "Finish round " + (it.r + 1)) + "</button>";
+      h += '<button class="link" id="flag" type="button">' + (st.flag ? "Flagged: you think the key is wrong. Tap to undo." : "I think the key is wrong on this one") + "</button>";
+    }
+    h += '<button class="link" id="home" type="button">Back to the start</button>';
+    paint(h);
+
+    var mant = document.getElementById("mant"), expo = document.getElementById("expo");
+    if (mant) mant.oninput = function () { st.m = mant.value; save(); };
+    if (expo) expo.oninput = function () { st.e = expo.value.replace(/[^0-9]/g, ""); if (st.e !== expo.value) expo.value = st.e; save(); };
+    on("sign", function () { st.neg = !st.neg; save(); render(); });
+    pick("units", "u", function (v) { st.unit = v; });
+    pick("dirs", "d", function (v) { st.dir = v; });
+    pick("slips", "s", function (v) { st.slip = v; });
+    pick("opts", "o", function (v) { st.pick = parseInt(v, 10); });
+    on("check", check); on("reveal", reveal); on("next", next);
+    on("flag", function () { st.flag = !st.flag; save(); render(); });
+    on("home", goHome);
+    function pick(id, attr, set) {
+      var box = document.getElementById(id);
+      if (!box) return;
+      box.onclick = function (ev) {
+        var b = ev.target.closest ? ev.target.closest("button") : null;
+        if (!b || b.disabled) return;
+        set(b.getAttribute("data-" + attr)); st.err = ""; save(); render();
+      };
+    }
+  }
+
+  function renderEnd() {
+    var all = entries(), f = 0, hinted = 0, shown = 0, slips = {}, rows = "";
+    all.forEach(function (e) {
+      if (e.first) f++; else if (e.solved) hinted++; else shown++;
+      if (e.wrong > 0 && e.slip) slips[e.slip] = (slips[e.slip] || 0) + 1;
+    });
+    all.slice(-40).reverse().forEach(function (e) {
+      rows += "<tr><td>" + ymd(e.at).slice(5) + "</td><td>" + (e.it.src === "ws" ? "sheet " : "notes ") + esc(e.it.q) + "</td><td>" + e.it.t + "</td><td>" + esc(e.it.kind) + "</td><td>" + (e.first ? "first time" : e.solved ? "after hints" : "shown") + "</td><td>" + e.hints + "</td><td>" + (e.wrong > 0 ? esc(e.slip || "-") : "-") + "</td></tr>";
+    });
+    var slipLine = Object.keys(slips).map(function (k) { return k + " ×" + slips[k]; }).join(", ");
+    var qs = ["Which question felt different after the hint, and why?",
+              "More or less useful than your usual way of studying for a quiz?",
+              "Would you do ten minutes of this on a normal day?"];
+    var h = '<p class="source">Electricity · your log</p><h1>Where you are so far</h1>';
+    h += '<div class="stats"><div class="stat"><b>' + f + '</b><span>right first time</span></div><div class="stat"><b>' + hinted + '</b><span>right after hints</span></div><div class="stat"><b>' + shown + "</b><span>answer shown</span></div></div>";
+    h += '<p class="muted">Review sessions in the last 7 days: ' + sessionsLast7() + "." + (slipLine ? " Where the misses came from: " + esc(slipLine) + "." : "") + "</p>";
+    h += '<div class="panel scroll"><table><thead><tr><th>Date</th><th>Q</th><th>Topic</th><th>Kind</th><th>Result</th><th>Hints</th><th>Slip</th></tr></thead><tbody>' + rows + "</tbody></table></div>";
+    h += '<button class="primary" id="home" type="button">Back to the start</button>';
+    h += '<div class="panel stack"><h2>Three questions, in your own words</h2>';
+    qs.forEach(function (q, k) { h += '<div><label class="lab" for="note' + k + '" style="text-transform:none;letter-spacing:0;font-size:1rem;color:inherit">' + (k + 1) + ". " + esc(q) + '</label><textarea id="note' + k + '">' + esc(state.notes[k]) + "</textarea></div>"; });
+    h += "</div>";
+    h += '<button class="ghost" id="copy" type="button">Copy my log</button>';
+    if (state.copied) h += '<p class="muted" role="status">' + esc(state.copied) + "</p>";
+    h += '<textarea class="log" id="logbox" readonly aria-label="Your log">' + esc(logText()) + "</textarea>";
+    h += '<p class="muted small">Nothing is sent anywhere. The log leaves this device only if you copy it and pass it on.</p>';
+    h += state.confirmReset
+      ? '<div class="row"><span>Clear every answer and the review schedule?</span><button class="ghost" id="yes" type="button">Yes, clear</button><button class="ghost" id="no" type="button">Keep them</button></div>'
+      : '<button class="link" id="reset" type="button">Start over</button>';
+    paint(h);
+    qs.forEach(function (q, k) {
+      var ta = document.getElementById("note" + k);
+      ta.oninput = function () { state.notes[k] = ta.value; save(); var lb = document.getElementById("logbox"); if (lb) lb.value = logText(); };
+    });
+    on("copy", copyLog); on("home", goHome);
+    on("reset", function () { state.confirmReset = true; render(); });
+    on("no", function () { state.confirmReset = false; render(); });
+    on("yes", function () { state = fresh(); save(); render(); window.scrollTo(0, 0); });
+  }
+
+  load();
+  render();
+})();
+</script>
+</body>
+</html>
