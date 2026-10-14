@@ -1,0 +1,917 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<style>html{color-scheme:light}body{margin:0}[hidden]{display:none!important}</style>
+<title>Social 30-1 Test 3 Review</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* One card per screen in a phone-width column, same look as the Electricity page.
+   Recall cards: say it, reveal, mark yourself. Multiple choice: pick, check.
+   Spectrum cards: tap the box each name belongs in. */
+:root {
+  --bg: #eef1f4;
+  --surface: #ffffff;
+  --ink: #17212b;
+  --muted: #586675;
+  --line: #cfd6dd;
+  --accent: #1f5f8b;
+  --accent-ink: #ffffff;
+  --accent-soft: #dde9f2;
+  --good: #1d6b45;
+  --good-soft: #dff0e6;
+  --warn: #8a5a00;
+  --warn-soft: #f6ead0;
+  --font-body: "Atkinson Hyperlegible", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #10161c; --surface: #19222b; --ink: #e6ecf1; --muted: #9aa8b5; --line: #2f3c48;
+    --accent: #7db8e0; --accent-ink: #0c1620; --accent-soft: #1f3344;
+    --good: #7fd0a2; --good-soft: #17322a; --warn: #e5b85c; --warn-soft: #3a2f16;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #10161c; --surface: #19222b; --ink: #e6ecf1; --muted: #9aa8b5; --line: #2f3c48;
+  --accent: #7db8e0; --accent-ink: #0c1620; --accent-soft: #1f3344;
+  --good: #7fd0a2; --good-soft: #17322a; --warn: #e5b85c; --warn-soft: #3a2f16;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 17px; line-height: 1.5;
+  padding-inline: 16px; padding-block: 16px 40px;
+}
+#app { max-width: 34rem; margin-inline: auto; display: flex; flex-direction: column; gap: 16px; }
+h1 { font-size: 1.5rem; line-height: 1.2; margin: 0; text-wrap: balance; }
+h2 { font-size: 1.05rem; margin: 0; }
+p { margin: 0; }
+.muted { color: var(--muted); }
+.small { font-size: 0.875rem; }
+.stack { display: flex; flex-direction: column; gap: 12px; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; }
+
+.top { display: flex; align-items: center; gap: 12px; }
+.top .count { font-family: var(--font-data); font-size: 0.875rem; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.bar { flex: 1; height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+.bar > i { display: block; height: 100%; background: var(--accent); }
+
+.source { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+.tag { display: inline-block; font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; background: var(--warn-soft); color: var(--warn); }
+.tag.blue { background: var(--accent-soft); color: var(--accent); }
+.stem { border-left: 3px solid var(--accent); padding: 4px 0 4px 12px; font-size: 0.9375rem; }
+.stem .lab { margin-bottom: 4px; }
+.question { font-size: 1.125rem; }
+.current { font-size: 1.25rem; }
+
+.lab { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible, textarea:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.opts { display: flex; flex-direction: column; gap: 8px; }
+.opt {
+  display: flex; gap: 12px; align-items: baseline; text-align: left; width: 100%;
+  min-height: 48px; padding: 10px 14px; border-radius: var(--r); border: 1px solid var(--line); background: var(--surface);
+}
+.opt b { font-family: var(--font-data); font-weight: 600; }
+.opt span { min-width: 0; }
+.opt[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.opt.is-right { background: var(--good-soft); color: var(--ink); border: 2px solid var(--good); }
+.opt.is-wrong { background: var(--warn-soft); color: var(--ink); border: 2px solid var(--warn); }
+.primary {
+  min-height: 52px; width: 100%; border: 0; border-radius: var(--r);
+  background: var(--accent); color: var(--accent-ink); font-weight: 700; font-size: 1.0625rem;
+}
+.primary[disabled] { opacity: 0.45; cursor: not-allowed; }
+.ghost { min-height: 44px; padding: 8px 14px; border-radius: var(--r); border: 1px solid var(--line); background: transparent; }
+.link { border: 0; background: none; padding: 8px 0; color: var(--muted); text-decoration: underline; font-size: 0.875rem; text-align: left; }
+.marks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.marks button { min-height: 52px; border-radius: var(--r); border: 1px solid var(--line); background: var(--surface); font-weight: 700; }
+.marks .m-got { border-color: var(--good); color: var(--good); }
+.marks .m-miss { border-color: var(--warn); color: var(--warn); }
+
+.round { display: flex; flex-direction: column; gap: 10px; }
+.round .head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.round .status { font-family: var(--font-data); font-size: 0.875rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.round .status.done { color: var(--good); }
+.today { border-color: var(--accent); border-width: 2px; }
+h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); font-weight: 400; margin-top: 8px; }
+
+.result { border-radius: var(--r); padding: 12px 14px; }
+.result.good { background: var(--good-soft); color: var(--good); }
+.result.miss { background: var(--warn-soft); color: var(--warn); }
+.result.plain { background: var(--accent-soft); color: var(--ink); }
+.result p + p { margin-top: 6px; }
+.why { color: var(--ink); font-size: 0.9375rem; margin-top: 6px; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 0.9375rem; }
+.check input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--accent); flex: none; }
+textarea {
+  font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line);
+  border-radius: 8px; padding: 10px; width: 100%; min-height: 6rem; resize: vertical;
+}
+textarea.log { font-family: var(--font-data); font-size: 0.75rem; min-height: 10rem; white-space: pre; }
+ol.plain, ul.plain { margin: 0; padding-left: 1.25rem; display: flex; flex-direction: column; gap: 6px; }
+.stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 12px; }
+.stat b { display: block; font-family: var(--font-data); font-size: 1.5rem; font-variant-numeric: tabular-nums; }
+.stat span { font-size: 0.8125rem; color: var(--muted); }
+.testbar { background: var(--warn-soft); color: var(--warn); border: 1px dashed var(--warn); border-radius: var(--r); padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; font-size: 0.9375rem; }
+.testbar .ghost { border-color: var(--warn); color: var(--warn); }
+
+/* Spectrum and chart */
+.spec { display: flex; flex-direction: column; gap: 6px; }
+.ends { display: flex; justify-content: space-between; font-weight: 700; font-size: 0.875rem; }
+.arrow { position: relative; height: 6px; background: var(--ink); margin: 4px 14px; }
+.arrow::before, .arrow::after { content: ""; position: absolute; top: 50%; transform: translateY(-50%); border-top: 9px solid transparent; border-bottom: 9px solid transparent; }
+.arrow::before { left: -14px; border-right: 14px solid var(--ink); }
+.arrow::after { right: -14px; border-left: 14px solid var(--ink); }
+.specsvg { display: block; width: 100%; height: auto; }
+.specsvg .main { fill: var(--ink); }
+.specsvg .hollow { fill: var(--surface); stroke: var(--muted); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.specsvg text { fill: var(--muted); font-style: italic; font-size: 30px; font-family: var(--font-body); }
+.chg { display: flex; flex-direction: column; gap: 4px; margin-top: 10px; }
+.chg .arrow { height: 3px; margin: 2px 10px; }
+.chg .arrow::before, .chg .arrow::after { border-top-width: 6px; border-bottom-width: 6px; }
+.chg .arrow::before { left: -10px; border-right-width: 10px; }
+.chg .arrow::after { right: -10px; border-left-width: 10px; }
+.chg-lcr { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); padding: 0 6px; font-style: italic; }
+.chg-row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2px; text-align: center; font-size: 0.75rem; line-height: 1.2; font-style: italic; }
+.chg-row span { padding: 3px 1px; border: 2px solid transparent; border-radius: 6px; overflow-wrap: anywhere; }
+.panel .chg-row { font-size: 0.6875rem; }
+.chg-row span.hl { border-color: var(--accent); font-weight: 700; font-style: normal; }
+.paper { background: #fbfaf6; color: #1b1b1b; border: 1px solid #d9d4c7; border-radius: 6px; padding: 10px; display: flex; flex-direction: column; gap: 6px; }
+.paper svg { display: block; width: 100%; height: auto; }
+.paper h3 { font-size: 0.8125rem; margin: 0; font-weight: 700; }
+.paper .note { font-size: 0.75rem; color: #5b6670; }
+.zones { display: grid; gap: 6px; }
+.ends .blank { min-width: 7ch; text-align: center; border-bottom: 2px dashed var(--accent); color: var(--accent); }
+.zones.z4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.zones.z3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.zone {
+  display: flex; flex-direction: column; gap: 4px; text-align: left; min-height: 92px; padding: 8px 6px;
+  border: 1px solid var(--line); border-radius: 8px; background: var(--surface);
+  font-size: 0.75rem; line-height: 1.25; overflow-wrap: anywhere; hyphens: manual; -webkit-hyphens: manual; color: var(--ink);
+}
+button.zone { border-color: var(--accent); border-style: dashed; }
+button.zone:active { background: var(--accent-soft); }
+.zone .zt { font-weight: 700; }
+.zone .zs { color: var(--muted); font-size: 0.6875rem; }
+.zone .who { display: flex; flex-direction: column; gap: 3px; margin-top: auto; padding-top: 4px; }
+.zone .who span { background: var(--accent-soft); border-radius: 4px; padding: 2px 3px; overflow-wrap: normal; }
+.panel .zone { padding: 8px 4px; }
+.panel .zone .who span { font-size: 0.6875rem; }
+.zone .who span.also { background: transparent; color: var(--muted); padding: 0 4px; }
+.zone.right { border: 2px solid var(--good); background: var(--good-soft); }
+.zone.wrong { border: 2px solid var(--warn); background: var(--warn-soft); }
+.cols { display: flex; flex-direction: column; gap: 8px; }
+.col { border-left: 3px solid var(--line); padding-left: 10px; font-size: 0.875rem; }
+.col b { display: block; font-size: 0.9375rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.875rem; }
+td { text-align: left; padding: 5px 10px 5px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+td:first-child { font-family: var(--font-data); white-space: nowrap; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<main id="app" aria-live="polite"></main>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- content ----------
+     Page cites are to the course package PDF page numbers. Wording is paraphrased.
+     Practice sources in Session 4 are made up for this page. */
+
+  var SHY = "\u00AD"; /* soft hyphens so the narrow spectrum boxes break words cleanly */
+  var SPEC = ["Marx" + SHY + "ism / com" + SHY + "mu" + SHY + "nism", "Uto" + SHY + "pian and demo" + SHY + "cratic so" + SHY + "cial" + SHY + "ism", "Modern liberal" + SHY + "ism", "Classi" + SHY + "cal liberal" + SHY + "ism"];
+  /* Arrows traced from the page 19 picture: socialism runs from the far left to past the middle,
+     liberalism from left of centre to the far right; they overlap over modern liberalism. */
+  var SPEC_SVG = '<svg class="specsvg" viewBox="0 0 760 180" aria-hidden="true">' +
+    '<text x="490" y="64" text-anchor="middle">Liberalism</text>' +
+    '<path class="hollow" d="M245 92 L277 72 L277 82 L718 82 L718 72 L750 92 L718 112 L718 102 L277 102 L277 112 Z"/>' +
+    '<text x="120" y="134" text-anchor="middle">Socialism</text>' +
+    '<path class="hollow" d="M10 158 L42 138 L42 148 L488 148 L488 138 L520 158 L488 178 L488 168 L42 168 L42 178 Z"/></svg>';
+  function changeHtml(hl) {
+    var L = ["Radical", "Liberal", "Moder" + SHY + "ate", "Conser" + SHY + "vative", "Reac" + SHY + "tionary"];
+    return '<div class="chg"><span class="lab" style="margin:0">Desire for change spectrum · p.13</span><div class="arrow" aria-hidden="true"></div>' +
+      '<div class="chg-lcr"><span>L</span><span>C</span><span>R</span></div><div class="chg-row">' +
+      L.map(function (t, k) { return "<span" + (k === hl ? ' class="hl"' : "") + ">" + t + "</span>"; }).join("") + "</div></div>";
+  }
+  var CHART = [["Communism", "Command economy · public ownership"],
+               ["Modern liberalism", "Mixed economy · public and private"],
+               ["Classical liberalism", "Free market · private ownership"]];
+
+  var I = {
+    /* Session 1: the left side of the spectrum */
+    "s1-open": { t: "recall", src: "Package p.19", k: "Ends of the p.19 spectrum", specFig: true,
+      q: "Easy one to start. Here’s the page 19 spectrum with its two ends hidden. What goes at the far left, and what goes at the far right?",
+      a: "<b>Collectivism</b> on the left. <b>Individualism</b> on the right." },
+    "s1-place": { t: "place", layout: "spec", src: "Package p.19", k: "Place names on the p.19 spectrum",
+      q: "Put each one where it sits on the page 19 spectrum.",
+      names: [
+        ["Karl Marx", 0, "Marxism and communism: the far collectivist end."],
+        ["Adam Smith", 3, "Classical liberalism: the far individualist end. The father of capitalism."],
+        ["Robert Owen", 1, "A utopian socialist. He wanted better lives for workers but kept his business."],
+        ["Labour unions", 2, "Modern liberalism: groups pushing for workers’ rights inside a liberal system."],
+        ["Charles Fourier", 1, "Another utopian socialist, beside Owen on the page 19 picture."],
+        ["Early feminists", 2, "Modern liberalism, along with human rights activists and labour unions."]
+      ] },
+    "s1-socialism": { t: "recall", src: "Package p.17", k: "Socialism: who owns, who benefits",
+      q: "Socialism: who should own the means of production, and who should the wealth benefit?",
+      a: "The <b>workers, collectively</b>. Wealth is shared <b>equitably</b> for the benefit of all of society (<b>collectivism</b>, the <b>common good</b>) through <b>redistribution of wealth</b>." },
+    "s1-demsoc": { t: "mc", src: "Package p.17", k: "Democratic socialism",
+      q: "Which of these describes democratic socialism?",
+      opts: ["Some private ownership, but heavy government intervention and a welfare state", "No private property; government planners run the whole economy", "Small government; the free market decides almost everything", "Business owners give workers pensions so they won’t form unions"], ans: 0,
+      why: "Democratic socialism keeps some private ownership but uses <b>safety nets</b> and a <b>welfare state</b>, paid for with higher taxes, to <b>reduce economic disparity</b>. No private property is communism; small government is classical liberalism; pensions to keep unions out is welfare capitalism." },
+    "s1-cradle": { t: "recall", src: "Package p.17", k: "Cradle to grave economics",
+      q: "What is “cradle to grave” economics, and how is it mainly paid for?",
+      a: "The government provides for citizens <b>from birth until death</b>. It’s paid for mainly through <b>progressive taxation</b> (the more you earn, the higher the rate you pay)." },
+    "s1-marx3": { t: "mc", src: "Package p.19 · Personalities slide 12", k: "Marx’s three goals",
+      q: "Which were Karl Marx’s three main goals?",
+      opts: ["A classless society, economic equality and humanitarianism", "Free trade, private property and competition", "Tradition, slow change and rule by the educated elite", "A secret ballot, equal districts and yearly elections"], ans: 0,
+      why: "The other three lists belong to Adam Smith, Edmund Burke and the Chartists." },
+    "s1-classes": { t: "mc", src: "Package p.19", k: "Marx’s two classes",
+      q: "Marx said industrial society was a struggle between which two classes?",
+      opts: ["The proletariat (workers) and the bourgeoisie (business owners)", "The nobility and the Church", "Farmers and merchants", "The elite and the electorate"], ans: 0,
+      why: "The workers did most of the work in the factories while the owners kept the profits. That’s the class struggle." },
+    "s1-radical": { t: "mc", src: "Package p.19 · p.13", k: "Marx on the change spectrum", fig: 0,
+      q: "On the “desire for change” spectrum, which label fits Karl Marx?",
+      opts: ["Radical", "Reactionary", "Liberal", "Conservative"], ans: 0,
+      why: "He said a classless society would only come after the workers <b>rose up in a violent revolution</b>: violence to move <b>forward</b> to something new. Reactionaries use violence to go <b>back</b>." },
+    "s1-books": { t: "mc", src: "Package p.19 (others p.12–14)", k: "Marx’s book with Engels",
+      q: "Which book did Marx write with Friedrich Engels?",
+      opts: ["The Communist Manifesto", "The Wealth of Nations", "The Spirit of the Laws", "On Liberty"], ans: 0,
+      why: "Marx also wrote <b>Das Kapital</b>. The Wealth of Nations is Adam Smith’s, The Spirit of the Laws is Montesquieu’s, and On Liberty is John Stuart Mill’s." },
+    "s1-nationalize": { t: "mc", src: "Package p.19", k: "Marx’s method",
+      q: "How did Marx want to take control of the economy?",
+      opts: ["Abolish private property and nationalize the means of production", "Cut taxes and let the market decide", "Give businesses tax breaks so wealth trickles down", "Let business owners add pensions and shorter hours"], ans: 0,
+      why: "<b>Centralize, regulate and nationalize</b> the factories so the economy is controlled by the workers." },
+    "s1-command": { t: "mc", src: "Package p.19", k: "Command economy",
+      q: "In a command economy, who decides what gets made and what it costs?",
+      opts: ["Government planners", "Supply and demand", "Businesses competing with each other", "Labour unions"], ans: 0,
+      why: "Like the USSR’s <b>Gosplan</b> and its five-year plans; Cuba and North Korea too. In a free market, supply and demand and competition decide." },
+    "s1-owen": { t: "mc", src: "Package p.18", k: "Robert Owen and New Lanark",
+      q: "Robert Owen’s business at New Lanark is an example of…",
+      opts: ["Utopian socialism: better conditions, free schooling and medical care, in a business he still owned", "Communism: the state owned the mill", "Social Darwinism: only the hardest workers survived", "A command economy run by government planners"], ans: 0,
+      why: "Owen improved workers’ lives inside a capitalist business. Marx, by contrast, wanted a revolution." },
+    "s1-statist": { t: "mc", src: "Package p.19", k: "Statists",
+      q: "A statist would most likely support…",
+      opts: ["High taxes and central planning of the economy", "Deregulation and tax cuts", "Leaving the economy to the invisible hand", "Letting only the educated elite vote"], ans: 0,
+      why: "Statists want <b>big government</b> with a lot of power over the economy and people’s behaviour, and they distrust the free market." },
+    "s1-stimulus": { t: "mc", src: "Package p.18", k: "Stimulus packages",
+      q: "What is a stimulus package for?",
+      opts: ["Government spending to boost jobs and spending and pull the economy out of a recession", "Cutting government spending to balance the budget", "Breaking up monopolies", "Giving workers ownership of the factories"], ans: 0,
+      why: "It’s a left-wing idea. Capitalists call it <b>fiscally irresponsible</b> because the borrowing creates <b>deficits</b> for future generations. The right sometimes backs one anyway when it’s badly needed: the spectrum is fluid." },
+    "s1-occupy": { t: "recall", src: "Package p.18", k: "Occupy Wall Street",
+      q: "Occupy Wall Street (2011): what was it against, and what was its slogan?",
+      a: "Corporate greed, social inequality, and the huge gap between rich and poor: <b>economic disparity</b>. Slogan: <b>“We are the 99%.”</b>" },
+    "s1-ccf": { t: "mc", src: "Package p.18", k: "The CCF",
+      q: "The CCF started in Calgary during the Great Depression. What did it become?",
+      opts: ["The NDP", "The Liberal Party", "The Conservative Party", "The Libertarian Party"], ans: 0,
+      why: "It won power in <b>Saskatchewan in 1944</b> and became the <b>NDP in 1961</b>." },
+    "s1-ubi": { t: "mc", src: "Package p.18", k: "Universal Basic Income",
+      q: "A regular payment from the government to citizens, with no strings attached, to help end poverty, is…",
+      opts: ["Universal Basic Income", "A stimulus package", "A subsidy", "Progressive taxation"], ans: 0,
+      why: "A stimulus package is spending to pull the economy out of a recession. Progressive taxation means higher earners pay a higher rate." },
+    "s1-q1a": { t: "mc", src: "Practice quote · Package p.17", k: "Quote 1: the ideology", stem: "Q1",
+      q: "Which ideology fits this speaker best?",
+      opts: ["Socialism", "Classical liberalism", "Classical conservatism", "Social Darwinism"], ans: 0,
+      why: "Workers owning the means of production together and sharing the wealth is <b>socialism</b> (collectivism, the common good)." },
+    "s1-q1b": { t: "mc", src: "Practice quote · Package p.19", k: "Quote 1: the thinker", stem: "Q1",
+      q: "Which person would most strongly agree with this speaker?",
+      opts: ["Karl Marx", "Adam Smith", "Edmund Burke", "Milton Friedman"], ans: 0,
+      why: "Marx: the <b>proletariat</b> do the work while the <b>bourgeoisie</b> keep the profits." },
+    /* Session 2: how the 1800s pushed back */
+    "s2-open": { t: "recall", src: "Package p.15", k: "The term for the rich–poor gap",
+      q: "Easy one to start. The Industrial Revolution made some people very rich and left many very poor. What’s the Social Studies term for that gap?",
+      a: "<b>Economic disparity.</b> Use that exact term in your answers." },
+    "s2-conditions": { t: "mc", src: "Package p.15", k: "Conditions in the 1800s",
+      q: "Which of these was NOT a condition of classical liberalism in the 1800s?",
+      opts: ["Universal healthcare paid for by the government", "Child labour", "Pollution and city slums", "A growing gap between rich and poor"], ans: 0,
+      why: "Government healthcare came much later, with the welfare state. Child labour, worker abuse, pollution, slums and <b>economic disparity</b> were the problems of the 1800s." },
+    "s2-barons": { t: "mc", src: "Package p.15", k: "Robber barons",
+      q: "Business owners who got rich through ruthless practices and didn’t share with their workers were called…",
+      opts: ["Robber barons", "Luddites", "Chartists", "Suffragists"], ans: 0,
+      why: "Luddites smashed machines, Chartists pushed Parliament for the vote, and suffragists fought for women’s right to vote." },
+    "s2-luddites": { t: "mc", src: "Package p.15 · p.13", k: "Luddites on the change spectrum", fig: 4,
+      q: "The Luddites broke into factories and smashed the machines that were replacing them. On the change spectrum, they are…",
+      opts: ["Reactionary", "Radical", "Liberal", "Moderate"], ans: 0,
+      why: "Reactionaries use violence to go <b>back</b> to the way things used to be. Radicals use violence to move <b>forward</b> to something new, like Marx." },
+    "s2-chartism": { t: "mc", src: "Package p.16", k: "Chartism and the People’s Charter",
+      q: "Which of these was a demand in the Chartists’ People’s Charter of 1838?",
+      opts: ["A secret ballot", "A 10-hour work day", "Votes for women", "Workers owning the factories"], ans: 0,
+      why: "The Charter asked for a vote for every <b>man</b> over 21, a <b>secret ballot</b>, equal-sized districts, no requirements to become an MP, and yearly elections. The 10-hour day came from the Factory Acts." },
+    "s2-factory": { t: "mc", src: "Package p.16", k: "Factory Acts",
+      q: "A 10-hour work day, a 56½-hour week limit and a minimum age for child workers all came from…",
+      opts: ["The Factory Acts", "The People’s Charter", "The Square Deal", "The Communist Manifesto"], ans: 0,
+      why: "Britain’s Factory Acts protected workers, especially women and children. The minimum age was 9 at first, later 11." },
+    "s2-unions": { t: "recall", src: "Package p.16", k: "Labour unions",
+      q: "What are labour unions for, and what’s their main tool?",
+      a: "<b>Good wages</b>, <b>stopping child labour</b>, and <b>preventing human rights abuses</b>. Their main tool is the <b>strike</b> (a work stoppage). Labour movements also led to the International Labour Organization in 1919." },
+    "s2-antiunion": { t: "mc", src: "Package p.16", k: "Capitalist case against unions",
+      q: "Which is the capitalist argument against unions?",
+      opts: ["Unions push wages up, so prices go up for consumers", "Unions take away people’s right to vote", "Unions cause child labour", "Unions nationalize the factories"], ans: 0,
+      why: "Capitalists also see unions as interference in the economy." },
+    "s2-vote": { t: "mc", src: "Package p.16–17", k: "Voting rights dates",
+      q: "Which set of dates is right?",
+      opts: ["Women in Canada 1918 · American women 1920 · Indigenous people in Canada 1960", "Women in Canada 1920 · American women 1918 · Indigenous people in Canada 1960", "Women in Canada 1918 · American women 1920 · Indigenous people in Canada 1982", "Women in Canada 1960 · American women 1920 · Indigenous people in Canada 1918"], ans: 0,
+      why: "American women got the vote through the <b>19th Amendment</b> in 1920. The goal was <b>universal suffrage</b>: a vote for every adult." },
+    "s2-classcons": { t: "mc", src: "Package p.17", k: "Classical conservatism",
+      q: "Classical conservatives believed that…",
+      opts: ["The educated elite should govern, and only a limited electorate should vote", "Every adult should get a vote", "Workers should own the means of production", "Government should stay out of the economy entirely"], ans: 0,
+      why: "They were <b>elitists</b> who wanted to protect the traditions of the past and opposed <b>universal suffrage</b>." },
+    "s2-burke": { t: "mc", src: "Package p.17 · p.13", k: "Edmund Burke", fig: 3,
+      q: "Edmund Burke would most likely support…",
+      opts: ["Slow, gradual change, with government left to people of wisdom and experience", "A violent workers’ revolution", "Going back to the old ways by force", "Every citizen voting directly on every law"], ans: 0,
+      why: "Burke wanted to keep the <b>status quo</b> and accepted only slow, organic change. He rejected both extremes of the French Revolution." },
+    "s2-episto": { t: "mc", src: "Package p.17", k: "Epistocracy",
+      q: "An epistocracy gives political power based on…",
+      opts: ["Knowledge or competence", "Wealth", "Being born into royalty", "Population size"], ans: 0,
+      why: "It fits Burke’s elitist thinking: power to the people who know the most." },
+    "s2-welfcap": { t: "mc", src: "Package p.20", k: "Welfare capitalism",
+      q: "Welfare capitalism was…",
+      opts: ["Business owners adding shorter hours, minimum wages and pensions, partly to keep unions out", "The government taking over major industries", "Workers owning the factories together", "Government spending to end a recession"], ans: 0,
+      why: "It kept the free market but added protections from the <b>business</b> side. It was the first step toward modern liberalism and the welfare state." },
+    "s2-square": { t: "recall", src: "Package p.20", k: "The Square Deal",
+      q: "The Square Deal: which president, what happened in 1902, and why did it matter?",
+      a: "<b>Theodore (Teddy) Roosevelt</b>. He stepped in to settle the <b>Anthracite Coal Strike</b>: the <b>first time a president publicly stepped into a labour dispute</b>, at least implicitly on the <b>workers’ side</b>. The idea was <b>big business and labour unions getting along</b>." },
+    "s2-q2a": { t: "mc", src: "Practice quote · Package p.17", k: "Quote 2: the ideology", stem: "Q2",
+      q: "Which ideology fits this speaker best?",
+      opts: ["Classical conservatism", "Classical liberalism", "Socialism", "Modern liberalism"], ans: 0,
+      why: "A limited electorate, rule by the educated elite and slow change: <b>classical conservatism</b>." },
+    "s2-q2b": { t: "mc", src: "Practice quote · Package p.17", k: "Quote 2: the thinker", stem: "Q2",
+      q: "Which person would most likely have said this?",
+      opts: ["Edmund Burke", "John Stuart Mill", "Robert Owen", "Karl Marx"], ans: 0,
+      why: "Burke was an <b>elitist</b> who defended the status quo. Mill pushed for more freedom and for women’s suffrage." },
+    "s2-q3": { t: "mc", src: "Practice quote · Package p.20", k: "Quote 3: welfare capitalism", stem: "Q3",
+      q: "This factory owner is describing…",
+      opts: ["Welfare capitalism", "Democratic socialism", "A command economy", "Chartism"], ans: 0,
+      why: "Protections offered by <b>business owners</b>, partly to keep unions out. Democratic socialism does it through the <b>government</b>." },
+    /* Session 3: second pass */
+    "s3-deal": { t: "mc", src: "Package p.20 · Personalities slide 29", k: "Square Deal vs New Deal",
+      q: "Careful, there are two Roosevelts. Whose “Square Deal” aimed to get big business and labour to coexist peacefully?",
+      opts: ["Theodore (Teddy) Roosevelt, early 1900s", "Franklin D. Roosevelt, 1930s", "Ronald Reagan, 1980s", "Barack Obama, 2009"], ans: 0,
+      why: "FDR’s was the <b>New Deal</b>: government programs to get people working during the Great Depression." },
+    "s3-place": { t: "place", layout: "spec", src: "Terminology chart · Personalities slides 27–29, 34–35", k: "Place the chart names", tag: "Also for October 20",
+      q: "Now the names from the terminology chart. Where does each one sit?",
+      names: [
+        ["Tommy Douglas", 1, "Democratic socialism: CCF premier of Saskatchewan who brought in Medicare. (The terminology chart puts him in its middle, mixed-economy column.)"],
+        ["John Maynard Keynes", 2, "Modern liberal economist: the government should step in to fight recessions (demand-side economics)."],
+        ["Franklin D. Roosevelt", 2, "Modern liberalism: the New Deal, government programs to get people back to work."],
+        ["Friedrich Hayek", 3, "The classical liberal side: laissez-faire, no need for the government to step in. He opposed Keynes."],
+        ["Milton Friedman", 3, "The classical liberal side: supply-side economics and lower taxes. The opposite of Keynes."],
+        ["Robert Owen", 1, "Utopian socialist, from Session 1."]
+      ] },
+    "s3-sort": { t: "place", layout: "chart", src: "Economic terminology chart", k: "Sort chart terms",
+      q: "Sort each term into its column on the economic terminology chart.",
+      names: [
+        ["Nationalization", 0, "The government takes over private businesses: public ownership."],
+        ["Progressive taxation", 1, "Higher earners pay a higher rate, which pays for social programs."],
+        ["Invisible hand theory", 2, "Adam Smith: self-interest and competition steer the market."],
+        ["Gosplan", 0, "The USSR’s planning committee and its five-year plans."],
+        ["Stimulus packages", 1, "Government spending to pull the economy out of a recession."],
+        ["Trickle down economics", 2, "Tax breaks for the wealthy are supposed to create jobs for everyone."],
+        ["Social Darwinism", 2, "Only the hardest working survive, by relying on themselves, not the government."],
+        ["Universal Basic Income", 1, "A regular government payment to fight poverty."],
+        ["Classless society", 0, "Marx’s goal."],
+        ["Social safety nets", 1, "Programs that catch people who fall on hard times."]
+      ] },
+    "s3-q4": { t: "mc", src: "Practice quote · Package p.18", k: "Quote 4: a fluid spectrum", stem: "Q4",
+      q: "What does this speech show?",
+      opts: ["The spectrum is fluid: the right sometimes backs a stimulus when it’s badly needed", "Conservatives always support stimulus packages", "The premier has become a communist", "Stimulus packages are a right-wing idea"], ans: 0,
+      why: "A stimulus package is a left-leaning idea. Capitalists usually call it fiscally irresponsible because of the deficits, but the right will back one when it thinks it’s absolutely necessary." },
+    "s3-utopian": { t: "mc", src: "Package p.18–19", k: "Utopian vs Marxist socialism",
+      q: "What separates Marx’s socialism from utopian socialism?",
+      opts: ["Marx said workers had to rise up in a violent revolution; utopian socialists like Owen improved conditions without one", "Utopian socialists wanted a revolution; Marx wanted slow change", "Marx supported private property; utopian socialists didn’t", "Nothing: they are the same thing"], ans: 0,
+      why: "Marxism is also called <b>scientific</b> or <b>revolutionary</b> socialism. Owen stayed a capitalist and improved workers’ lives at New Lanark." },
+    /* Session 4: pick the thinker (sources are made up for this page) */
+    "s4-a1": { t: "recall", src: "Practice source · made up for this page", stem: "A", k: "Source A: the message",
+      q: "What is the cartoonist saying? Use the right term.",
+      a: "The cartoonist is <b>criticizing laissez-faire capitalism</b> (classical liberalism). The owner takes almost everything while the workers who do the work share scraps: <b>economic disparity</b>. The sign is <b>ironic</b>: the cartoon shows the free market <b>isn’t</b> giving workers what they earn." },
+    "s4-a2": { t: "mc", src: "Practice source · Package p.19", stem: "A", k: "Source A: supporter",
+      q: "Who would best SUPPORT this cartoon?",
+      opts: ["Karl Marx", "Adam Smith", "Thomas Hobbes", "Friedrich Hayek"], ans: 0,
+      why: "Marx: the <b>bourgeoisie</b> keep the profits the <b>proletariat</b> work for, and he wanted a classless society. Hobbes is a social-contract thinker, about government and power rather than the economy, so he’s a weak pick for an economic source." },
+    "s4-a3": { t: "mc", src: "Practice source · Package p.12", stem: "A", k: "Source A: opponent",
+      q: "Who would best OPPOSE this cartoon?",
+      opts: ["Adam Smith", "Robert Owen", "Tommy Douglas", "Karl Marx"], ans: 0,
+      why: "Smith: in a <b>free market</b>, people working for their own <b>self-interest</b> makes everyone better off (the <b>invisible hand</b>), and everyone has <b>equality of opportunity</b>." },
+    "s4-b1": { t: "recall", src: "Practice source · made up for this page", stem: "B", k: "Source B: where he sits",
+      q: "Where does this speaker sit, and what policy is he against?",
+      a: "<b>Classical liberalism</b>, on the right: he wants <b>tax cuts</b> and <b>less government intervention</b>. He’s against a <b>stimulus package</b> because the borrowing creates <b>deficits</b> (“borrowed from our children”)." },
+    "s4-b2": { t: "mc", src: "Practice source · Personalities slide 35", stem: "B", k: "Source B: supporter",
+      q: "Who would best SUPPORT this speaker?",
+      opts: ["Milton Friedman", "John Maynard Keynes", "Robert Owen", "Edmund Burke"], ans: 0,
+      why: "Friedman wanted <b>lower taxes</b> at any time and believed in <b>supply-side economics</b>. Burke was a political conservative about tradition and slow change, not an economist." },
+    "s4-b3": { t: "mc", src: "Practice source · Personalities slide 28", stem: "B", k: "Source B: opponent",
+      q: "Who would best OPPOSE this speaker?",
+      opts: ["John Maynard Keynes", "Friedrich Hayek", "Adam Smith", "Milton Friedman"], ans: 0,
+      why: "Keynes said the government should <b>spend during a recession</b> to create demand and jobs (<b>demand-side economics</b>). The other three would mostly agree with the speaker." },
+    "s4-c1": { t: "recall", src: "Practice source · made up for this page", stem: "C", k: "Source C: using the numbers",
+      q: "How would a modern liberal use these two graphs? Point to the numbers.",
+      a: "As the top tax rate fell from 60% to 35%, the richest 1% went from 10% to 20% of all income. A modern liberal would say <b>economic disparity</b> grew and the tax cuts <b>didn’t trickle down</b>, so the country needs <b>progressive taxation</b> and <b>redistribution of wealth</b>." },
+    "s4-c2": { t: "mc", src: "Practice source · Package p.18", stem: "C", k: "Source C: the movement",
+      q: "Which movement’s slogan fits these graphs best?",
+      opts: ["Occupy Wall Street: “We are the 99%”", "The Chartists’ People’s Charter", "The Luddites", "The Square Deal"], ans: 0,
+      why: "Occupy (2011) protested the gap between the richest 1% and everyone else." },
+    "s4-c3": { t: "mc", src: "Practice source · Personalities slide 36", stem: "C", k: "Source C: who defends the cuts",
+      q: "Who would DEFEND the tax cuts shown here?",
+      opts: ["Ronald Reagan", "Tommy Douglas", "Karl Marx", "Robert Owen"], ans: 0,
+      why: "Reagan (Reaganomics) believed <b>cutting taxes</b> would grow the economy: <b>supply-side</b> and <b>trickle down economics</b>. The other three wanted more equality, not less." },
+    "s4-write": { t: "explain", src: "Practice source A", stem: "A", k: "Source A: supporter and opponent paragraph",
+      q: "Your turn to write. For Source A, write the supporter and opponent sentences (three or four sentences). Name each person, say why, and point back to something in the cartoon.",
+      model: "Karl Marx would support this cartoon. He believed the bourgeoisie kept the profits the proletariat worked for, which is exactly what the cake shows, and he wanted a classless society with economic equality. Adam Smith would oppose it. He believed a free market driven by self-interest and competition benefits everyone, so he would agree with the sign on the wall that people get what they earn.",
+      checks: ["I named each person and his ideology", "I gave each a reason using a Social term (economic disparity, laissez-faire, classless society…)", "I pointed back to something in the cartoon (the cake, the sign)"] },
+    "s4-tips": { t: "read", src: "For the source analysis", k: "Five tips",
+      title: "Five things to do on any economic source",
+      html: "<ol class=\"plain\">" +
+        "<li><b>Name it with the term.</b> “The gap between rich and poor” is <b>economic disparity</b>.</li>" +
+        "<li><b>Pick economic thinkers:</b> Smith, Marx, Owen, Keynes, Friedman, Hayek, Douglas. Social-contract thinkers like Hobbes are about government and power, so they’re a weak fit.</li>" +
+        "<li><b>A thinker supports or opposes, with a reason.</b> Don’t use a person as an example of a policy.</li>" +
+        "<li><b>Talk about the ideology</b> (classical liberalism, modern liberalism, socialism), not a political party.</li>" +
+        "<li><b>Point back to the source:</b> quote it, name a detail in the picture, or use a number.</li></ol>" }
+  };
+
+  var CARTOON = '<svg viewBox="0 0 360 220" role="img" aria-label="Cartoon: a factory owner in a top hat sits at the head of a long table with a whole cake. Five workers in overalls share one tiny slice. A sign on the wall reads: Free market: everyone gets what they earn."><rect x="0" y="0" width="360" height="220" fill="#fbfaf6"/><line x1="0" y1="206" x2="360" y2="206" stroke="#1b1b1b" stroke-width="1.5"/><rect x="128" y="10" width="220" height="48" fill="#ffffff" stroke="#1b1b1b" stroke-width="2"/><text x="238" y="31" text-anchor="middle" font-size="15" font-weight="700" fill="#1b1b1b" font-family="Georgia, serif">FREE MARKET:</text><text x="238" y="49" text-anchor="middle" font-size="11" font-weight="700" fill="#1b1b1b" font-family="Georgia, serif">EVERYONE GETS WHAT THEY EARN</text><ellipse cx="48" cy="150" rx="36" ry="34" fill="#2b2b2b" stroke="#1b1b1b" stroke-width="2"/><path d="M40 118 L48 136 L56 118 Z" fill="#ffffff"/><path d="M42 120 L48 124 L54 120 L54 128 L48 124 L42 128 Z" fill="#8a1c1c"/><circle cx="48" cy="102" r="16" fill="#f1d9c4" stroke="#1b1b1b" stroke-width="2"/><path d="M40 99 q3 -3 6 0 M51 99 q3 -3 6 0" stroke="#1b1b1b" stroke-width="1.6" fill="none"/><path d="M40 108 q8 7 16 0" stroke="#1b1b1b" stroke-width="1.8" fill="none"/><rect x="31" y="50" width="34" height="34" fill="#1b1b1b"/><rect x="31" y="76" width="34" height="5" fill="#8a1c1c"/><rect x="22" y="84" width="52" height="6" rx="2" fill="#1b1b1b"/><path d="M74 140 L94 150" stroke="#2b2b2b" stroke-width="9" stroke-linecap="round"/><rect x="178" y="140" width="24" height="28" rx="6" fill="#4a6fa5" stroke="#1b1b1b" stroke-width="1.5"/><rect x="184" y="150" width="12" height="18" fill="#3d5f91"/><path d="M184 140 v12 M196 140 v12" stroke="#2c4a73" stroke-width="2"/><circle cx="190" cy="129" r="10" fill="#f1d9c4" stroke="#1b1b1b" stroke-width="1.5"/><path d="M179 123 q11 -13 22 0 z" fill="#5a5a5a" stroke="#1b1b1b" stroke-width="1"/><circle cx="186" cy="128" r="1.3" fill="#1b1b1b"/><circle cx="193" cy="128" r="1.3" fill="#1b1b1b"/><path d="M186 135 q4 -3 8 0" stroke="#1b1b1b" stroke-width="1.4" fill="none"/><rect x="210" y="140" width="24" height="28" rx="6" fill="#4a6fa5" stroke="#1b1b1b" stroke-width="1.5"/><rect x="216" y="150" width="12" height="18" fill="#3d5f91"/><path d="M216 140 v12 M228 140 v12" stroke="#2c4a73" stroke-width="2"/><circle cx="222" cy="129" r="10" fill="#f1d9c4" stroke="#1b1b1b" stroke-width="1.5"/><path d="M211 123 q11 -13 22 0 z" fill="#5a5a5a" stroke="#1b1b1b" stroke-width="1"/><circle cx="218" cy="128" r="1.3" fill="#1b1b1b"/><circle cx="225" cy="128" r="1.3" fill="#1b1b1b"/><path d="M218 135 q4 -3 8 0" stroke="#1b1b1b" stroke-width="1.4" fill="none"/><rect x="242" y="140" width="24" height="28" rx="6" fill="#4a6fa5" stroke="#1b1b1b" stroke-width="1.5"/><rect x="248" y="150" width="12" height="18" fill="#3d5f91"/><path d="M248 140 v12 M260 140 v12" stroke="#2c4a73" stroke-width="2"/><circle cx="254" cy="129" r="10" fill="#f1d9c4" stroke="#1b1b1b" stroke-width="1.5"/><path d="M243 123 q11 -13 22 0 z" fill="#5a5a5a" stroke="#1b1b1b" stroke-width="1"/><circle cx="250" cy="128" r="1.3" fill="#1b1b1b"/><circle cx="257" cy="128" r="1.3" fill="#1b1b1b"/><path d="M250 135 q4 -3 8 0" stroke="#1b1b1b" stroke-width="1.4" fill="none"/><rect x="274" y="140" width="24" height="28" rx="6" fill="#4a6fa5" stroke="#1b1b1b" stroke-width="1.5"/><rect x="280" y="150" width="12" height="18" fill="#3d5f91"/><path d="M280 140 v12 M292 140 v12" stroke="#2c4a73" stroke-width="2"/><circle cx="286" cy="129" r="10" fill="#f1d9c4" stroke="#1b1b1b" stroke-width="1.5"/><path d="M275 123 q11 -13 22 0 z" fill="#5a5a5a" stroke="#1b1b1b" stroke-width="1"/><circle cx="282" cy="128" r="1.3" fill="#1b1b1b"/><circle cx="289" cy="128" r="1.3" fill="#1b1b1b"/><path d="M282 135 q4 -3 8 0" stroke="#1b1b1b" stroke-width="1.4" fill="none"/><rect x="306" y="140" width="24" height="28" rx="6" fill="#4a6fa5" stroke="#1b1b1b" stroke-width="1.5"/><rect x="312" y="150" width="12" height="18" fill="#3d5f91"/><path d="M312 140 v12 M324 140 v12" stroke="#2c4a73" stroke-width="2"/><circle cx="318" cy="129" r="10" fill="#f1d9c4" stroke="#1b1b1b" stroke-width="1.5"/><path d="M307 123 q11 -13 22 0 z" fill="#5a5a5a" stroke="#1b1b1b" stroke-width="1"/><circle cx="314" cy="128" r="1.3" fill="#1b1b1b"/><circle cx="321" cy="128" r="1.3" fill="#1b1b1b"/><path d="M314 135 q4 -3 8 0" stroke="#1b1b1b" stroke-width="1.4" fill="none"/><rect x="84" y="128" width="66" height="38" fill="#f3e2c7" stroke="#1b1b1b" stroke-width="2"/><path d="M84 146 h66" stroke="#c98b5a" stroke-width="3"/><path d="M84 128 q8 8 16 0 q8 8 17 0 q8 8 17 0 q8 8 16 0" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><circle cx="98" cy="123" r="4" fill="#b3261e"/><circle cx="117" cy="121" r="4" fill="#b3261e"/><circle cx="136" cy="123" r="4" fill="#b3261e"/><rect x="8" y="166" width="344" height="10" fill="#8b5e3c" stroke="#1b1b1b" stroke-width="2"/><rect x="20" y="176" width="8" height="30" fill="#8b5e3c" stroke="#1b1b1b" stroke-width="1.5"/><rect x="332" y="176" width="8" height="30" fill="#8b5e3c" stroke="#1b1b1b" stroke-width="1.5"/><ellipse cx="117" cy="166" rx="42" ry="3.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><ellipse cx="254" cy="166" rx="15" ry="3" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.2"/><path d="M246 165 L262 165 L254 155 Z" fill="#f3e2c7" stroke="#1b1b1b" stroke-width="1.4"/><circle cx="254" cy="153" r="2.5" fill="#b3261e"/></svg>';
+  /* Small single-series line chart drawn like a printed exam graph: one axis, thin line,
+     first and last values labelled. */
+  function lineChart(vals, yMax, ticks, name) {
+    var W = 320, H = 132, L = 36, R = 30, T = 18, B = 22, yrs = [1980, 1990, 2000, 2010, 2020];
+    var x = function (i) { return L + i * (W - L - R) / (vals.length - 1); };
+    var y = function (v) { return T + (1 - v / yMax) * (H - T - B); };
+    var g = '<svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="' + name + ': ' + vals.map(function (v, i) { return yrs[i] + " " + v + "%"; }).join(", ") + '">';
+    ticks.forEach(function (t) {
+      g += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y(t) + '" y2="' + y(t) + '" stroke="' + (t === 0 ? "#9aa5ae" : "#e1e4e8") + '" stroke-width="1"/>' +
+           '<text x="' + (L - 6) + '" y="' + (y(t) + 4) + '" text-anchor="end" font-size="11" fill="#5b6670">' + t + "%</text>";
+    });
+    yrs.forEach(function (yr, i) { g += '<text x="' + x(i) + '" y="' + (H - 6) + '" text-anchor="middle" font-size="11" fill="#5b6670">' + yr + "</text>"; });
+    g += '<path d="' + vals.map(function (v, i) { return (i ? "L" : "M") + x(i) + " " + y(v); }).join(" ") + '" fill="none" stroke="#1f5f8b" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>';
+    vals.forEach(function (v, i) {
+      g += '<circle cx="' + x(i) + '" cy="' + y(v) + '" r="4" fill="#1f5f8b" stroke="#fbfaf6" stroke-width="2"/>';
+      if (i === 0 || i === vals.length - 1) g += '<text x="' + x(i) + '" y="' + (y(v) - 9) + '" text-anchor="middle" font-size="12" font-weight="700" fill="#1b1b1b">' + v + "%</text>";
+    });
+    return g + "</svg>";
+  }
+
+  var STEMS = {
+    Q1: "<span class=\"lab\">A quote (made up for practice)</span>“Why should the people who run the machines go home hungry while the people who own them grow rich? Let the workers own the factories together and share what they make.”",
+    Q2: "<span class=\"lab\">A quote (made up for practice)</span>“Not every man is fit to choose those who govern. Leave the business of the nation to those with the education and experience to manage it, and change our old institutions slowly, if at all.”",
+    Q3: "<span class=\"lab\">A quote (made up for practice)</span>“Give our workers a pension and a shorter day. A happy worker has no reason to join a union.” (a factory owner, early 1900s)",
+    Q4: "<span class=\"lab\">A quote (made up for practice)</span>“Our party believes in small government and balanced budgets. But with so many people out of work this year, we will borrow money to fund a jobs program.” (a premier)",
+    A: "<span class=\"lab\">Source A · a cartoon drawn for this practice</span><div class=\"paper\">" + CARTOON + "</div>",
+    B: "<span class=\"lab\">Source B · a quote from a made-up finance minister</span>“When a factory closes, the government should not rush in with a bag of cash. Every dollar it spends is borrowed from our children. Cut taxes, get out of the way, and businesses will start hiring again.”",
+    C: "<span class=\"lab\">Source C · two graphs (numbers made up for practice)</span><div class=\"paper\">" +
+       "<h3>Share of all income going to the richest 1%</h3>" + lineChart([10, 12, 15, 18, 20], 25, [0, 10, 20], "share") +
+       "<h3>Top income tax rate</h3>" + lineChart([60, 50, 40, 35, 35], 70, [0, 20, 40, 60], "tax") +
+       "</div>"
+  };
+
+  var SESS = [
+    { id: "s1", n: 1, name: "The left side of the spectrum", mins: 12,
+      blurb: "Page 19 spectrum, socialism, Marx, command economies, Robert Owen, stimulus packages, Occupy, the CCF. Mostly multiple choice." },
+    { id: "s2", n: 2, name: "How the 1800s pushed back", mins: 12,
+      blurb: "Luddites, Chartists, Factory Acts, unions, the vote, Burke, welfare capitalism, the Square Deal. Ends with three cards from Session 1." },
+    { id: "s3", n: 3, name: "Second pass", mins: 10,
+      blurb: "The ones you missed first, then the mix-ups that trip people up, the whole spectrum with the names from the terminology chart, and a quick sort." },
+    { id: "s4", n: 4, name: "Pick the thinker", mins: 15,
+      blurb: "For next week, not Friday. Three short economic sources: say what each one means, choose who would support or oppose it, and write one paragraph." }
+  ];
+  var S1 = ["s1-open", "s1-place", "s1-socialism", "s1-demsoc", "s1-cradle", "s1-marx3", "s1-classes", "s1-radical", "s1-books", "s1-nationalize", "s1-command", "s1-owen", "s1-statist", "s1-stimulus", "s1-occupy", "s1-ccf", "s1-ubi", "s1-q1a", "s1-q1b"];
+  var S2 = ["s2-open", "s2-conditions", "s2-barons", "s2-luddites", "s2-chartism", "s2-factory", "s2-unions", "s2-antiunion", "s2-vote", "s2-classcons", "s2-burke", "s2-episto", "s2-welfcap", "s2-square"];
+  var S2_FROM_S1 = ["s1-marx3", "s1-demsoc", "s1-command"];
+  var S3_FILL = ["s1-radical", "s2-luddites", "s1-demsoc", "s2-welfcap", "s2-burke", "s1-command", "s2-chartism", "s2-factory", "s2-classcons", "s2-square", "s1-occupy"];
+  var S4 = ["s4-a1", "s4-a2", "s4-a3", "s4-b1", "s4-b2", "s4-b3", "s4-c1", "s4-c2", "s4-c3", "s4-write", "s4-tips"];
+  var RETRY_CAP = 4, EXTRA_N = 3;
+
+  /* ---------- state ---------- */
+  var TEST = /^#test/i.test(location.hash || "");
+  var KEY = TEST ? "s30t3-test" : "s30t3-v1";
+  var state, app = document.getElementById("app");
+  function fresh() { return { res: {}, done: {}, run: null, screen: "home", notes: {}, log: [], copied: "", confirmReset: false }; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (x) {} }
+  function load() {
+    state = fresh();
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (raw) { var s = JSON.parse(raw); if (s && s.res) { state = s; state.copied = ""; state.confirmReset = false; } }
+    } catch (x) { state = fresh(); }
+    if (state.screen !== "card" || !state.run) state.screen = "home"; /* reopening the page lands on the start, unless mid-card */
+  }
+
+  function esc(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+  function good(r) { return r === "got" || r === "right"; }
+  function sessOf(id) { return id.slice(0, 2); }
+  function sessById(sid) { for (var i = 0; i < SESS.length; i++) if (SESS[i].id === sid) return SESS[i]; return null; }
+  function scored(id) { var t = I[id].t; return t === "recall" || t === "mc"; }
+  function stamp(ms) {
+    var d = new Date(ms), days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], mon = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var h = d.getHours(), m = ("0" + d.getMinutes()).slice(-2);
+    return days[d.getDay()] + " " + mon[d.getMonth()] + " " + d.getDate() + ", " + ((h + 11) % 12 + 1) + ":" + m + (h < 12 ? " am" : " pm");
+  }
+
+  /* Cards he got wrong (or only partly) the most recent time come first; then ones he missed once but fixed later. */
+  function missed(sids, n, exclude) {
+    var a = [], b = [];
+    Object.keys(state.res).forEach(function (id) {
+      if (!I[id] || !scored(id) || sids.indexOf(sessOf(id)) < 0 || exclude.indexOf(id) >= 0) return;
+      var r = state.res[id];
+      if (!good(r.last)) a.push(id); else if (!good(r.first)) b.push(id);
+    });
+    return a.concat(b).slice(0, n);
+  }
+  function buildQueue(sid) {
+    var q, k;
+    if (sid === "s1") return S1.slice();
+    if (sid === "s2") {
+      q = missed(["s1"], 3, []);
+      for (k = 0; q.length < 3 && k < S2_FROM_S1.length; k++) if (q.indexOf(S2_FROM_S1[k]) < 0) q.push(S2_FROM_S1[k]);
+      return S2.concat(q).concat(["s2-q2a", "s2-q2b", "s2-q3"]);
+    }
+    if (sid === "s3") {
+      q = ["s3-deal", "s3-utopian"].concat(missed(["s1", "s2", "s3"], 6, ["s3-deal", "s3-utopian"]));
+      for (k = 0; q.length < 9 && k < S3_FILL.length; k++) if (q.indexOf(S3_FILL[k]) < 0) q.push(S3_FILL[k]);
+      return q.concat(["s3-place", "s3-sort", "s3-q4"]);
+    }
+    return S4.slice();
+  }
+  function extraQueue() {
+    var pool = [], seen = state.run ? state.run.seen || [] : [];
+    SESS.forEach(function (s) {
+      if (!state.done[s.id]) return;
+      Object.keys(I).forEach(function (id) { if (sessOf(id) === s.id && scored(id) && !I[id].stem && id.indexOf("-open") < 0) pool.push(id); });
+    });
+    /* missed cards first, then ones not seen in the session just finished, then anything else */
+    var bad = pool.filter(function (id) { return state.res[id] && !good(state.res[id].last); });
+    var fresh2 = shuffle(pool.filter(function (id) { return bad.indexOf(id) < 0 && seen.indexOf(id) < 0; }));
+    var rest = shuffle(pool.filter(function (id) { return bad.indexOf(id) < 0 && seen.indexOf(id) >= 0; }));
+    return bad.concat(fresh2).concat(rest).slice(0, EXTRA_N);
+  }
+  function shuffle(a) {
+    for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a;
+  }
+
+  function freshCard() { return { shown: false, pick: null, checked: false, k: 0, zpick: null, placed: [], right: 0, text: "", model: false, ticks: [] }; }
+  function startSession(sid) {
+    state.run = { sid: sid, phase: "main", q: buildQueue(sid), pos: 0, retry: [], started: Date.now(), firstN: 0, firstGood: 0, seen: [], c: freshCard() };
+    state.screen = "card"; save(); render(); window.scrollTo(0, 0);
+  }
+  function startExtra() {
+    var q = extraQueue(); if (!q.length) return;
+    state.run = { sid: state.run ? state.run.sid : "s1", phase: "extra", q: q, pos: 0, retry: [], started: Date.now(), firstN: 0, firstGood: 0, seen: q.slice(), c: freshCard() };
+    state.screen = "card"; save(); render(); window.scrollTo(0, 0);
+  }
+  function record(id, r, extra) {
+    var R = state.res[id] || (state.res[id] = { first: r, last: r, n: 0 });
+    R.last = r; R.n++;
+    if (extra) for (var key in extra) R[key] = extra[key];
+    var run = state.run;
+    state.log.push({ at: Date.now(), sid: run.sid, id: id, r: r, ph: run.phase });
+    if (run.phase === "main" && scored(id)) { run.firstN++; if (good(r)) run.firstGood++; }
+    if (run.phase === "main" && scored(id) && !good(r) && run.retry.length < RETRY_CAP && run.retry.indexOf(id) < 0) run.retry.push(id);
+  }
+  function advance() {
+    var run = state.run;
+    if (run.seen.indexOf(run.q[run.pos]) < 0) run.seen.push(run.q[run.pos]);
+    run.pos++; run.c = freshCard();
+    if (run.pos >= run.q.length) {
+      if (run.phase === "main" && run.retry.length) { run.phase = "retry"; run.q = run.retry.slice(); run.pos = 0; }
+      else return finish();
+    }
+    save(); render(); window.scrollTo(0, 0);
+  }
+  function finish() {
+    var run = state.run;
+    if (run.phase !== "extra") {
+      state.done[run.sid] = { at: Date.now(), mins: Math.max(1, Math.round((Date.now() - run.started) / 60000)), first: run.firstGood, n: run.firstN };
+      run.last = run.sid;
+    }
+    state.screen = "done"; save(); render(); window.scrollTo(0, 0);
+  }
+
+  /* ---------- rendering ---------- */
+  function on(id, fn) { var el = document.getElementById(id); if (el) el.onclick = fn; }
+  function paint(h) {
+    var bar = TEST ? '<div class="testbar"><strong>Test mode.</strong> Nothing here touches the real log.<div class="row"><button class="ghost" id="tclear" type="button">Clear test data</button></div></div>' : "";
+    app.innerHTML = bar + h;
+    on("tclear", function () { try { localStorage.removeItem(KEY); } catch (x) {} state = fresh(); render(); window.scrollTo(0, 0); });
+  }
+  function go(screen) { state.screen = screen; save(); render(); window.scrollTo(0, 0); }
+  function render() {
+    if (state.screen === "card" && state.run) return renderCard();
+    if (state.screen === "done" && state.run) return renderDone();
+    if (state.screen === "summary") return renderSummary();
+    if (state.screen === "log") return renderLog();
+    renderHome();
+  }
+
+  function nextSid() { for (var i = 0; i < SESS.length; i++) if (!state.done[SESS[i].id]) return SESS[i].id; return null; }
+
+  function renderHome() {
+    var nx = nextSid(), run = state.run, h = "";
+    h += '<p class="source">Social 30-1 · Test #3 is Friday, October 16</p><h1>Test #3: three short sessions</h1>';
+    h += '<p>Friday’s test is multiple choice, so most cards here are too. Do the sessions in order. If you only have time for two, do <b>Sessions 1 and 2</b>: together they cover everything on the test once.</p>';
+    SESS.forEach(function (S) {
+      if (S.id === "s4") return;
+      var d = state.done[S.id], live = run && run.sid === S.id && state.screen !== "done" && run.phase !== "extra" && run.pos > 0 && !d;
+      var status = d ? "done" : live ? (run.phase === "retry" ? "second try" : run.pos + " of " + run.q.length) : "about " + S.mins + " min";
+      h += '<div class="panel round' + (S.id === nx ? " today" : "") + '"><div class="head"><h2>Session ' + S.n + ": " + esc(S.name) + '</h2><span class="status' + (d ? " done" : "") + '">' + status + "</span></div>";
+      h += "<p>" + esc(S.blurb) + "</p>";
+      if (d) h += '<p class="muted small">' + d.first + " of " + d.n + " right first time, about " + d.mins + " min.</p>";
+      h += '<button class="' + (S.id === nx ? "primary" : "ghost") + '" id="go-' + S.id + '" type="button">' + (live ? "Carry on" : d ? "Do it again" : "Start session " + S.n) + "</button></div>";
+    });
+    h += '<div class="panel round"><div class="head"><h2>Thursday night: the whole test on one page</h2></div><p>The spectrum, the mix-ups to watch for, the chart terms and the dates. Read it once before bed.</p><button class="ghost" id="tosum" type="button">Open the summary</button></div>';
+    h += '<h2 class="sub">For next week’s source analysis (Tuesday and Wednesday)</h2>';
+    SESS.forEach(function (S) {
+      if (S.id !== "s4") return;
+      var d = state.done[S.id], live = run && run.sid === S.id && state.screen !== "done" && run.phase !== "extra" && run.pos > 0 && !d;
+      var status = d ? "done" : live ? (run.phase === "retry" ? "second try" : run.pos + " of " + run.q.length) : "about " + S.mins + " min";
+      h += '<div class="panel round"><div class="head"><h2>Session ' + S.n + ": " + esc(S.name) + '</h2><span class="status' + (d ? " done" : "") + '">' + status + "</span></div>";
+      h += "<p>" + esc(S.blurb) + "</p>";
+      if (d) h += '<p class="muted small">' + d.first + " of " + d.n + " right first time, about " + d.mins + " min.</p>";
+      h += '<button class="ghost" id="go-' + S.id + '" type="button">' + (live ? "Carry on" : d ? "Do it again" : "Start session " + S.n) + "</button></div>";
+    });
+    if (state.log.length) h += '<button class="ghost" id="tolog" type="button">See my log</button>';
+    h += '<p class="muted small">Each card says where it comes from in your course package, so you can look it up. The wording here is a summary, not the notes themselves. The practice quotes and Session 4’s sources are made up for this page.</p>';
+    h += '<p class="muted small">Your answers stay on this phone unless you copy your log and send it.</p>';
+    paint(h);
+    SESS.forEach(function (S) {
+      on("go-" + S.id, function () {
+        var r = state.run;
+        if (r && r.sid === S.id && r.phase !== "extra" && r.pos > 0 && !state.done[S.id] && state.screen !== "done") return go("card");
+        startSession(S.id);
+      });
+    });
+    on("tosum", function () { go("summary"); });
+    on("tolog", function () { go("log"); });
+  }
+
+  function topBar() {
+    var run = state.run, S = sessById(run.sid), n = run.q.length;
+    var label = run.phase === "extra" ? "Three more" : run.phase === "retry" ? "Second try" : "Session " + S.n;
+    return '<div class="top"><span class="count">' + label + " · " + (run.pos + 1) + " of " + n + '</span><div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="' + n + '" aria-valuenow="' + run.pos + '"><i style="width:' + Math.round(100 * run.pos / n) + '%"></i></div></div>';
+  }
+  function tagFor(id) {
+    var run = state.run;
+    if (run.phase === "retry") return '<span class="tag">Second try</span>';
+    if (I[id].tag) return '<span class="tag blue">' + esc(I[id].tag) + "</span>";
+    if (run.sid === "s2" && sessOf(id) === "s1") return '<span class="tag blue">From Session 1</span>';
+    if (run.sid === "s3" && sessOf(id) !== "s3") {
+      var r = state.res[id];
+      return r && !good(r.first) ? '<span class="tag">Back again: you missed this</span>' : '<span class="tag blue">Review</span>';
+    }
+    return "";
+  }
+
+  function spectrumHtml(opts) {
+    /* opts: { clickable, placed: [[label, zone, cls]], mark: {zone: cls}, also: {zone: [labels]} } */
+    var h = '<div class="spec"><div class="ends">' + (opts.hideEnds ? '<span class="blank">?</span><span class="blank">?</span>' : "<span>Collectivism</span><span>Individualism</span>") + '</div><div class="arrow" aria-hidden="true"></div>';
+    h += SPEC_SVG;
+    h += zonesHtml(SPEC.map(function (t) { return [t, ""]; }), "z4", opts) + "</div>";
+    return h;
+  }
+  function chartHtml(opts) {
+    var h = '<div class="spec"><div class="ends"><span>More equality</span><span>Less equality</span></div><div class="arrow" aria-hidden="true"></div>';
+    h += zonesHtml(CHART, "z3", opts) + "</div>";
+    return h;
+  }
+  function zonesHtml(Z, cls, o) {
+    var h = '<div class="zones ' + cls + '" id="zones">';
+    Z.forEach(function (z, i) {
+      var tag = o.clickable ? "button" : "div";
+      var who = "";
+      (o.placed || []).forEach(function (p) { if (p[1] === i) who += "<span>" + esc(p[0]) + "</span>"; });
+      ((o.also || {})[i] || []).forEach(function (a) { who += '<span class="also">' + esc(a) + "</span>"; });
+      var mk = o.mark && o.mark[i] ? " " + o.mark[i] : "";
+      h += "<" + tag + ' class="zone' + mk + '"' + (o.clickable ? ' type="button" data-z="' + i + '"' : "") + '><span class="zt">' + esc(z[0]) + "</span>" +
+           (z[1] ? '<span class="zs">' + esc(z[1]) + "</span>" : "") + (who ? '<span class="who">' + who + "</span>" : "") + "</" + tag + ">";
+    });
+    return h + "</div>";
+  }
+
+  function renderCard() {
+    var run = state.run, id = run.q[run.pos], it = I[id], c = run.c, h = topBar(), last = run.pos === run.q.length - 1;
+    var tag = tagFor(id);
+    h += '<div class="panel stack"><div class="row"><span class="source">' + esc(it.src) + "</span>" + tag + "</div>";
+    if (it.stem) h += '<div class="stem">' + STEMS[it.stem] + "</div>";
+    if (it.t === "read") h += "<h2>" + esc(it.title) + "</h2>" + it.html;
+    else if (it.t === "place") {
+      if (c.k >= it.names.length) h += '<p class="current">Here’s the finished picture.</p>';
+      else {
+        h += '<p class="muted small">' + esc(it.q) + " Tap a box. (" + (c.k + 1) + " of " + it.names.length + ")</p>";
+        h += '<p class="current">Where does <b>' + esc(it.names[c.k][0]) + "</b> go?</p>";
+      }
+    } else h += '<p class="question">' + it.q + "</p>";
+    h += "</div>";
+
+    if (it.specFig) h += '<div class="panel">' + spectrumHtml({ hideEnds: !c.shown }) + "</div>";
+    if (it.t === "recall") {
+      if (!c.shown) {
+        h += '<p class="muted">Say your answer out loud or in your head first.</p><button class="primary" id="show" type="button">Show the answer</button>';
+      } else {
+        h += '<div class="result plain"><p>' + it.a + "</p>" + (it.fig !== undefined ? changeHtml(it.fig) : "") + "</div>";
+        h += '<span class="lab" style="margin:0">How did you do?</span><div class="marks"><button class="m-got" id="m-got" type="button">Got it</button><button id="m-part" type="button">Partly</button><button class="m-miss" id="m-miss" type="button">Missed it</button></div>';
+      }
+    } else if (it.t === "mc") {
+      if (!c.order) { c.order = shuffle(it.opts.map(function (o, k) { return k; })); save(); }
+      if (!c.checked) h += '<p class="muted small">Think of the answer before you read the choices.</p>';
+      h += '<div class="opts" id="opts">' + c.order.map(function (k, pos) {
+        var cls = !c.checked ? "" : k === it.ans ? " is-right" : k === c.pick ? " is-wrong" : "";
+        return '<button type="button" class="opt' + cls + '" data-o="' + k + '" aria-pressed="' + (!c.checked && c.pick === k) + '"' + (c.checked ? " disabled" : "") + "><b>" + "ABCD"[pos] + ".</b><span>" + esc(it.opts[k]) + "</span></button>";
+      }).join("") + "</div>";
+      if (!c.checked) h += '<button class="primary" id="check" type="button"' + (c.pick === null ? " disabled" : "") + ">Check</button>";
+      else {
+        var ok = c.pick === it.ans;
+        h += '<div class="result ' + (ok ? "good" : "miss") + '"><p><strong>' + (ok ? "Right." : "Not this time.") + "</strong>" + (ok ? "" : " The answer is <b>" + "ABCD"[c.order.indexOf(it.ans)] + ". " + esc(it.opts[it.ans]) + "</b>.") + '</p><p class="why">' + it.why + "</p>" + (it.fig !== undefined ? changeHtml(it.fig) : "") + "</div>";
+        h += '<button class="primary" id="next" type="button">' + (last ? "Finish" : "Next") + "</button>";
+      }
+    } else if (it.t === "place") {
+      var done = c.k >= it.names.length, cur = it.names[Math.min(c.k, it.names.length - 1)], mark = {};
+      if (c.zpick !== null && !done) { mark[cur[1]] = "right"; if (c.zpick !== cur[1]) mark[c.zpick] = "wrong"; }
+      var o = { clickable: c.zpick === null && !done, placed: c.placed, mark: mark };
+      h += it.layout === "chart" ? chartHtml(o) : spectrumHtml(o);
+      if (c.zpick !== null && !done) {
+        var okp = c.zpick === cur[1], Z = it.layout === "chart" ? CHART[cur[1]][0] : SPEC[cur[1]];
+        h += '<div class="result ' + (okp ? "good" : "miss") + '"><p><strong>' + (okp ? "Right." : "Not quite.") + "</strong> " + esc(cur[0]) + " goes in <b>" + esc(Z) + '</b>.</p><p class="why">' + esc(cur[2]) + "</p></div>";
+        h += '<button class="primary" id="nextname" type="button">' + (c.k === it.names.length - 1 ? "See the result" : "Next name") + "</button>";
+      }
+      if (done) {
+        h += '<div class="result ' + (c.right === it.names.length ? "good" : "plain") + '"><p><strong>' + c.right + " of " + it.names.length + " right first time.</strong></p></div>";
+        h += '<button class="primary" id="next" type="button">' + (last ? "Finish" : "Next card") + "</button>";
+      }
+    } else if (it.t === "explain") {
+      h += '<div><label class="lab" for="ta">Your answer</label><textarea id="ta" placeholder="Type it here, or say it out loud.">' + esc(c.text) + "</textarea></div>";
+      if (!c.model) h += '<button class="primary" id="model" type="button">Show a model answer</button>';
+      else {
+        h += '<div class="result plain"><span class="lab">A model answer</span><p>' + esc(it.model) + "</p></div>";
+        h += '<div class="panel stack"><span class="lab" style="margin:0">Tick what you got</span>' + it.checks.map(function (t, k) {
+          return '<label class="check"><input type="checkbox" data-k="' + k + '"' + (c.ticks.indexOf(k) >= 0 ? " checked" : "") + "> <span>" + esc(t) + "</span></label>";
+        }).join("") + "</div>";
+        h += '<button class="primary" id="next" type="button">' + (last ? "Finish" : "Next") + "</button>";
+      }
+    } else if (it.t === "read") {
+      h += '<button class="primary" id="next" type="button">' + (last ? "Finish" : "Got it") + "</button>";
+    }
+    h += '<button class="link" id="home" type="button">Back to the start (your place is saved)</button>';
+    paint(h);
+
+    on("home", function () { go("home"); });
+    on("show", function () { c.shown = true; save(); render(); });
+    ["got", "part", "miss"].forEach(function (r) { on("m-" + r, function () { record(id, r); advance(); }); });
+    var opts = document.getElementById("opts");
+    if (opts && !c.checked) opts.onclick = function (ev) {
+      var b = ev.target.closest ? ev.target.closest("button") : null; if (!b) return;
+      c.pick = parseInt(b.getAttribute("data-o"), 10); save(); render();
+    };
+    on("check", function () { if (c.pick === null) return; c.checked = true; record(id, c.pick === it.ans ? "right" : "wrong"); save(); render(); });
+    var zones = document.getElementById("zones");
+    if (zones && it.t === "place" && c.zpick === null && c.k < it.names.length) zones.onclick = function (ev) {
+      var b = ev.target.closest ? ev.target.closest("button") : null; if (!b) return;
+      var z = parseInt(b.getAttribute("data-z"), 10), cur = it.names[c.k];
+      c.zpick = z; if (z === cur[1]) c.right++; else c.wrongNames = (c.wrongNames || []).concat([cur[0]]);
+      save(); render();
+    };
+    on("nextname", function () {
+      var cur = it.names[c.k]; c.placed.push([cur[0], cur[1]]); c.k++; c.zpick = null; save(); render();
+      if (c.k >= it.names.length) window.scrollTo(0, 0);
+    });
+    var ta = document.getElementById("ta");
+    if (ta) ta.oninput = function () { c.text = ta.value; save(); };
+    on("model", function () { c.model = true; save(); render(); });
+    Array.prototype.forEach.call(document.querySelectorAll(".check input"), function (box) {
+      box.onchange = function () {
+        var k = parseInt(box.getAttribute("data-k"), 10), at = c.ticks.indexOf(k);
+        if (box.checked && at < 0) c.ticks.push(k); else if (!box.checked && at >= 0) c.ticks.splice(at, 1);
+        save();
+      };
+    });
+    on("next", function () {
+      if (it.t === "place") record(id, c.right === it.names.length ? "got" : "part", { score: c.right + "/" + it.names.length, wrongNames: c.wrongNames || [] });
+      else if (it.t === "explain") { state.notes[id] = c.text; record(id, c.ticks.length === it.checks.length ? "got" : c.ticks.length ? "part" : "miss", { ticks: c.ticks.length + "/" + it.checks.length }); }
+      else if (it.t === "read") record(id, "got");
+      advance();
+    });
+  }
+
+  function renderDone() {
+    var run = state.run, S = sessById(run.sid), d = state.done[run.sid], h = "", nx = nextSid();
+    if (run.phase === "extra") {
+      h += '<p class="source">Social 30-1 · Test #3</p><h1>That’s the extra three.</h1><p>Nice. That’s plenty for now.</p>';
+    } else {
+      h += '<p class="source">Social 30-1 · Test #3</p><h1>Session ' + S.n + " done.</h1>";
+      h += '<div class="stats"><div class="stat"><b>' + d.first + " of " + d.n + '</b><span>right first time</span></div><div class="stat"><b>' + d.mins + '</b><span>' + (d.mins === 1 ? "minute" : "minutes") + "</span></div></div>";
+      var line = S.id === "s1" || S.id === "s2" ? "Anything you missed comes back in Session 3." :
+                 S.id === "s3" ? "That’s Friday covered. Read the summary Thursday night. Session 4 is for next week’s source analysis." :
+                 "That’s the practice for next week’s source analysis.";
+      h += "<p>" + line + "</p>";
+    }
+    if (nx === "s4" && run.sid !== "s4") {
+      h += '<button class="primary" id="tosum" type="button">Open the Thursday-night summary</button>';
+      h += '<button class="link" id="home" type="button">Back to the start</button>';
+    } else if (nx) {
+      h += '<p class="muted">Next time: Session ' + sessById(nx).n + ", " + esc(sessById(nx).name.toLowerCase()) + ".</p>";
+      h += '<button class="primary" id="home" type="button">Done for now</button>';
+    } else {
+      h += '<button class="primary" id="tosum" type="button">Open the Thursday-night summary</button>';
+      h += '<button class="link" id="home" type="button">Back to the start</button>';
+    }
+    if (run.phase !== "extra" && extraQueue().length) h += '<button class="ghost" id="extra" type="button">Three more cards (optional)</button>';
+    paint(h);
+    on("tosum", function () { go("summary"); });
+    on("extra", startExtra);
+    on("home", function () { go("home"); });
+  }
+
+  function renderSummary() {
+    var h = '<p class="source">Social 30-1 · Test #3 · Thursday night</p><h1>The whole test on one page</h1>';
+    h += '<p class="muted small">Read it once, slowly. Then cover each box and say what’s in it.</p>';
+    h += '<div class="panel stack"><h2>The page 19 spectrum</h2>' + spectrumHtml({
+      placed: [["Karl Marx", 0], ["Robert Owen", 1], ["Charles Fourier", 1], ["Early feminists", 2], ["Human rights activists", 2], ["Labour unions", 2], ["Adam Smith", 3]],
+      also: { 1: ["Douglas"], 2: ["Keynes", "FDR"], 3: ["Hayek", "Friedman"] } }) +
+      '<p class="small muted">Names in grey come from the terminology chart and the Personalities slides. The chart puts Owen, Douglas and democratic socialism in its middle (mixed economy) column. Same idea: right of Marx, left of Smith.</p>' +
+      changeHtml(-1) + '<p class="small"><b>Change spectrum:</b> Marx is <b>radical</b> (violence, forward). Luddites are <b>reactionary</b> (violence, back). Burke is <b>conservative</b> (status quo, slow organic change, elitist).</p></div>';
+    h += '<div class="panel stack"><h2>Don’t mix these up</h2><ul class="plain small">' +
+      "<li><b>Radical vs reactionary.</b> Both may use violence. Radical goes forward to something new (Marx). Reactionary goes back to the old ways (Luddites).</li>" +
+      "<li><b>Square Deal vs New Deal.</b> Teddy Roosevelt, 1902 coal strike, business and labour getting along. FDR, 1930s, government programs in the Depression.</li>" +
+      "<li><b>Welfare capitalism vs democratic socialism.</b> Business owners add pensions and shorter hours (partly to stop unions). The government builds a welfare state with taxes.</li>" +
+      "<li><b>Utopian vs Marxist socialism.</b> Owen improved conditions inside his own business. Marx wanted a violent revolution and no private property.</li>" +
+      "<li><b>Chartists vs Factory Acts.</b> Chartists wanted the vote (men over 21, secret ballot). The Factory Acts set working hours and child-labour ages.</li>" +
+      "<li><b>Classical conservatism vs classical liberalism.</b> Elite rule, limited vote, tradition. Individual rights, free market, small government.</li></ul></div>";
+    h += '<div class="panel stack"><h2>The economic chart, short version</h2><div class="cols">' +
+      '<div class="col"><b>Communism · command economy</b>Classless society, economic equality, collectivism, nationalization, Gosplan, five-year plans, proletariat vs bourgeoisie.</div>' +
+      '<div class="col"><b>Modern liberalism · mixed economy</b>Democratic socialism, redistribution of wealth, progressive taxation, safety nets, welfare state, welfare capitalism, cradle to grave, stimulus packages, UBI, Occupy.</div>' +
+      '<div class="col"><b>Classical liberalism · free market</b>Laissez-faire, invisible hand, self-interest, competition, social Darwinism, trickle down, supply-side, tax breaks.</div></div></div>';
+    h += '<div class="panel stack"><h2>Dates and numbers</h2><table><tbody>' +
+      "<tr><td>1838</td><td>People’s Charter (Chartists, 1838 to 1857)</td></tr>" +
+      "<tr><td>1902</td><td>Coal strike: Teddy Roosevelt’s Square Deal</td></tr>" +
+      "<tr><td>1918</td><td>Women vote in Canada</td></tr>" +
+      "<tr><td>1919</td><td>International Labour Organization</td></tr>" +
+      "<tr><td>1920</td><td>19th Amendment: American women vote</td></tr>" +
+      "<tr><td>1944</td><td>CCF wins Saskatchewan (NDP from 1961)</td></tr>" +
+      "<tr><td>1960</td><td>Indigenous people vote in Canada</td></tr>" +
+      "<tr><td>2011</td><td>Occupy Wall Street: “We are the 99%”</td></tr>" +
+      "<tr><td>10 h</td><td>Factory Acts: 10-hour day, 56½ hours a week</td></tr>" +
+      "</tbody></table></div>";
+    h += '<div class="panel stack"><h2>For next week’s source analysis</h2><ol class="plain">' +
+      "<li>Call the rich–poor gap <b>economic disparity</b>.</li>" +
+      "<li>Use <b>economic</b> thinkers (Smith, Marx, Owen, Keynes, Friedman, Hayek, Douglas), and talk about the <b>ideology</b>, not a party.</li>" +
+      "<li>Every supporter or opponent gets a reason that <b>points back to the source</b>.</li></ol></div>";
+    h += '<button class="primary" id="home" type="button">Back to the start</button>';
+    paint(h);
+    on("home", function () { go("home"); });
+  }
+
+  function logText() {
+    var L = ["# Social 30-1 Test #3 review: log", "", "## Sessions"];
+    SESS.forEach(function (S) {
+      var d = state.done[S.id];
+      L.push("- Session " + S.n + " (" + S.name + "): " + (d ? stamp(d.at) + ", " + d.first + " of " + d.n + " right first time, about " + d.mins + " min" : "not done"));
+    });
+    var miss = [], place = [], notes = [];
+    Object.keys(I).forEach(function (id) {
+      var r = state.res[id]; if (!r) return;
+      if (scored(id) && !good(r.first)) miss.push("- " + I[id].k + " (" + r.first + (good(r.last) ? ", right later" : "") + ")");
+      if (I[id].t === "place") place.push("- " + I[id].k + ": " + (r.score || "") + (r.wrongNames && r.wrongNames.length ? ", missed " + r.wrongNames.join(", ") : ""));
+      if (I[id].t === "explain") notes.push("- " + I[id].k + " (ticked " + (r.ticks || "?") + "): " + (state.notes[id] ? state.notes[id].replace(/\s+/g, " ") : "(nothing typed)"));
+    });
+    L.push("", "## Missed the first time"); L.push(miss.length ? miss.join("\n") : "- none");
+    if (place.length) { L.push("", "## Spectrum and chart"); L.push(place.join("\n")); }
+    if (notes.length) { L.push("", "## Written answers"); L.push(notes.join("\n")); }
+    return L.join("\n");
+  }
+  function copyLog() {
+    var text = logText();
+    var done = function (msg) { state.copied = msg; render(); var ta = document.getElementById("logbox"); if (ta && msg.indexOf("Select") === 0) { ta.focus(); ta.select(); } };
+    try {
+      navigator.clipboard.writeText(text).then(function () { done("Copied. Paste it into a message or a note."); }, function () { done("Select the text below and copy it."); });
+    } catch (x) { done("Select the text below and copy it."); }
+  }
+  function renderLog() {
+    var h = '<p class="source">Social 30-1 · your log</p><h1>What you’ve done</h1>';
+    h += '<button class="primary" id="home" type="button">Back to the start</button>';
+    h += '<button class="ghost" id="copy" type="button">Copy my log</button>';
+    if (state.copied) h += '<p class="muted" role="status">' + esc(state.copied) + "</p>";
+    h += '<textarea class="log" id="logbox" readonly aria-label="Your log">' + esc(logText()) + "</textarea>";
+    h += '<p class="muted small">Nothing is sent anywhere. The log only leaves this phone if you copy it and send it to someone.</p>';
+    h += state.confirmReset
+      ? '<div class="row"><span>Clear everything and start fresh?</span><button class="ghost" id="yes" type="button">Yes, clear</button><button class="ghost" id="no" type="button">Keep it</button></div>'
+      : '<button class="link" id="reset" type="button">Start over</button>';
+    paint(h);
+    on("home", function () { go("home"); }); on("copy", copyLog);
+    on("reset", function () { state.confirmReset = true; render(); });
+    on("no", function () { state.confirmReset = false; render(); });
+    on("yes", function () { state = fresh(); save(); render(); window.scrollTo(0, 0); });
+  }
+
+  load();
+  render();
+})();
+</script>
+</body>
+</html>
