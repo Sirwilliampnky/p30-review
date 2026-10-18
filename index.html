@@ -168,7 +168,9 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     { name: "Round 1: work it out", set: "Electric fields pilot (phone)",
       blurb: "Ten type-in answers from his Topic 21 practice sheet, pages 39 to 41. About 30 minutes." },
     { name: "Round 2: quiz format", set: "Notes #46-53 (phone)",
-      blurb: "Eight questions from his notes, #46 to #53: seven multiple choice and one numerical response. About 15 minutes." }
+      blurb: "Eight questions from his notes, #46 to #53: seven multiple choice and one numerical response. About 15 minutes." },
+    { name: "Round 3: energy in fields, work it out", set: "Topic 23 practice (phone)",
+      blurb: "His Topic 23 practice sheet, pages 45 and 46: seven questions, ten answers in all. Every one is a charge speeding up or slowing down. About 30 minutes." }
   ];
 
   var STEM12 = "An electron sits between two parallel plates 10.0 cm apart. The field between the plates is 2.50 x 10^3 N/C.";
@@ -565,6 +567,161 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
               "Square the distance first: (2.0 x 10^-10)² = 4.0 x 10^-20 m²."] }
   ];
   NEW_ITEMS.forEach(function (it) { it.r = -1; it.src = "notes"; ITEMS.push(it); });
+
+  // Topic 23, energy and electric fields: his practice sheet, pages 45 and 46 (Round 3), and the
+  // Topic 22 and 23 questions from his Electricity EXTRA Questions (review only). Numbers and
+  // question numbers are his. Wording and hints are rewritten in the way he teaches it: picture
+  // the car on the hill, then replace mgh with qV. Round 3 key: worked for this page and
+  // re-computed by script. EXTRA key: his (18 June update), each answer re-checked.
+  var S_T5 = "A potential difference of 100 V is placed across two parallel plates 16.0 cm apart. An electron starts from rest at one plate and accelerates toward the other.";
+  var S_T7 = "An electron enters the gap between two parallel plates at 6.00 x 10^6 m/s. The potential difference across the plates is 20.0 V and they are 10.0 cm apart.";
+  var S_X38 = "An electron with an initial speed of 2.0 x 10^6 m/s enters the region between two oppositely charged parallel plates through a small hole in the negative plate. The potential difference between the plates is 2.0 x 10^2 V, and the plates are 0.25 m apart. The electron hits the positive plate 4.7 x 10^-8 s after entering.";
+
+  var T23_ITEMS = [
+    { q: "1", page: 45, kind: "Charge speeding up from rest", easy: true,
+      text: "An electron starts from rest and is accelerated across a potential difference of 85.0 V. Find its final speed.",
+      value: 5.4642e6, show: ["5.46", 6], units: ["m/s"], dir: null,
+      hints: ["You're given the voltage the electron falls through and asked for its speed at the end. It starts from rest.",
+              "A charge speeding up is the car going down the hill: it loses electric potential energy and gains kinetic energy. Replace mgh with qV.",
+              "qΔV = ½ m v², so v = √(2 q ΔV / m), with the electron's charge and mass from the data booklet. Drop the sign of the charge.",
+              "2 x 1.60 x 10^-19 x 85.0 = 2.72 x 10^-17 J. Divide by 9.11 x 10^-31 kg, then take the square root."] },
+    { q: "2", page: 45, kind: "Voltage from a speed",
+      text: "What potential difference is needed to accelerate an electron from rest to 6.00 x 10^6 m/s?",
+      value: 102.49, show: ["102", 0], units: ["V"], dir: null,
+      hints: ["Same picture as the last one, solved for the other letter: you know the final speed and want the voltage.",
+              "The kinetic energy it ends with is the electric potential energy it gave up: qΔV = ½ m v².",
+              "ΔV = m v² / (2q), with the electron's mass and charge.",
+              "Square the speed first: (6.00 x 10^6)² = 3.60 x 10^13. Then 9.11 x 10^-31 x 3.60 x 10^13 ÷ (2 x 1.60 x 10^-19)."] },
+    { q: "3", page: 45, kind: "Speeding up with a running start",
+      text: "An electron moving at 6.00 x 10^4 m/s is accelerated through a potential difference of 9.00 V. Find its final speed.",
+      value: 1.779e6, show: ["1.78", 6], units: ["m/s"], dir: null,
+      hints: ["The electron is already moving, then speeds up through 9.00 V. You want the speed afterwards.",
+              "The car is already rolling at the top of the hill: kinetic and potential energy at the start, only kinetic at the bottom.",
+              "½ m v_i² + qΔV = ½ m v_f². Solve for v_f.",
+              "Work out both starting terms: ½ × 9.11 x 10^-31 x (6.00 x 10^4)² and 1.60 x 10^-19 x 9.00. Add them, double, divide by m, square root. The starting kinetic energy turns out tiny next to qΔV."] },
+    { q: "4", page: 45, kind: "Voltage from a speed",
+      text: "A proton is accelerated from 1.50 x 10^6 m/s to 5.00 x 10^6 m/s. What potential difference does that take?",
+      value: 1.1873e5, show: ["1.19", 5], units: ["V"], dir: null,
+      hints: ["A proton this time, with a starting speed and an ending speed. You want the voltage that made the change.",
+              "The electrical energy the proton gives up equals its gain in kinetic energy: qΔV = ½ m v_f² − ½ m v_i².",
+              "ΔV = m (v_f² − v_i²) / (2q), with the proton's mass from the data booklet. The charge is the elementary charge.",
+              "(5.00 x 10^6)² − (1.50 x 10^6)² = 2.50 x 10^13 − 2.25 x 10^12 = 2.275 x 10^13. Multiply by 1.67 x 10^-27 and divide by 2 x 1.60 x 10^-19."] },
+    { q: "5a", page: 46, kind: "Partway across the gap", stem: S_T5,
+      text: "How fast is the electron moving after it has travelled 4.00 cm?",
+      value: 2.9634e6, show: ["2.96", 6], units: ["m/s"], dir: null,
+      hints: ["The electron has crossed a quarter of the gap. You want its speed at that point.",
+              "Voltage plays the part of height, not distance. Halfway across the plates means halfway through the volts, and a quarter of the way means a quarter of the volts.",
+              "The potential difference it has fallen through is 100 V × (4.00 / 16.0). Then qΔV = ½ m v².",
+              "That's 25.0 V. v = √(2 x 1.60 x 10^-19 x 25.0 ÷ 9.11 x 10^-31)."] },
+    { q: "5b", page: 46, kind: "Partway across the gap", stem: S_T5,
+      text: "How fast is it moving after 8.00 cm?",
+      value: 4.1908e6, show: ["4.19", 6], units: ["m/s"], dir: null,
+      hints: ["Now it's halfway across. Same question, new distance.",
+              "Half the gap, half the volts, because the field between parallel plates is uniform.",
+              "ΔV = 100 V × (8.00 / 16.0) = 50.0 V, then qΔV = ½ m v².",
+              "v = √(2 x 1.60 x 10^-19 x 50.0 ÷ 9.11 x 10^-31). It should come out √2 times the 4.00 cm answer."] },
+    { q: "5c", page: 46, kind: "Charge speeding up from rest", stem: S_T5,
+      text: "How fast is it moving when it reaches the other plate, 16.0 cm away?",
+      value: 5.9267e6, show: ["5.93", 6], units: ["m/s"], dir: null,
+      hints: ["All the way across now: the full 100 V.",
+              "Start to finish, the electron has turned all of its electric potential energy into kinetic energy.",
+              "qΔV = ½ m v² with ΔV = 100 V.",
+              "v = √(2 x 1.60 x 10^-19 x 100 ÷ 9.11 x 10^-31). The plate spacing doesn't enter this part at all."] },
+    { q: "6", page: 46, kind: "Charge slowing down",
+      text: "An electron moving at 5.00 x 10^6 m/s is slowed down by a potential difference of 15.0 V. Find its final speed.",
+      value: 4.442e6, show: ["4.44", 6], units: ["m/s"], dir: null,
+      hints: ["This one slows down. You want the speed left after it has pushed its way through 15.0 V.",
+              "The car going up the hill: kinetic energy turns into potential energy. Picture it, then replace mgh with qV.",
+              "½ m v_i² = ½ m v_f² + qΔV, so v_f = √(v_i² − 2 q ΔV / m).",
+              "(5.00 x 10^6)² = 2.50 x 10^13. Subtract 2 x 1.60 x 10^-19 x 15.0 ÷ 9.11 x 10^-31, which is about 5.27 x 10^12, then take the square root."] },
+    { q: "7a", page: 46, kind: "Speeding up with a running start", stem: S_T7,
+      text: "It travels from the negative plate to the positive plate. How fast is it moving when it reaches the second plate?",
+      value: 6.5594e6, show: ["6.56", 6], units: ["m/s"], dir: null,
+      hints: ["First decide: speeding up or slowing down? Then find the speed at the far plate.",
+              "An electron is pulled toward the positive plate, so moving negative to positive it speeds up: the car going down the hill with a running start.",
+              "½ m v_i² + qΔV = ½ m v_f². The 10.0 cm is not needed; the voltage is the height.",
+              "(6.00 x 10^6)² = 3.60 x 10^13. Add 2 x 1.60 x 10^-19 x 20.0 ÷ 9.11 x 10^-31, about 7.03 x 10^12, then take the square root."] },
+    { q: "7b", page: 46, kind: "Charge slowing down", stem: S_T7,
+      text: "Now it travels from the positive plate to the negative plate. How fast is it moving when it reaches the second plate?",
+      value: 5.3828e6, show: ["5.38", 6], units: ["m/s"], dir: null,
+      hints: ["Same electron, same gap, opposite direction. Speeding up or slowing down?",
+              "Moving away from the positive plate, the electron is pulled back: the car going up the hill. Kinetic energy turns into potential energy.",
+              "½ m v_i² = ½ m v_f² + qΔV, so v_f = √(v_i² − 2 q ΔV / m).",
+              "3.60 x 10^13 minus the same 7.03 x 10^12 as part (a), then the square root."] }
+  ];
+  T23_ITEMS.forEach(function (it) { it.r = 2; it.src = "t23"; it.t = 23; ITEMS.push(it); });
+
+  var EXTRA_ITEMS = [
+    { q: "38", page: 20, t: 22, kind: "Field inside a conductor", easy: true,
+      text: "People inside a car are protected from the electric fields of lightning, and stereo parts are built into metal boxes. These two examples show that the electric field inside a closed metal container is",
+      options: ["zero", "opposite to the field outside", "equal to the field outside", "half the field outside"], answer: 0,
+      hints: ["What is the field inside a closed conductor, whatever is going on outside?",
+              "The electrons in a conductor are free to move, and they keep moving until nothing inside pushes them any more.",
+              "They settle on the outer surface, arranged so that their own field cancels the outside field everywhere inside.",
+              "That's the Faraday cage: a conducting shell, any shape, with no net field inside."] },
+    { q: "39", page: 21, t: 23, kind: "Energy and force between plates", stem: S_X38,
+      text: "As the electron approaches the positive plate, its electric potential energy (i) and the size of the electric force on it (ii).",
+      options: ["(i) decreases; (ii) decreases", "(i) decreases; (ii) remains the same",
+                "(i) remains the same; (ii) decreases", "(i) remains the same; (ii) remains the same"], answer: 1,
+      hints: ["Two separate things: what happens to the energy, and what happens to the force, as it crosses the gap.",
+              "It's a charge speeding up, so it's the car going down the hill. And between parallel plates the field is uniform.",
+              "Speeding up means potential energy is being spent. A uniform field means the same E, and so the same F = qE, at every point.",
+              "Potential energy goes down; the force stays the same."] },
+    { q: "41", page: 21, t: 23, kind: "Final energy", stem: S_X38,
+      text: "The electron's kinetic energy just before it hits the positive plate is",
+      options: ["1.8 x 10^-18 J", "3.0 x 10^-17 J", "3.2 x 10^-17 J", "3.4 x 10^-17 J"], answer: 3,
+      hints: ["You want its total kinetic energy at the far plate, not its speed.",
+              "It arrives with the kinetic energy it came in with plus the electric potential energy it spent crossing the gap.",
+              "E_k final = ½ m v_i² + qΔV. The plate spacing and the time aren't needed.",
+              "½ × 9.11 x 10^-31 x (2.0 x 10^6)² is 1.8 x 10^-18 J, and 1.60 x 10^-19 x 2.0 x 10^2 is 3.2 x 10^-17 J. Add them."] },
+    { q: "42", page: 22, t: 23, kind: "Voltage from a speed",
+      text: "An alpha particle is accelerated from rest to 5.85 x 10^5 m/s by the potential difference between two plates. Find that potential difference.",
+      value: 3555.9, show: ["3.56", 3], units: ["V"], dir: null,
+      note: "In his set this is a numerical response in the form a.bc × 10^d, so the answer sheet would read 3563.",
+      hints: ["Final speed known, voltage wanted, and it's an alpha particle this time.",
+              "qΔV = ½ m v². The alpha particle's charge and mass are both in the data booklet, and both differ from a proton's.",
+              "ΔV = m v² / (2q) with m = 6.65 x 10^-27 kg and q = 3.20 x 10^-19 C.",
+              "(5.85 x 10^5)² = 3.42 x 10^11. Multiply by 6.65 x 10^-27 and divide by 2 x 3.20 x 10^-19."] },
+    { q: "43", page: 22, t: 23, kind: "Speed from an energy in eV",
+      text: "A particle of mass 3.60 x 10^-18 kg gains 3.00 x 10^5 eV of kinetic energy when it accelerates from rest through a potential difference of 1.00 x 10^4 V. Find its final speed.",
+      value: 163.3, show: ["1.63", 2], units: ["m/s"], dir: null,
+      note: "In his set this is a numerical response in the form b × 10^w m/s, recorded as 1.63.",
+      hints: ["You're given the kinetic energy directly, in electron volts, and want the speed. The voltage is extra information.",
+              "Convert electron volts to joules first: one eV is 1.60 x 10^-19 J. Then it's ordinary kinetic energy.",
+              "E_k = ½ m v², so v = √(2 E_k / m).",
+              "3.00 x 10^5 x 1.60 x 10^-19 = 4.80 x 10^-14 J. Then √(2 x 4.80 x 10^-14 ÷ 3.60 x 10^-18). A slow particle, because it's heavy."] },
+    { q: "44", page: 22, t: 23, kind: "Potential difference from work", easy: true,
+      text: "Moving a 4.00 C charge from point X to point Y takes 15.0 J of work. What is the potential difference between X and Y?",
+      value: 3.75, show: ["3.75", 0], units: ["V"], dir: null,
+      hints: ["Work done, charge moved, voltage wanted.",
+              "Potential difference is energy per coulomb. That's the data booklet's ΔV = ΔE / q.",
+              "ΔV = 15.0 J ÷ 4.00 C.",
+              "Joules per coulomb are volts."] },
+    { q: "45", page: 23, t: 23, kind: "Energy from charge and voltage",
+      text: "In a lightning strike, 30 C of charge moves through a potential difference of 1.0 x 10^8 V in 2.0 x 10^-3 s. The total energy released by the bolt is",
+      options: ["3.0 x 10^9 J", "6.0 x 10^7 J", "3.3 x 10^6 J", "1.5 x 10^3 J"], answer: 0,
+      hints: ["Energy released, from the charge and the voltage. The time is there to distract you.",
+              "Energy is charge times potential difference: ΔE = qΔV, the data booklet's ΔV = ΔE / q turned around.",
+              "30 x 1.0 x 10^8.",
+              "Don't divide by the time. That would give power, in watts, not energy."] },
+    { q: "46", page: 23, t: 23, kind: "Ratio",
+      text: "An electron accelerated from rest across the gap between two charged plates reaches a final speed v. If the potential difference across the plates is tripled, the final speed of an electron accelerated from rest across the gap becomes",
+      options: ["v / 3", "v / √3", "√3 v", "9 v"], answer: 2,
+      hints: ["No numbers: the voltage changes by a factor, and you want the factor for the speed.",
+              "qΔV = ½ m v², so the speed goes with the square root of the voltage.",
+              "Triple ΔV, and v² triples.",
+              "So v is multiplied by √3, about 1.7."] },
+    { q: "52", page: 27, t: 23, kind: "Charge speeding up from rest",
+      stem: "In a mass spectrometer, protons are accelerated from plate P to plate Q by a potential difference of 1.00 x 10^4 V.",
+      text: "A proton starts from rest at plate P. Its speed as it passes through the hole in plate Q is",
+      options: ["6.92 x 10^5 m/s", "1.38 x 10^6 m/s", "2.96 x 10^7 m/s", "5.93 x 10^7 m/s"], answer: 1,
+      hints: ["Proton from rest through a known voltage: you want its speed at the other plate.",
+              "The car going down the hill: qΔV = ½ m v².",
+              "v = √(2 q ΔV / m), with the proton's mass, 1.67 x 10^-27 kg. Using the electron's mass by mistake gives one of the wrong choices.",
+              "2 x 1.60 x 10^-19 x 1.00 x 10^4 ÷ 1.67 x 10^-27 = 1.92 x 10^12. Square root."] }
+  ];
+  EXTRA_ITEMS.forEach(function (it) { it.r = -1; it.src = "extra"; ITEMS.push(it); });
+
   ITEMS.forEach(function (it) {
     if (!it.src) it.src = it.r === 0 ? "ws" : "notes";
     if (!it.t) it.t = 21;
@@ -593,14 +750,22 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     toward:  ["OMILaFKzdzs", 600,  "Topic 21: Electric Fields"],
     lines:   ["OMILaFKzdzs", 1022, "Topic 21: Electric Fields"],
     scalar:  ["OMILaFKzdzs", 301,  "Topic 21: Electric Fields"],
-    energy:  ["5FvprRae81A", 421,  "Topic 23: Conservation of Energy"]
+    energy:  ["5FvprRae81A", 421,  "Topic 23: Conservation of Energy"],
+    hill:    ["5FvprRae81A", 0,    "Topic 23: Conservation of Energy (the car on the hill)"],
+    qv:      ["5FvprRae81A", 305,  "Topic 23: Conservation of Energy (potential energy is qV)"],
+    halfway: ["5FvprRae81A", 601,  "Topic 23: Conservation of Energy (partway across the gap)"],
+    slow:    ["5FvprRae81A", 780,  "Topic 23: Conservation of Energy (slowing down)"],
+    ex1:     ["5FvprRae81A", 961,  "Topic 23: Conservation of Energy (Example 1)"],
+    cage:    ["sXdBn70FlII", 1023, "Topic 22: Charge Distribution on Conductors (the Faraday cage)"]
   };
   var VMAP = {
     ws1: "point", ws3: "point", ws5: "fq", ws7: "fq", ws8: "net", ws9: "net", ws10: "plates", ws12a: "plates", ws12b: "fq", ws12c: "accel",
     notes46: "net", notes47: "plates", notes48: "accel", notes49: "point", notes50: "point", notes51: "inverseField", notes52: "net", notes53: "plates",
     notes32: "share", notes33: "elem", notes34: "charge", notes35: "ground", notes36: "ground", notes37: "charge", notes38: "charge", notes39: "charge",
     notes40: "control", notes41: "gravity", notes42: "coulomb", notes43: "coulomb", notes44: "toward", notes45: "scalar", notes54: "lines", notes55: "coulomb",
-    notes56: "energy", notes57: "energy", notes61: "ground", notes62: "hang", notes63: "hang", notes64: "inverse", notes65: "point"
+    notes56: "energy", notes57: "energy", notes61: "ground", notes62: "hang", notes63: "hang", notes64: "inverse", notes65: "point",
+    t231: "qv", t232: "qv", t233: "ex1", t234: "qv", t235a: "halfway", t235b: "halfway", t235c: "qv", t236: "slow", t237a: "ex1", t237b: "slow",
+    extra38: "cage", extra39: "hill", extra41: "ex1", extra42: "qv", extra43: "qv", extra44: "qv", extra45: "qv", extra46: "qv", extra52: "qv"
   };
   ITEMS.forEach(function (it) { if (VMAP[it.id]) it.v = V[VMAP[it.id]]; });
 
@@ -608,7 +773,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
   var SESSION = 4;            // cards in a daily review: one easy opener, two mixed, one paper problem
   var EXTRA = 2;              // cards added by "Two more"
   var GAPS = [2, 4, 7];       // days until an item returns after 1, 2, 3 first-time-right answers in a row
-  var TOPIC_ORDER = [21, 20, 19, 18, 23];
+  var TOPIC_ORDER = [23, 21, 20, 22, 19, 18];
 
   // Test mode: open the page with #test on the end of its address. It keeps its own separate
   // answers and schedule, so trying things out never touches the real log.
@@ -643,6 +808,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
       while (s.items.length < ITEMS.length) s.items.push(freshItem());
       s.items.forEach(function (st) { if (st.pick === undefined) st.pick = -1; if (!st.tried) st.tried = []; if (st.at === undefined) st.at = null; });
       if (!s.rounds) s.rounds = [{ s: s.startedAt || null, f: s.finishedAt || null }, { s: null, f: null }];
+      while (s.rounds.length < ROUNDS.length) s.rounds.push({ s: null, f: null });
       if (!s.notes) s.notes = ["", "", ""];
       if (!s.ctx) s.ctx = "round";
       if (!s.rv) {
@@ -677,8 +843,9 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
   function roundIdx(r) { var a = []; ITEMS.forEach(function (it, i) { if (it.r === r) a.push(i); }); return a; }
   function roundDone(r) { return roundIdx(r).filter(function (i) { return state.items[i].done; }).length; }
   function sourceLine(it) {
-    return it.src === "ws" ? "His practice sheet · Topic " + it.t + " #" + it.q + " · p. " + it.page
-                           : "His notes · #" + it.q + " · p. " + it.page;
+    if (it.src === "ws" || it.src === "t23") return "His practice sheet · Topic " + it.t + " #" + it.q + " · p. " + it.page;
+    if (it.src === "extra") return "His Electricity EXTRA Questions · #" + it.q + " · p. " + it.page;
+    return "His notes · #" + it.q + " · p. " + it.page;
   }
   function first(st) { return st.solved && st.wrong === 0; }
 
@@ -690,7 +857,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     else { s.step = 0; s.due = t + 1; s.last = st.solved ? "hints" : "shown"; }
     rv.sched[id] = s;
   }
-  function pool() { return ITEMS.filter(function (it) { return it.t !== 23 || state.rv.t23; }); }
+  function pool() { return ITEMS; }
   function candidates(exclude) {
     var S = state.rv.sched, t = today(), due = [], later = [], byTopic = {}, freshList = [];
     pool().forEach(function (it) {
@@ -867,7 +1034,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
       if (e.flag) note.push("student flagged the key");
       if (e.video) note.push("opened the lesson video");
       if (e.wrong > 0) note.push(e.wrong + " wrong " + (e.wrong === 1 ? "try" : "tries"));
-      lines.push("| " + [ymd(e.at), e.set, (e.it.src === "ws" ? "sheet " : "notes ") + e.it.q, e.it.t, e.it.kind, e.first ? "yes" : "no", e.hints,
+      lines.push("| " + [ymd(e.at), e.set, (e.it.src === "notes" ? "notes " : e.it.src === "extra" ? "extra " : "sheet " + (e.it.t === 23 ? "T23 " : "")) + e.it.q, e.it.t, e.it.kind, e.first ? "yes" : "no", e.hints,
         e.wrong > 0 ? (e.slip || "not tagged") : "-", e.first ? "-" : (e.solved ? "yes" : "no"), note.join("; ")].join(" | ") + " |");
     });
     lines.push("");
@@ -931,15 +1098,14 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     } else if (d) {
       h += '<span class="status">' + d.pos + " of " + d.ids.length + '</span></div><p>You’re partway through today’s questions.</p><button class="primary" id="review" type="button">Carry on</button>';
     } else if (buildSession().length) {
-      h += '<span class="status">' + SESSION + ' questions</span></div><p>Four questions from the whole unit so far. The first one is easy. One of them you work out on paper with your data booklet. If you miss a question, it comes back tomorrow.</p><button class="primary" id="review" type="button">Start today’s review</button>';
+      h += '<span class="status">' + SESSION + ' questions</span></div><p>Four questions from the whole unit, energy in fields included. The first one is easy. One of them you work out on paper with your data booklet. If you miss a question, it comes back tomorrow.</p><button class="primary" id="review" type="button">Start today’s review</button>';
     } else {
       h += "</div><p>Nothing left to review today.</p>";
     }
     h += '<p class="muted small">Review sessions in the last 7 days: ' + week + ".</p>";
-    h += '<label class="check"><input type="checkbox" id="t23"' + (state.rv.t23 ? " checked" : "") + '> <span>We’ve started Topic 23 in class (energy in electric fields)</span></label>';
     h += "</div>";
 
-    h += '<h2 class="sub">Practice rounds for the Topic 21 quiz</h2>';
+    h += '<h2 class="sub">Practice rounds</h2>';
     ROUNDS.forEach(function (R, r) {
       var n = roundIdx(r).length, dn = roundDone(r), begun = dn > 0 || roundIdx(r).some(function (i) { return state.items[i].wrong > 0; });
       h += '<div class="panel round"><div class="head"><h2>' + esc(R.name) + '</h2><span class="status' + (dn === n ? " done" : "") + '">' + (dn === n ? "done" : dn + " of " + n) + "</span></div>" +
@@ -948,13 +1114,11 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     });
     if (entries().length) h += '<button class="ghost" id="tolog" type="button">See my log</button>';
     h += '<p class="muted small">If you get one wrong, you get a hint instead of the answer. You can ask for more hints, one at a time. Your answers stay on this phone unless you copy them.</p>';
-    h += '<p class="muted small">The numbers and question numbers match Mr. Dickie’s sheets, so you can find each question on your own copy. The wording and diagrams are different. Answers to the notes questions come from his key. Answers to the practice-sheet questions were worked out for this page, so they aren’t his official key. If you think an answer here is wrong, tap “I think the key is wrong on this one” under that question.</p>';
+    h += '<p class="muted small">The numbers and question numbers match Mr. Dickie’s sheets, so you can find each question on your own copy. The wording and diagrams are different. Answers to the notes questions and the EXTRA Questions come from his keys. Answers to the practice-sheet questions were worked out for this page, so they aren’t his official key. If you think an answer here is wrong, tap “I think the key is wrong on this one” under that question.</p>';
     paint(h);
     on("review", openReview); on("more", moreToday);
     ROUNDS.forEach(function (R, r) { on("go" + r, function () { startRound(r); }); });
     on("tolog", function () { state.screen = "end"; save(); render(); window.scrollTo(0, 0); });
-    var box = document.getElementById("t23");
-    if (box) box.onchange = function () { state.rv.t23 = box.checked; save(); render(); };
   }
 
   function hintsHtml(it, st, withIds) {
