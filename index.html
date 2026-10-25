@@ -170,7 +170,11 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     { name: "Round 2: quiz format", set: "Notes #46-53 (phone)",
       blurb: "Eight questions from his notes, #46 to #53: seven multiple choice and one numerical response. About 15 minutes." },
     { name: "Round 3: energy in fields, work it out", set: "Topic 23 practice (phone)",
-      blurb: "His Topic 23 practice sheet, pages 45 and 46: seven questions, ten answers in all. Every one is a charge speeding up or slowing down. About 30 minutes." }
+      blurb: "His Topic 23 practice sheet, pages 45 and 46: seven questions, ten answers in all. Every one is a charge speeding up or slowing down. About 30 minutes." },
+    { name: "Round 4: magnets and magnetic fields", set: "Magnetism, Topics 24-25 (phone)",
+      blurb: "Eight quick multiple-choice questions on domains, poles and field lines: three from his notes (#66 to #68) and five written from his notes. About 10 minutes." },
+    { name: "Round 5: wire grasp and coil rules", set: "Magnetism, Topics 26-27 (phone)",
+      blurb: "Start this after Mr. Dickie teaches the wire grasp rule (Topic 26). Until you start it, these questions stay out of the daily review. Six multiple-choice questions: his notes #69 to #71, Magnetism EXTRA #2 and #3, and one written for this page. About 10 minutes." }
   ];
 
   var STEM12 = "An electron sits between two parallel plates 10.0 cm apart. The field between the plates is 2.50 x 10^3 N/C.";
@@ -722,6 +726,187 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
   ];
   EXTRA_ITEMS.forEach(function (it) { it.r = -1; it.src = "extra"; ITEMS.push(it); });
 
+  // Magnetism, Topics 24 to 27 (Rounds 4 and 5). His notes #66-71 (key: notes p. 74) and his Magnetism
+  // EXTRA Questions #2-3 (key: EXTRA QUESTIONS ANSWER KEY, 18 June update), each answer re-checked with
+  // vector arithmetic. Items with src "own" were written for this page from his notes and recordings,
+  // and say so on the card. Diagrams are redrawn; #69 is redrawn as a view from above.
+  // Round 5 (Topics 26 and 27) stays out of the daily review until it has been started.
+  var FIG66 =
+    '<svg viewBox="0 0 320 232" role="img" aria-label="Four diagrams of two bar magnets with their field lines. I: side by side, lines run straight across the gap. II: one above the other, lines bend away from the gap. III: one above the other, lines run straight across the gap. IV: side by side, lines bend away from the gap.">' +
+    '<path class="fine" stroke-dasharray="2 3" d="M4 4 H156 V112 H4 Z M164 4 H316 V112 H164 Z M4 120 H156 V228 H4 Z M164 120 H316 V228 H164 Z"></path>' +
+    '<text x="12" y="20">I</text><text x="172" y="20">II</text><text x="12" y="136">III</text><text x="172" y="136">IV</text>' +
+    '<rect class="fine" x="22" y="52" width="40" height="12"></rect><rect class="fine" x="98" y="52" width="40" height="12"></rect>' +
+    '<path class="fine" d="M62 55 H98 M62 58 H98 M62 61 H98 M22 56 C22 22 138 22 138 56 M22 60 C22 94 138 94 138 60 M32 52 C38 38 122 38 128 52 M32 64 C38 78 122 78 128 64"></path>' +
+    '<rect class="fine" x="215" y="34" width="50" height="10"></rect><rect class="fine" x="215" y="72" width="50" height="10"></rect>' +
+    '<path class="fine" d="M228 44 C228 54 210 56 184 56 M252 44 C252 54 270 56 296 56 M228 72 C228 62 210 61 184 61 M252 72 C252 62 270 61 296 61 M215 39 C196 39 196 18 240 18 C284 18 284 39 265 39 M215 77 C196 77 196 98 240 98 C284 98 284 77 265 77"></path>' +
+    '<rect class="fine" x="55" y="146" width="50" height="10"></rect><rect class="fine" x="55" y="190" width="50" height="10"></rect>' +
+    '<path class="fine" d="M65 156 V190 M80 156 V190 M95 156 V190 M55 151 C22 151 22 195 55 195 M105 151 C138 151 138 195 105 195"></path>' +
+    '<rect class="fine" x="182" y="168" width="40" height="12"></rect><rect class="fine" x="258" y="168" width="40" height="12"></rect>' +
+    '<path class="fine" d="M222 171 C233 171 236 160 236 134 M222 177 C233 177 236 188 236 214 M258 171 C247 171 244 160 244 134 M258 177 C247 177 244 188 244 214 M182 171 C168 146 214 142 220 166 M182 177 C168 202 214 206 220 182 M298 171 C312 146 266 142 260 166 M298 177 C312 202 266 206 260 182"></path></svg>';
+  var FIG67 =
+    '<svg viewBox="0 0 320 132" role="img" aria-label="Two identical bar magnets in a row, each with N on the left and S on the right. Point P is above the middle of the gap between them. A compass rose shows north up and east to the right.">' +
+    '<defs><marker id="ah67" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="mk" d="M0 0 L10 5 L0 10 z"></path></marker></defs>' +
+    '<path class="fine" d="M282 52 V22" marker-end="url(#ah67)"></path><path class="fine" d="M266 42 H298"></path>' +
+    '<text x="282" y="16" text-anchor="middle">N</text><text x="304" y="46">E</text><text x="252" y="46">W</text><text x="282" y="68" text-anchor="middle">S</text>' +
+    '<rect class="fine" x="16" y="96" width="112" height="24"></rect><rect class="fine" x="182" y="96" width="112" height="24"></rect>' +
+    '<text x="28" y="113">N</text><text x="114" y="113">S</text><text x="194" y="113">N</text><text x="280" y="113">S</text>' +
+    '<circle class="dot" cx="155" cy="62" r="3"></circle><text x="155" y="52" text-anchor="middle">P</text></svg>';
+  var FIG68 =
+    '<svg viewBox="0 0 320 206" role="img" aria-label="Point P. To its right, a horizontal bar magnet with its S end nearest P and N end farther away. Below P, a vertical bar magnet with its N end nearest P and S end at the bottom. P is the same distance from both magnets.">' +
+    '<circle class="dot" cx="110" cy="34" r="3"></circle><text x="102" y="24" text-anchor="end">P</text>' +
+    '<path class="fine" stroke-dasharray="3 4" d="M114 34 H188 M110 38 V110"></path><path class="fine" d="M110 44 H120 V34"></path>' +
+    '<rect class="fine" x="188" y="22" width="104" height="24"></rect><text x="198" y="39">S</text><text x="278" y="39">N</text>' +
+    '<rect class="fine" x="98" y="110" width="24" height="88"></rect><text x="110" y="127" text-anchor="middle">N</text><text x="110" y="190" text-anchor="middle">S</text></svg>';
+  var FIG69 =
+    '<svg viewBox="0 0 320 214" role="img" aria-label="View from above. A wire in the middle, shown as a circle with a dot because the electrons in it are moving up, toward you. Four compasses around it: compass 1 to the left with its needle pointing down the page, compass 2 above with its needle pointing left, compass 3 to the right with its needle pointing down the page, compass 4 below with its needle pointing toward the wire.">' +
+    '<defs><marker id="ah69" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path class="mk" d="M0 0 L10 5 L0 10 z"></path></marker></defs>' +
+    '<circle class="fine" cx="160" cy="104" r="10"></circle><circle class="dot" cx="160" cy="104" r="3"></circle>' +
+    '<circle class="fine" cx="82" cy="104" r="22"></circle><circle class="fine" cx="160" cy="32" r="22"></circle><circle class="fine" cx="238" cy="104" r="22"></circle><circle class="fine" cx="160" cy="176" r="22"></circle>' +
+    '<path class="fine" d="M82 90 V118" marker-end="url(#ah69)"></path><path class="fine" d="M174 32 H146" marker-end="url(#ah69)"></path>' +
+    '<path class="fine" d="M238 90 V118" marker-end="url(#ah69)"></path><path class="fine" d="M160 190 V162" marker-end="url(#ah69)"></path>' +
+    '<text x="50" y="80">1</text><text x="192" y="18">2</text><text x="266" y="80">3</text><text x="192" y="200">4</text>' +
+    '<text x="160" y="134" text-anchor="middle">wire</text></svg>';
+  var FIG71 =
+    '<svg viewBox="0 0 320 92" role="img" aria-label="A horizontal wire. Point P is above the middle of the wire. An arrow at the right end labelled e minus shows electrons moving to the left.">' +
+    '<defs><marker id="ah71" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="mk" d="M0 0 L10 5 L0 10 z"></path></marker></defs>' +
+    '<path d="M40 62 H240" style="stroke: var(--ink); stroke-width: 5"></path>' +
+    '<circle class="dot" cx="140" cy="28" r="3"></circle><text x="140" y="18" text-anchor="middle">P</text>' +
+    '<path class="fine" d="M300 62 H256" marker-end="url(#ah71)"></path><text x="280" y="52" text-anchor="middle">e⁻</text></svg>';
+  var FIGSOL = (function () {
+    var front = "", back = "", k, xb, xt;
+    for (k = 0; k < 7; k++) {
+      xb = 70 + 26 * k; xt = xb + 13;
+      front += "M" + xb + " 108 L" + xt + " 28 ";
+      back += "M" + xt + " 28 L" + (xb + 26) + " 108 ";
+    }
+    return '<svg viewBox="0 0 320 236" role="img" aria-label="A solenoid lying left to right. The front of each loop of wire, drawn as a thick solid line, slants up from the bottom left; the back of each loop is a thin dashed line. The wire from the bottom left end of the coil goes down to the negative terminal of a battery, and the wire from the right end goes down to the positive terminal.">' +
+      '<path d="' + front + '" style="stroke: var(--ink); stroke-width: 2.2; fill: none"></path>' +
+      '<path class="fine" stroke-dasharray="3 4" d="' + back + '"></path>' +
+      '<text x="160" y="14" text-anchor="middle">solid: front of a loop · dashed: back</text>' +
+      '<path d="M70 108 V196 H153 M252 108 V196 H167" style="stroke: var(--ink); stroke-width: 1.4; fill: none"></path>' +
+      '<path d="M155 188 V204" style="stroke: var(--ink); stroke-width: 4"></path><path d="M165 180 V212" style="stroke: var(--ink); stroke-width: 1.5"></path>' +
+      '<text x="150" y="230" text-anchor="end">−</text><text x="170" y="230">+</text></svg>';
+  })();
+  var S_X2 = "Three vector fields: I gravitational, II electric, III magnetic.";
+
+  var MAG_ITEMS = [
+    // Round 4: Topics 24 and 25, taught October 21 and 23.
+    { r: 3, src: "own", q: "24a", t: 24, kind: "Magnetic domains", easy: true, from: "his notes, p. 48",
+      text: "In iron, nickel and cobalt, the electron spins line up in tiny regions. When most of these regions point the same way, the material is magnetized. These regions are called",
+      options: ["magnetic domains", "magnetic poles", "field lines", "electron shells"], answer: 0,
+      hints: ["You want the name of the tiny regions inside a magnetized material.",
+              "It's the first new word of the magnetism unit. He draws each region as a small arrow.",
+              "When the arrows all point the same way, the material is a magnet.",
+              "Not poles: the poles are the two ends of a magnet, not regions spread through it."] },
+    { r: 3, src: "own", q: "24b", t: 24, kind: "Magnetic domains", from: "his notes, p. 48",
+      text: "A bar magnet is cut in half between its north and south poles. The result is",
+      options: ["two magnets, each with a north pole and a south pole",
+                "a north pole on one piece and a south pole on the other",
+                "two pieces that are no longer magnets",
+                "two pieces that are magnetized only at the cut"], answer: 0,
+      hints: ["What happens to the poles when one magnet becomes two pieces?",
+              "Cutting the bar doesn't turn the domains. They still point the same way.",
+              "Each piece still has its domains lined up from one end to the other, so each piece has two opposite ends.",
+              "A north pole can never exist on its own. There is no magnetic monopole."] },
+    { r: 3, src: "own", q: "24c", t: 24, kind: "Laws of magnetism", from: "his notes, p. 49",
+      text: "Either pole of a bar magnet will pick up an unmagnetized iron nail. This happens because the magnet",
+      options: ["temporarily lines up the domains in the nail, so the nail's near end becomes the opposite pole",
+                "induces an opposite electric charge on the near end of the nail",
+                "lines up the domains in the nail, so the nail's near end becomes the same pole",
+                "turns the nail into a permanent magnet before they touch"], answer: 0,
+      hints: ["Why can both ends of a magnet attract a nail that isn't a magnet?",
+              "This is his third law of magnetism. It is about domains, not electric charge.",
+              "The magnet turns the nail's domains for a while, so the nail becomes a temporary magnet.",
+              "Like poles repel and unlike poles attract. For the nail to be pulled in, which pole must its near end become?"] },
+    { r: 3, src: "notes", q: "66", page: 64, t: 25, kind: "Field lines between magnets", fig: FIG66,
+      stem: "Each diagram shows the magnetic field around two bar magnets.",
+      text: "The magnets repel in diagrams",
+      options: ["I and II only", "II and III only", "I and IV only", "II and IV only"], answer: 3,
+      hints: ["Four pairs of magnets, no poles labelled. You only have the field lines: which pairs push apart?",
+              "Look only at the gap between the two magnets in each diagram.",
+              "Field lines that join up across the gap mean the magnets attract. Lines that bend away and never cross the gap mean they repel.",
+              "In I and III the lines run straight across the gap. Find the two where they turn away."] },
+    { r: 3, src: "notes", q: "67", page: 64, t: 25, kind: "Field of two magnets", fig: FIG67,
+      stem: "Two identical magnets and a point P are placed as shown. P is the same distance from both magnets.",
+      text: "The net magnetic field at P points",
+      options: ["east", "west", "north", "south"], answer: 1,
+      hints: ["You want the direction of the total magnetic field at P, in compass directions.",
+              "Outside a magnet, the field runs from its north pole to its south pole.",
+              "The two poles nearest P are the S end of the left magnet and the N end of the right magnet.",
+              "The field leaves the right magnet's N end and heads for the left magnet's S end. Which compass direction is that?"] },
+    { r: 3, src: "notes", q: "68", page: 65, t: 25, kind: "Field of two magnets", fig: FIG68,
+      stem: "Two bar magnets of equal strength are placed as shown. P is the same distance from each magnet.",
+      text: "The magnetic field at P points",
+      options: ["down and to the right (↘)", "down and to the left (↙)", "up and to the left (↖)", "up and to the right (↗)"], answer: 3,
+      hints: ["Two magnets act at P: one to its right, one below it. You want the direction of their combined field.",
+              "Near P, each magnet's field is set by its closer pole. The field points away from a north pole and toward a south pole.",
+              "The right-hand magnet's S end is closest, so its field at P points toward it: to the right. The lower magnet's N end is closest, so its field at P points away from it: up.",
+              "The two are equal in size. Add right and up."] },
+    { r: 3, src: "own", q: "25a", t: 25, kind: "Earth's magnetic field", from: "his notes, p. 52",
+      text: "A compass needle's north end points toward the Canadian Arctic. That means the magnetic pole near the geographic North Pole is",
+      options: ["a magnetic south pole", "a magnetic north pole", "not a magnetic pole at all", "a north pole, because it pushes the needle away"], answer: 0,
+      hints: ["You're asked what kind of magnetic pole sits up north.",
+              "A compass needle lines up with the field, its north end pointing the way the field goes.",
+              "Outside a magnet the field runs from north to south, so the needle's north end points toward a south pole.",
+              "Unlike poles attract. The needle's north end is pulled toward that pole."] },
+    { r: 3, src: "own", q: "25b", t: 25, kind: "Field inside a magnet", from: "his notes, pp. 48 and 50",
+      text: "Inside a bar magnet, the magnetic field points",
+      options: ["from the south pole to the north pole", "from the north pole to the south pole", "nowhere: the field inside a magnet is zero", "out toward both poles from the middle"], answer: 0,
+      hints: ["Outside, field lines run from N to S. What do they do inside the magnet?",
+              "Magnetic field lines are closed loops. They don't start or stop at a pole.",
+              "The domains inside point from the south pole to the north pole, and the field inside points the same way.",
+              "Follow one loop: out of N, around the outside to S, then back through the magnet to N."] },
+
+    // Round 5: Topics 26 and 27, the next lessons. Out of the daily review until the round is started.
+    { r: 4, src: "notes", q: "69", page: 65, t: 26, kind: "Wire grasp rule", fig: FIG69, gate: true,
+      stem: "You are looking down on a vertical wire from above. Electrons in the wire are moving up, toward you. Four compasses sit around it.",
+      text: "Which compass shows the direction of the magnetic field the electrons produce?",
+      options: ["1", "2", "3", "4"], answer: 2,
+      hints: ["You need the one compass whose needle lines up with the field around the wire.",
+              "Electrons are negative, so use the wire grasp rule with your left hand: thumb along the electrons' motion, bent fingers give the field.",
+              "Point your left thumb at your face, the way the electrons are moving. Your fingers curl one way around the wire.",
+              "With your left thumb toward you, your fingers curl clockwise. Each needle should point the way the circle goes around at that spot."] },
+    { r: 4, src: "notes", q: "70", page: 66, t: 26, kind: "Wire grasp rule", easy: true, gate: true,
+      text: "A car's battery delivers a steady DC current to a headlight. The current in the wire produces a circular",
+      options: ["electric field around the wire", "magnetic field around the wire", "gravitational field around the wire", "electromagnetic field around the wire"], answer: 1,
+      hints: ["Which kind of field makes circles around a wire that carries a current?",
+              "This is Oersted's discovery: moving charges produce one particular kind of field.",
+              "The field around a straight wire is a set of circles centred on the wire.",
+              "\"Electromagnetic\" belongs to the radiation unit, where fields change and travel. A steady current makes a steady circular field of one kind."] },
+    { r: 4, src: "notes", q: "71", page: 66, t: 26, kind: "Wire grasp rule", fig: FIG71, gate: true,
+      stem: "Electrons move through a wire as shown.",
+      text: "What is the direction of the magnetic field at point P?",
+      options: ["into the page", "out of the page", "toward the top of the page", "toward the bottom of the page"], answer: 1,
+      hints: ["P is above the wire. You want the field direction right there.",
+              "Electrons, so left hand: thumb in the direction the electrons move.",
+              "Left thumb pointing left, along the wire. Curl your fingers and watch what your fingertips do above the wire.",
+              "Above the wire, your fingertips come up off the page toward you."] },
+    { r: 4, src: "mextra", q: "2", page: 2, t: 26, kind: "Sources of fields", gate: true, stem: S_X2,
+      text: "Which of the vector fields above are produced by a charged particle at rest?",
+      options: ["I, II, and III", "I and II only", "I and III only", "II and III only"], answer: 1,
+      hints: ["A charged particle that isn't moving: which of the three fields does it make?",
+              "Anything with mass makes a gravitational field. Anything with charge makes an electric field.",
+              "Oersted's discovery: a magnetic field needs moving charge. This particle is at rest.",
+              "So it makes two of the three. Leave out the one that needs motion."] },
+    { r: 4, src: "mextra", q: "3", page: 2, t: 27, kind: "Coil rule", fig: FIGSOL, gate: true,
+      stem: "A solenoid is connected to a battery as shown. The short line of the battery symbol is the negative terminal.",
+      text: "The magnetic field created inside the solenoid is directed",
+      options: ["into the page", "out of the page", "toward the left of the page", "toward the right of the page"], answer: 3,
+      hints: ["You want the direction of the field inside the coil.",
+              "Coil rule with electron current, so left hand: bent fingers go the way the electrons go around the coil, and your thumb gives the field inside.",
+              "Electrons leave the negative terminal and reach the left end of the coil first. Follow them up across the front of each loop (the solid lines).",
+              "Curl your left fingers so they go up across the front of the coil. Where does your thumb point?"] },
+    { r: 4, src: "own", q: "27a", t: 27, kind: "Coil rule", gate: true, from: "his notes, p. 54, and his 2021 unit test walkthrough",
+      stem: "A vertical coil carries a current. Using the coil rule, you find that the magnetic field inside the coil points down.",
+      text: "At a point just outside the coil, beside it, the magnetic field points",
+      options: ["up", "down", "into the page", "out of the page"], answer: 0,
+      hints: ["Inside the coil the field points down. The point you want is outside, beside the coil.",
+              "A coil with a current is an electromagnet. Its field is shaped like a bar magnet's.",
+              "Inside, the field runs from the coil's south end to its north end. Outside, it loops back from north to south.",
+              "If the lines go down through the middle, which way do they come back up the outside?"] }
+  ];
+  MAG_ITEMS.forEach(function (it) { ITEMS.push(it); });
+
   ITEMS.forEach(function (it) {
     if (!it.src) it.src = it.r === 0 ? "ws" : "notes";
     if (!it.t) it.t = 21;
@@ -756,7 +941,20 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     halfway: ["5FvprRae81A", 601,  "Topic 23: Conservation of Energy (partway across the gap)"],
     slow:    ["5FvprRae81A", 780,  "Topic 23: Conservation of Energy (slowing down)"],
     ex1:     ["5FvprRae81A", 961,  "Topic 23: Conservation of Energy (Example 1)"],
-    cage:    ["sXdBn70FlII", 1023, "Topic 22: Charge Distribution on Conductors (the Faraday cage)"]
+    cage:    ["sXdBn70FlII", 1023, "Topic 22: Charge Distribution on Conductors (the Faraday cage)"],
+    dom:     ["B_62aYolPT0", 0,    "Topics 24 and 25: Magnetism and Magnetic Fields (domains)"],
+    cut:     ["B_62aYolPT0", 241,  "Topics 24 and 25: Magnetism and Magnetic Fields (cutting a magnet in half)"],
+    law3:    ["B_62aYolPT0", 841,  "Topics 24 and 25: Magnetism and Magnetic Fields (the third law)"],
+    sources: ["B_62aYolPT0", 1080, "Topics 24 and 25: Magnetism and Magnetic Fields (what makes a magnetic field)"],
+    nsout:   ["B_62aYolPT0", 1862, "Topics 24 and 25: Magnetism and Magnetic Fields (field from north to south)"],
+    inside:  ["B_62aYolPT0", 1920, "Topics 24 and 25: Magnetism and Magnetic Fields (the field inside the magnet)"],
+    join:    ["B_62aYolPT0", 1987, "Topics 24 and 25: Magnetism and Magnetic Fields (lines that join attract)"],
+    earth:   ["B_62aYolPT0", 2165, "Topics 24 and 25: Magnetism and Magnetic Fields (Earth's north is a magnetic south pole)"],
+    circles: ["qZfjtkAmq9A", 181,  "Topic 26: Wire Grasp Rule (the circular field)"],
+    graspAbove: ["qZfjtkAmq9A", 661, "Topic 26: Wire Grasp Rule (above and below the wire)"],
+    graspDot:   ["qZfjtkAmq9A", 1020, "Topic 26: Wire Grasp Rule (electrons coming toward you)"],
+    coilOut: ["Yoz1__O5KR8", 600,  "Topic 27: Coil Rule (inside and outside the coil)"],
+    coilE:   ["Yoz1__O5KR8", 721,  "Topic 27: Coil Rule (battery terminals and electron current)"]
   };
   var VMAP = {
     ws1: "point", ws3: "point", ws5: "fq", ws7: "fq", ws8: "net", ws9: "net", ws10: "plates", ws12a: "plates", ws12b: "fq", ws12c: "accel",
@@ -765,7 +963,9 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     notes40: "control", notes41: "gravity", notes42: "coulomb", notes43: "coulomb", notes44: "toward", notes45: "scalar", notes54: "lines", notes55: "coulomb",
     notes56: "energy", notes57: "energy", notes61: "ground", notes62: "hang", notes63: "hang", notes64: "inverse", notes65: "point",
     t231: "qv", t232: "qv", t233: "ex1", t234: "qv", t235a: "halfway", t235b: "halfway", t235c: "qv", t236: "slow", t237a: "ex1", t237b: "slow",
-    extra38: "cage", extra39: "hill", extra41: "ex1", extra42: "qv", extra43: "qv", extra44: "qv", extra45: "qv", extra46: "qv", extra52: "qv"
+    extra38: "cage", extra39: "hill", extra41: "ex1", extra42: "qv", extra43: "qv", extra44: "qv", extra45: "qv", extra46: "qv", extra52: "qv",
+    own24a: "dom", own24b: "cut", own24c: "law3", notes66: "join", notes67: "nsout", notes68: "nsout", own25a: "earth", own25b: "inside",
+    notes69: "graspDot", notes70: "circles", notes71: "graspAbove", mextra2: "sources", mextra3: "coilE", own27a: "coilOut"
   };
   ITEMS.forEach(function (it) { if (VMAP[it.id]) it.v = V[VMAP[it.id]]; });
 
@@ -773,7 +973,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
   var SESSION = 4;            // cards in a daily review: one easy opener, two mixed, one paper problem
   var EXTRA = 2;              // cards added by "Two more"
   var GAPS = [2, 4, 7];       // days until an item returns after 1, 2, 3 first-time-right answers in a row
-  var TOPIC_ORDER = [23, 21, 20, 22, 19, 18];
+  var TOPIC_ORDER = [27, 26, 25, 24, 23, 21, 20, 22, 19, 18];
 
   // Test mode: open the page with #test on the end of its address. It keeps its own separate
   // answers and schedule, so trying things out never touches the real log.
@@ -845,6 +1045,8 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
   function sourceLine(it) {
     if (it.src === "ws" || it.src === "t23") return "His practice sheet · Topic " + it.t + " #" + it.q + " · p. " + it.page;
     if (it.src === "extra") return "His Electricity EXTRA Questions · #" + it.q + " · p. " + it.page;
+    if (it.src === "mextra") return "His Magnetism EXTRA Questions · #" + it.q + " · p. " + it.page;
+    if (it.src === "own") return "Written for this page from " + it.from + " · Topic " + it.t;
     return "His notes · #" + it.q + " · p. " + it.page;
   }
   function first(st) { return st.solved && st.wrong === 0; }
@@ -857,7 +1059,8 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     else { s.step = 0; s.due = t + 1; s.last = st.solved ? "hints" : "shown"; }
     rv.sched[id] = s;
   }
-  function pool() { return ITEMS; }
+  function pool() { return ITEMS.filter(function (it) { return !gated(it); }); }
+  function gated(it) { return !!it.gate && !(state.rounds[it.r] && state.rounds[it.r].s); }
   function candidates(exclude) {
     var S = state.rv.sched, t = today(), due = [], later = [], byTopic = {}, freshList = [];
     pool().forEach(function (it) {
@@ -1087,8 +1290,8 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
 
   function renderStart() {
     var d = state.rv.day, h = "", week = sessionsLast7();
-    h += '<p class="source">Physics 30 · Electric forces and fields</p>' +
-         '<h1>Electricity: seven minutes a day</h1>';
+    h += '<p class="source">Physics 30 · Electric and magnetic forces and fields</p>' +
+         '<h1>Electricity and magnetism: seven minutes a day</h1>';
 
     h += '<div class="panel round today"><div class="head"><h2>Today’s review</h2>';
     if (d && d.finished) {
@@ -1098,7 +1301,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     } else if (d) {
       h += '<span class="status">' + d.pos + " of " + d.ids.length + '</span></div><p>You’re partway through today’s questions.</p><button class="primary" id="review" type="button">Carry on</button>';
     } else if (buildSession().length) {
-      h += '<span class="status">' + SESSION + ' questions</span></div><p>Four questions from the whole unit, energy in fields included. The first one is easy. One of them you work out on paper with your data booklet. If you miss a question, it comes back tomorrow.</p><button class="primary" id="review" type="button">Start today’s review</button>';
+      h += '<span class="status">' + SESSION + ' questions</span></div><p>Four questions from everything he’s taught so far, magnetism included. The first one is easy. One of them you work out on paper with your data booklet. If you miss a question, it comes back tomorrow.</p><button class="primary" id="review" type="button">Start today’s review</button>';
     } else {
       h += "</div><p>Nothing left to review today.</p>";
     }
@@ -1114,7 +1317,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     });
     if (entries().length) h += '<button class="ghost" id="tolog" type="button">See my log</button>';
     h += '<p class="muted small">If you get one wrong, you get a hint instead of the answer. You can ask for more hints, one at a time. Your answers stay on this phone unless you copy them.</p>';
-    h += '<p class="muted small">The numbers and question numbers match Mr. Dickie’s sheets, so you can find each question on your own copy. The wording and diagrams are different. Answers to the notes questions and the EXTRA Questions come from his keys. Answers to the practice-sheet questions were worked out for this page, so they aren’t his official key. If you think an answer here is wrong, tap “I think the key is wrong on this one” under that question.</p>';
+    h += '<p class="muted small">The numbers and question numbers match Mr. Dickie’s sheets, so you can find each question on your own copy. The wording and diagrams are different. Answers to the notes questions and the EXTRA Questions come from his keys. Answers to the practice-sheet questions were worked out for this page, so they aren’t his official key. A few magnetism questions say “Written for this page”: they follow his notes, but they aren’t his questions. If you think an answer here is wrong, tap “I think the key is wrong on this one” under that question.</p>';
     paint(h);
     on("review", openReview); on("more", moreToday);
     ROUNDS.forEach(function (R, r) { on("go" + r, function () { startRound(r); }); });
