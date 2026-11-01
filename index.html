@@ -158,7 +158,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
 (function () {
   "use strict";
 
-  var UNITS = ["N/C", "V/m", "N", "V", "C", "J", "m", "m/s²", "m/s", "no unit"];
+  var UNITS = ["N/C", "V/m", "N", "V", "C", "J", "m", "m/s²", "m/s", "T", "no unit"];
   var DIRS = ["left", "right", "up", "down"];
   var HINT_LABELS = ["What it's asking", "The idea", "The setup", "First step"];
   var SLIPS = ["concept", "setup", "algebra", "units", "direction"];
@@ -174,7 +174,9 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     { name: "Round 4: magnets and magnetic fields", set: "Magnetism, Topics 24-25 (phone)",
       blurb: "Eight quick multiple-choice questions on domains, poles and field lines: three from his notes (#66 to #68) and five written from his notes. About 10 minutes." },
     { name: "Round 5: wire grasp and coil rules", set: "Magnetism, Topics 26-27 (phone)",
-      blurb: "Start this after Mr. Dickie teaches the wire grasp rule (Topic 26). Until you start it, these questions stay out of the daily review. Six multiple-choice questions: his notes #69 to #71, Magnetism EXTRA #2 and #3, and one written for this page. About 10 minutes." }
+      blurb: "Start this after Mr. Dickie teaches the wire grasp rule (Topic 26). Until you start it, these questions stay out of the daily review. Six multiple-choice questions: his notes #69 to #71, Magnetism EXTRA #2 and #3, and one written for this page. About 10 minutes." },
+    { name: "Round 6: the deflection rule and F = qvB", set: "Magnetism, Topics 28-29 (phone)",
+      blurb: "What he taught October 29 and 30: which way a moving charge gets pushed, and how hard. Eight multiple choice (his notes #72 and #74, Magnetism EXTRA #13, five written for this page) and four you work out with your data booklet (EXTRA #4 and three written for this page). About 20 minutes." }
   ];
 
   var STEM12 = "An electron sits between two parallel plates 10.0 cm apart. The field between the plates is 2.50 x 10^3 N/C.";
@@ -907,6 +909,128 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
   ];
   MAG_ITEMS.forEach(function (it) { ITEMS.push(it); });
 
+  // Round 6: Topics 28 and 29 (deflection rule, F = qvB), taught October 29 and 30.
+  // Notes #72 and #74 (key: notes p. 74), Magnetism EXTRA #4 and #13 (key: EXTRA QUESTIONS ANSWER KEY,
+  // 18 June update). Every direction re-checked as F = q(v x B); every number computed in code.
+  // His rule: thumb along the particle's motion, straight fingers along the field, palm gives the force.
+  // Left hand for negative charges, right hand for positive.
+  var FIG72 = (function () {
+    var h = '<svg viewBox="0 0 320 300" role="img" aria-label="Three regions, one above the other. An electron enters each from the left, moving right. Field 1: vertical field lines with arrows pointing up. Field 2: a grid of crosses, a field into the page. Field 3: vertical field lines with arrows pointing down.">' +
+      '<defs><marker id="ah72" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="mk" d="M0 0 L10 5 L0 10 z"></path></marker></defs>';
+    [[10, "up"], [110, "x"], [210, "down"]].forEach(function (b, k) {
+      var y = b[0], x;
+      h += '<path class="fine" stroke-dasharray="3 4" d="M96 ' + y + ' H246 V' + (y + 80) + ' H96 Z"></path>';
+      h += '<text x="256" y="' + (y + 44) + '">Field ' + (k + 1) + '</text>';
+      h += '<path class="fine" d="M24 ' + (y + 40) + ' H90" marker-end="url(#ah72)"></path><text x="34" y="' + (y + 32) + '">e⁻</text>';
+      for (x = 116; x <= 226; x += 22) {
+        if (b[1] === "x") { h += '<text x="' + x + '" y="' + (y + 28) + '" text-anchor="middle">×</text><text x="' + x + '" y="' + (y + 64) + '" text-anchor="middle">×</text>'; }
+        else if (b[1] === "up") { h += '<path class="fine" d="M' + x + ' ' + (y + 74) + ' V' + (y + 8) + '" marker-end="url(#ah72)"></path>'; }
+        else { h += '<path class="fine" d="M' + x + ' ' + (y + 6) + ' V' + (y + 72) + '" marker-end="url(#ah72)"></path>'; }
+      }
+    });
+    return h + '</svg>';
+  })();
+  var PAGE_DIRS = ["toward the top of the page", "toward the bottom of the page", "toward the left of the page", "toward the right of the page"];
+  var S_SEM = "In a scanning electron microscope, electrons leave the anode at 2.65 x 10^7 m/s and pass through a magnetic lens. Moving perpendicular to the lens's field, one electron feels a magnetic force of 3.31 x 10^-12 N.";
+
+  var R6_ITEMS = [
+    { r: 5, src: "own", q: "28a", t: 28, kind: "When is there a magnetic force?", easy: true, from: "his notes, pp. 56 and 57",
+      text: "Each particle is in the same uniform magnetic field. Which one feels a magnetic force?",
+      options: ["a proton at rest", "an electron moving parallel to the field", "a proton moving perpendicular to the field", "a neutron moving perpendicular to the field"], answer: 2,
+      hints: ["Three of these feel no magnetic force at all. Find the one that does.",
+              "A magnetic field pushes only on a charge that is moving, and moving across the field.",
+              "At rest: no force. Parallel to the field: no force. No charge: no force.",
+              "Only one particle has a charge, is moving, and is crossing the field."] },
+    { r: 5, src: "notes", q: "74", page: 67, t: 29, kind: "F = qvB", easy: true,
+      text: "The magnetic force on a charged particle moving through a magnetic field doubles if you double any one of",
+      options: ["the particle's charge, speed or mass", "the field's strength or the angle the particle enters at", "the particle's speed, its mass, or the field's strength", "the particle's charge, its speed, or the field's strength"], answer: 3,
+      hints: ["Which quantities is the magnetic force directly proportional to?",
+              "Write out his equation for the magnetic force on a moving charge.",
+              "F = qvB. Doubling any one quantity in that product doubles the force.",
+              "Mass isn't in F = qvB. Which option lists only q, v and B?"] },
+    { r: 5, src: "own", q: "28b", t: 28, kind: "Hand rule for deflection", from: "his notes, p. 56",
+      text: "An electron moves toward the right of the page through a magnetic field that points out of the page. The magnetic force on the electron points",
+      options: PAGE_DIRS, answer: 0,
+      hints: ["You have the particle's motion and the field. You want the force.",
+              "Electron, so left hand. Thumb goes the way the particle moves, straight fingers go along the field, and your palm pushes in the direction of the force.",
+              "Left thumb to the right of the page. Straight fingers out of the page, toward you.",
+              "Which way does your left palm face now?"] },
+    { r: 5, src: "own", q: "28c", t: 28, kind: "Hand rule for deflection", from: "his notes, p. 56",
+      text: "A proton moves toward the top of the page through a magnetic field that points into the page. The magnetic force on the proton points",
+      options: PAGE_DIRS, answer: 2,
+      hints: ["You have the particle's motion and the field. You want the force.",
+              "A proton is positive, so right hand: thumb with the motion, straight fingers along the field, palm gives the force.",
+              "Right thumb toward the top of the page. Straight fingers pointing into the page.",
+              "Which way does your right palm face?"] },
+    { r: 5, src: "own", q: "28d", t: 28, kind: "Hand rule for deflection", from: "his notes, p. 56",
+      text: "An alpha particle moves into the page through a magnetic field that points toward the top of the page. The magnetic force on the alpha particle points",
+      options: PAGE_DIRS, answer: 3,
+      hints: ["You have the particle's motion and the field. You want the force.",
+              "An alpha particle is positive (+2e), so right hand.",
+              "Right thumb into the page. Straight fingers toward the top of the page.",
+              "With your thumb into the page and fingers up the page, which way does your palm face?"] },
+    { r: 5, src: "own", q: "28e", t: 28, kind: "Hand rule in reverse", from: "his notes, p. 57",
+      text: "A proton in a magnetic field that points into the page feels a magnetic force toward the right of the page. The proton is moving",
+      options: PAGE_DIRS, answer: 1,
+      hints: ["This time you have the field and the force. You want the motion.",
+              "Run the rule in reverse: right hand, straight fingers along the field, palm along the force. Your thumb shows the motion.",
+              "Right fingers into the page, palm facing the right of the page.",
+              "Where does your thumb point?"] },
+    { r: 5, src: "own", q: "28f", t: 28, kind: "Hand rule in reverse", from: "his recording of Topics 28 and 29",
+      text: "An electron travels east. The magnetic force on it is straight up, away from the ground. The magnetic field points",
+      options: ["north", "south", "east", "up"], answer: 1,
+      hints: ["You have the motion and the force. You want the field. This time the directions are compass directions, not the page.",
+              "Electron, so left hand. Thumb with the motion, palm with the force. Your straight fingers show the field.",
+              "Hold your left thumb pointing east and turn your hand until your palm faces up.",
+              "Your fingers point along the ground. Pick north or south: lay out the directions as he does, with north ahead of you and east to your right."] },
+    { r: 5, src: "notes", q: "72", page: 66, t: 28, kind: "Electric, magnetic or gravitational?", fig: FIG72,
+      stem: "One electron enters each region moving to the right. In each region the electron is pushed toward the bottom of the page.",
+      text: "Fields 1, 2 and 3 are, in order,",
+      options: ["electric, magnetic, gravitational", "gravitational, magnetic, electric", "magnetic, gravitational, electric", "magnetic, electric, gravitational"], answer: 0,
+      hints: ["Each field pushes the electron down. You have to say which kind of field each one is.",
+              "Field 2 is the only one into the page. A field into the page can only push the electron down if it acts on a moving charge.",
+              "An electric field pushes an electron opposite to the field's direction. Gravity pulls everything along its field.",
+              "Field 1 points up but the electron goes down. Field 3 points down and the electron goes down too."] },
+    { r: 5, src: "mextra", q: "13", page: 8, t: 29, kind: "F = qvB",
+      text: "A particle with a charge of 3.0 x 10^-12 C moves at 2.0 x 10^2 m/s at right angles to a magnetic field of 0.400 T. The magnitude of the magnetic force on the particle is",
+      options: ["4.8 x 10^-8 N", "2.4 x 10^-10 N", "1.5 x 10^-13 N", "1.3 x 10^-17 N"], answer: 1,
+      hints: ["You want the size of the magnetic force. Direction doesn't matter here.",
+              "The particle crosses the field at right angles, so F = qvB applies.",
+              "q = 3.0 x 10^-12 C, v = 2.0 x 10^2 m/s, B = 0.400 T.",
+              "Multiply the three. Do the powers of ten separately: 10^-12 × 10^2."] },
+    { r: 5, src: "own", q: "29a", t: 29, kind: "F = qvB", from: "his notes, p. 57",
+      text: "A proton moves at 4.20 x 10^5 m/s perpendicular to a 0.0350 T magnetic field. Find the magnitude of the magnetic force on it.",
+      value: 2.352e-15, show: ["2.35", -15], units: ["N"],
+      hints: ["You want the size of the force on a moving charge in a magnetic field.",
+              "The proton moves perpendicular to the field, so F = qvB.",
+              "The proton's charge is in the data booklet: 1.60 x 10^-19 C. v = 4.20 x 10^5 m/s, B = 0.0350 T.",
+              "F = (1.60 x 10^-19)(4.20 x 10^5)(0.0350). Round to three significant digits."] },
+    { r: 5, src: "mextra", q: "4", page: 4, t: 29, kind: "F = qvB", stem: S_SEM,
+      text: "Find the strength of the magnetic field in the lens.",
+      value: 0.78066, show: ["7.81", -1], units: ["T"],
+      note: "His key gives 7.81 for the a.bc × 10^-w form, so the field is 7.81 × 10^-1 T.",
+      hints: ["You know the force, the charge and the speed. You want B.",
+              "The electron moves perpendicular to the field, so F = qvB still holds. Rearrange it for B.",
+              "B = F / (qv), with q = 1.60 x 10^-19 C (use the size of the electron's charge), v = 2.65 x 10^7 m/s, F = 3.31 x 10^-12 N.",
+              "Work out qv first, then divide F by it. The answer is less than 1 T."] },
+    { r: 5, src: "own", q: "29b", t: 29, kind: "F = qvB", from: "his notes, p. 57",
+      text: "An electron crosses a 0.150 T magnetic field at right angles and feels a magnetic force of 4.80 x 10^-14 N. How fast is it moving?",
+      value: 2.0e6, show: ["2.00", 6], units: ["m/s"],
+      hints: ["You know the force and the field. You want the speed.",
+              "Right angles, so F = qvB. Rearrange for v.",
+              "v = F / (qB), with q = 1.60 x 10^-19 C and B = 0.150 T.",
+              "qB = 2.40 x 10^-20. Divide 4.80 x 10^-14 by that."] },
+    { r: 5, src: "own", q: "29c", t: 29, kind: "Magnetic force balancing gravity", from: "his recording of Topics 28 and 29 (his last example)",
+      stem: "A particle of mass 2.00 x 10^-26 kg and charge +1e moves horizontally through a horizontal 4.00 x 10^-5 T magnetic field, at right angles to it. It travels in a straight line: it doesn't fall.",
+      text: "How fast is it moving?",
+      value: 0.030656, show: ["3.07", -2], units: ["m/s"],
+      hints: ["The particle isn't deflected. What does that tell you about the forces on it?",
+              "Two forces act: gravity down and the magnetic force up. If it goes straight, they balance.",
+              "Set the sizes equal: qvB = mg. Rearrange: v = mg / (qB).",
+              "m = 2.00 x 10^-26 kg, g = 9.81 m/s², q = 1.60 x 10^-19 C, B = 4.00 x 10^-5 T."] }
+  ];
+  R6_ITEMS.forEach(function (it) { ITEMS.push(it); });
+
   ITEMS.forEach(function (it) {
     if (!it.src) it.src = it.r === 0 ? "ws" : "notes";
     if (!it.t) it.t = 21;
@@ -954,7 +1078,15 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     graspAbove: ["qZfjtkAmq9A", 661, "Topic 26: Wire Grasp Rule (above and below the wire)"],
     graspDot:   ["qZfjtkAmq9A", 1020, "Topic 26: Wire Grasp Rule (electrons coming toward you)"],
     coilOut: ["Yoz1__O5KR8", 600,  "Topic 27: Coil Rule (inside and outside the coil)"],
-    coilE:   ["Yoz1__O5KR8", 721,  "Topic 27: Coil Rule (battery terminals and electron current)"]
+    coilE:   ["Yoz1__O5KR8", 721,  "Topic 27: Coil Rule (battery terminals and electron current)"],
+    deflRule: ["mHYjLmet-TM", 240,  "Topics 28 and 29: Deflection Rule (thumb, fingers, palm)"],
+    deflBack: ["mHYjLmet-TM", 302,  "Topics 28 and 29: Deflection Rule (using the rule in reverse)"],
+    deflEarth: ["mHYjLmet-TM", 661, "Topics 28 and 29: Deflection Rule (north, south, east, west and up)"],
+    qvb:     ["mHYjLmet-TM", 781,  "Topics 28 and 29: Magnetic force, F = qvB"],
+    parallel: ["mHYjLmet-TM", 961, "Topics 28 and 29: Moving parallel to the field (no force)"],
+    qvbEx:   ["mHYjLmet-TM", 1021, "Topics 28 and 29: Example 1 (size and direction)"],
+    qvbCalc: ["mHYjLmet-TM", 1440, "Topics 28 and 29: Worksheet question 9 (F = qvB)"],
+    balance: ["mHYjLmet-TM", 1500, "Topics 28 and 29: Last example (magnetic force balancing gravity)"]
   };
   var VMAP = {
     ws1: "point", ws3: "point", ws5: "fq", ws7: "fq", ws8: "net", ws9: "net", ws10: "plates", ws12a: "plates", ws12b: "fq", ws12c: "accel",
@@ -965,7 +1097,9 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     t231: "qv", t232: "qv", t233: "ex1", t234: "qv", t235a: "halfway", t235b: "halfway", t235c: "qv", t236: "slow", t237a: "ex1", t237b: "slow",
     extra38: "cage", extra39: "hill", extra41: "ex1", extra42: "qv", extra43: "qv", extra44: "qv", extra45: "qv", extra46: "qv", extra52: "qv",
     own24a: "dom", own24b: "cut", own24c: "law3", notes66: "join", notes67: "nsout", notes68: "nsout", own25a: "earth", own25b: "inside",
-    notes69: "graspDot", notes70: "circles", notes71: "graspAbove", mextra2: "sources", mextra3: "coilE", own27a: "coilOut"
+    notes69: "graspDot", notes70: "circles", notes71: "graspAbove", mextra2: "sources", mextra3: "coilE", own27a: "coilOut",
+    own28a: "parallel", notes74: "qvb", own28b: "deflRule", own28c: "qvbEx", own28d: "deflRule", own28e: "deflBack", own28f: "deflEarth",
+    notes72: "deflRule", mextra13: "qvbCalc", own29a: "qvbEx", mextra4: "qvbCalc", own29b: "qvbCalc", own29c: "balance"
   };
   ITEMS.forEach(function (it) { if (VMAP[it.id]) it.v = V[VMAP[it.id]]; });
 
@@ -973,7 +1107,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
   var SESSION = 4;            // cards in a daily review: one easy opener, two mixed, one paper problem
   var EXTRA = 2;              // cards added by "Two more"
   var GAPS = [2, 4, 7];       // days until an item returns after 1, 2, 3 first-time-right answers in a row
-  var TOPIC_ORDER = [27, 26, 25, 24, 23, 21, 20, 22, 19, 18];
+  var TOPIC_ORDER = [29, 28, 27, 26, 25, 24, 23, 21, 20, 22, 19, 18];
 
   // Test mode: open the page with #test on the end of its address. It keeps its own separate
   // answers and schedule, so trying things out never touches the real log.
