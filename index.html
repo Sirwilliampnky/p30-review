@@ -158,7 +158,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
 (function () {
   "use strict";
 
-  var UNITS = ["N/C", "V/m", "N", "V", "C", "J", "m", "m/s²", "m/s", "T", "no unit"];
+  var UNITS = ["N/C", "V/m", "N", "V", "C", "J", "m", "m/s²", "m/s", "T", "A", "kg", "no unit"];
   var DIRS = ["left", "right", "up", "down"];
   var HINT_LABELS = ["What it's asking", "The idea", "The setup", "First step"];
   var SLIPS = ["concept", "setup", "algebra", "units", "direction"];
@@ -174,9 +174,15 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     { name: "Round 4: magnets and magnetic fields", set: "Magnetism, Topics 24-25 (phone)",
       blurb: "Eight quick multiple-choice questions on domains, poles and field lines: three from his notes (#66 to #68) and five written from his notes. About 10 minutes." },
     { name: "Round 5: wire grasp and coil rules", set: "Magnetism, Topics 26-27 (phone)",
-      blurb: "Start this after Mr. Dickie teaches the wire grasp rule (Topic 26). Until you start it, these questions stay out of the daily review. Six multiple-choice questions: his notes #69 to #71, Magnetism EXTRA #2 and #3, and one written for this page. About 10 minutes." },
+      blurb: "The wire grasp rule and the coil rule, from the lessons of October 26 to 28. Six multiple-choice questions: his notes #69 to #71, Magnetism EXTRA #2 and #3, and one written for this page. About 10 minutes." },
     { name: "Round 6: the deflection rule and F = qvB", set: "Magnetism, Topics 28-29 (phone)",
-      blurb: "What he taught October 29 and 30: which way a moving charge gets pushed, and how hard. Eight multiple choice (his notes #72 and #74, Magnetism EXTRA #13, five written for this page) and four you work out with your data booklet (EXTRA #4 and three written for this page). About 20 minutes." }
+      blurb: "What he taught October 29 and 30: which way a moving charge gets pushed, and how hard. Eight multiple choice (his notes #72 and #74, Magnetism EXTRA #13, five written for this page) and four you work out with your data booklet (EXTRA #4 and three written for this page). About 20 minutes." },
+    { name: "Round 7: circular paths, current and the force on a wire", set: "Magnetism, Topics 29-31 (phone)",
+      blurb: "What he taught November 3 and 5: why a charge goes in a circle and how big the circle is (r = mv/qB), current as charge per second, and the force on a wire (F = IlB, or mg = IlB when the wire hangs). Six multiple choice and nine you work out on paper: his notes #75, #76, #82, #86 and #93, Magnetism EXTRA #7, his practice sheet pages 59, 61 and 64, the Pre-Exam Review #5 and Practice #16. About 30 minutes." },
+    { name: "Round 8: test review", set: "Magnetism test review (phone)",
+      blurb: "The kinds of question his 2021 Magnetism unit test asked, rewritten with the same ideas: which particle made which path, the cyclotron (his notes #83 and #84), how r depends on B and v, the field near a wire and inside a coil, and two written-response types. Eight multiple choice and two on paper. About 15 minutes." },
+    { name: "Round 9: induction and Lenz's law", set: "Magnetism, Topics 32-33 (phone)",
+      blurb: "Start this after Mr. Dickie teaches the generator effect (notes p. 63). Until you start it, these questions stay out of the daily review. Three multiple choice: the guitar pickup, and a magnet pushed into a coil. About 5 minutes." }
   ];
 
   var STEM12 = "An electron sits between two parallel plates 10.0 cm apart. The field between the plates is 2.50 x 10^3 N/C.";
@@ -860,7 +866,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
               "Follow one loop: out of N, around the outside to S, then back through the magnet to N."] },
 
     // Round 5: Topics 26 and 27, the next lessons. Out of the daily review until the round is started.
-    { r: 4, src: "notes", q: "69", page: 65, t: 26, kind: "Wire grasp rule", fig: FIG69, gate: true,
+    { r: 4, src: "notes", q: "69", page: 65, t: 26, kind: "Wire grasp rule", fig: FIG69,
       stem: "You are looking down on a vertical wire from above. Electrons in the wire are moving up, toward you. Four compasses sit around it.",
       text: "Which compass shows the direction of the magnetic field the electrons produce?",
       options: ["1", "2", "3", "4"], answer: 2,
@@ -868,14 +874,14 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
               "Electrons are negative, so use the wire grasp rule with your left hand: thumb along the electrons' motion, bent fingers give the field.",
               "Point your left thumb at your face, the way the electrons are moving. Your fingers curl one way around the wire.",
               "With your left thumb toward you, your fingers curl clockwise. Each needle should point the way the circle goes around at that spot."] },
-    { r: 4, src: "notes", q: "70", page: 66, t: 26, kind: "Wire grasp rule", easy: true, gate: true,
+    { r: 4, src: "notes", q: "70", page: 66, t: 26, kind: "Wire grasp rule", easy: true,
       text: "A car's battery delivers a steady DC current to a headlight. The current in the wire produces a circular",
       options: ["electric field around the wire", "magnetic field around the wire", "gravitational field around the wire", "electromagnetic field around the wire"], answer: 1,
       hints: ["Which kind of field makes circles around a wire that carries a current?",
               "This is Oersted's discovery: moving charges produce one particular kind of field.",
               "The field around a straight wire is a set of circles centred on the wire.",
               "\"Electromagnetic\" belongs to the radiation unit, where fields change and travel. A steady current makes a steady circular field of one kind."] },
-    { r: 4, src: "notes", q: "71", page: 66, t: 26, kind: "Wire grasp rule", fig: FIG71, gate: true,
+    { r: 4, src: "notes", q: "71", page: 66, t: 26, kind: "Wire grasp rule", fig: FIG71,
       stem: "Electrons move through a wire as shown.",
       text: "What is the direction of the magnetic field at point P?",
       options: ["into the page", "out of the page", "toward the top of the page", "toward the bottom of the page"], answer: 1,
@@ -883,14 +889,14 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
               "Electrons, so left hand: thumb in the direction the electrons move.",
               "Left thumb pointing left, along the wire. Curl your fingers and watch what your fingertips do above the wire.",
               "Above the wire, your fingertips come up off the page toward you."] },
-    { r: 4, src: "mextra", q: "2", page: 2, t: 26, kind: "Sources of fields", gate: true, stem: S_X2,
+    { r: 4, src: "mextra", q: "2", page: 2, t: 26, kind: "Sources of fields", stem: S_X2,
       text: "Which of the vector fields above are produced by a charged particle at rest?",
       options: ["I, II, and III", "I and II only", "I and III only", "II and III only"], answer: 1,
       hints: ["A charged particle that isn't moving: which of the three fields does it make?",
               "Anything with mass makes a gravitational field. Anything with charge makes an electric field.",
               "Oersted's discovery: a magnetic field needs moving charge. This particle is at rest.",
               "So it makes two of the three. Leave out the one that needs motion."] },
-    { r: 4, src: "mextra", q: "3", page: 2, t: 27, kind: "Coil rule", fig: FIGSOL, gate: true,
+    { r: 4, src: "mextra", q: "3", page: 2, t: 27, kind: "Coil rule", fig: FIGSOL,
       stem: "A solenoid is connected to a battery as shown. The short line of the battery symbol is the negative terminal.",
       text: "The magnetic field created inside the solenoid is directed",
       options: ["into the page", "out of the page", "toward the left of the page", "toward the right of the page"], answer: 3,
@@ -898,7 +904,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
               "Coil rule with electron current, so left hand: bent fingers go the way the electrons go around the coil, and your thumb gives the field inside.",
               "Electrons leave the negative terminal and reach the left end of the coil first. Follow them up across the front of each loop (the solid lines).",
               "Curl your left fingers so they go up across the front of the coil. Where does your thumb point?"] },
-    { r: 4, src: "own", q: "27a", t: 27, kind: "Coil rule", gate: true, from: "his notes, p. 54, and his 2021 unit test walkthrough",
+    { r: 4, src: "own", q: "27a", t: 27, kind: "Coil rule", from: "his notes, p. 54, and his 2021 unit test walkthrough",
       stem: "A vertical coil carries a current. Using the coil rule, you find that the magnetic field inside the coil points down.",
       text: "At a point just outside the coil, beside it, the magnetic field points",
       options: ["up", "down", "into the page", "out of the page"], answer: 0,
@@ -1031,10 +1037,272 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
   ];
   R6_ITEMS.forEach(function (it) { ITEMS.push(it); });
 
+  // Round 7: Topic 29 part 2 (circular paths, r = mv/qB, taught November 3) and Topics 30 and 31
+  // (I = q/t, F = IlB, mg = IlB, taught November 5). Notes #75, #76, #82, #83, #84, #86 and #93
+  // (key: notes p. 74), Magnetism EXTRA #7 (key: EXTRA QUESTIONS ANSWER KEY, 18 June update), his
+  // Magnetism practice sheet (pp. 59, 61 and 64, no key: worked for this page), the E&M Pre-Exam
+  // Review #5 (key: Practice Session Question ANSWERS) and Practice #16 (no key on file). Every
+  // number computed in code from the data booklet; every direction checked as F = q(v x B).
+  // Round 8: the kinds of question on his 2021 Magnetism unit test (n51BHZ_yEXI), rewritten.
+  // Round 9: induction and Lenz's law (notes p. 63), gated until he teaches it.
+  var FIG_WIND =
+    '<svg viewBox="0 0 320 200" role="img" aria-label="Earth drawn as a circle with a bar magnet inside it, S at the top and N at the bottom. Dashed field loops leave the bottom of the Earth, curve around each side and enter the top; on the left side of the Earth the loop arrows point toward the top of the page. From the left edge, a stream of arrows labelled solar wind moves right toward the Earth.">' +
+    '<defs><marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="mk" d="M0 0 L10 5 L0 10 z"></path></marker></defs>' +
+    '<circle class="fine" cx="220" cy="100" r="40"></circle>' +
+    '<rect class="fine" x="212" y="66" width="16" height="68"></rect><text x="220" y="80" text-anchor="middle">S</text><text x="220" y="128" text-anchor="middle">N</text>' +
+    '<path class="fine" stroke-dasharray="3 4" d="M212 134 C170 134 166 118 166 100" marker-end="url(#ahw)"></path><path class="fine" stroke-dasharray="3 4" d="M166 100 C166 82 170 66 212 66"></path>' +
+    '<path class="fine" stroke-dasharray="3 4" d="M204 136 C130 140 118 122 118 100" marker-end="url(#ahw)"></path><path class="fine" stroke-dasharray="3 4" d="M118 100 C118 78 130 60 204 64"></path>' +
+    '<path class="fine" stroke-dasharray="3 4" d="M228 134 C270 134 274 118 274 100" marker-end="url(#ahw)"></path><path class="fine" stroke-dasharray="3 4" d="M274 100 C274 82 270 66 228 66"></path>' +
+    '<path class="fine" stroke-dasharray="3 4" d="M236 136 C306 140 316 122 316 100" marker-end="url(#ahw)"></path><path class="fine" stroke-dasharray="3 4" d="M316 100 C316 78 306 60 236 64"></path>' +
+    '<path class="fine" d="M10 88 H80" marker-end="url(#ahw)"></path><path class="fine" d="M10 100 H80" marker-end="url(#ahw)"></path><path class="fine" d="M10 112 H80" marker-end="url(#ahw)"></path>' +
+    '<text x="12" y="76">solar wind</text><text x="12" y="134">8.00 × 10⁵ m/s</text></svg>';
+  var FIG_PATHS =
+    '<svg viewBox="0 0 320 236" role="img" aria-label="A region filled with crosses, a magnetic field into the page. Five particles enter it from the bottom edge, all moving toward the top of the page. Path I, on the far left, bends sharply to the left. Path II bends gently to the left. Path III, in the middle, goes straight up. Path IV bends gently to the right. Path V, on the far right, bends sharply to the right.">' +
+    '<defs><marker id="ahp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="mk" d="M0 0 L10 5 L0 10 z"></path></marker></defs>' +
+    (function () { var h = ""; for (var y = 22; y <= 190; y += 24) for (var x = 24; x <= 300; x += 23) h += '<text x="' + x + '" y="' + y + '" text-anchor="middle" style="font-size:11px">×</text>'; return h; })() +
+    '<path class="fine" stroke-dasharray="3 4" d="M6 206 H314"></path>' +
+    '<path class="fine" stroke-width="1.5" d="M70 206 Q70 110 14 86" marker-end="url(#ahp)"></path>' +
+    '<path class="fine" stroke-width="1.5" d="M116 206 Q116 90 72 44" marker-end="url(#ahp)"></path>' +
+    '<path class="fine" stroke-width="1.5" d="M162 206 V34" marker-end="url(#ahp)"></path>' +
+    '<path class="fine" stroke-width="1.5" d="M208 206 Q208 90 252 44" marker-end="url(#ahp)"></path>' +
+    '<path class="fine" stroke-width="1.5" d="M254 206 Q254 110 310 86" marker-end="url(#ahp)"></path>' +
+    '<text x="70" y="226" text-anchor="middle">I</text><text x="116" y="226" text-anchor="middle">II</text><text x="162" y="226" text-anchor="middle">III</text>' +
+    '<text x="208" y="226" text-anchor="middle">IV</text><text x="254" y="226" text-anchor="middle">V</text></svg>';
+  var FIG_LOOP =
+    '<svg viewBox="0 0 320 150" role="img" aria-label="A circular loop of wire with two leads coming in from the left. On the right-hand side of the loop an arrow labelled e minus shows the electrons moving toward the bottom of the page. Point P sits just to the right of the loop, outside it.">' +
+    '<defs><marker id="ahl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="mk" d="M0 0 L10 5 L0 10 z"></path></marker></defs>' +
+    '<circle class="fine" cx="160" cy="76" r="48"></circle>' +
+    '<path class="fine" d="M20 71 H113 M20 81 H113"></path>' +
+    '<path class="fine" stroke-width="1.5" d="M208 58 V96" marker-end="url(#ahl)"></path><text x="222" y="64">e⁻</text>' +
+    '<circle class="dot" cx="252" cy="76" r="3"></circle><text x="262" y="81">P</text></svg>';
+  var FIG_LENZ =
+    '<svg viewBox="0 0 320 210" role="img" aria-label="A bar magnet held upright above a vertical coil of wire, with its N end at the bottom, nearest the coil, and its S end at the top. An arrow beside the magnet points down: the magnet is moving down into the coil.">' +
+    '<defs><marker id="ahz" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="mk" d="M0 0 L10 5 L0 10 z"></path></marker></defs>' +
+    '<rect class="fine" x="146" y="8" width="28" height="64"></rect><text x="160" y="28" text-anchor="middle">S</text><text x="160" y="64" text-anchor="middle">N</text>' +
+    '<path class="fine" d="M196 20 V66" marker-end="url(#ahz)"></path><text x="204" y="48">moves down</text>' +
+    (function () { var h = ""; for (var y = 96; y <= 176; y += 16) h += '<path class="fine" stroke-width="1.5" d="M120 ' + (y + 8) + ' C120 ' + (y - 6) + ' 200 ' + (y - 6) + ' 200 ' + (y + 8) + '"></path><path class="fine" stroke-dasharray="2 3" d="M200 ' + (y + 8) + ' C200 ' + (y + 20) + ' 120 ' + (y + 20) + ' 120 ' + (y + 8) + '"></path>'; return h; })() +
+    '<path class="fine" d="M120 104 V184 M200 104 V184"></path><path class="fine" d="M200 184 H240 M120 184 H80"></path><text x="246" y="189">coil</text></svg>';
+  var S_WIND = "The solar wind is a stream of charged particles from the Sun. Where it meets Earth's magnetic field, as shown, the protons are moving toward the right of the page at 8.00 x 10^5 m/s and the field there has a magnitude of 1.10 x 10^-7 T.";
+  var S_PATHS = "Five particles enter a uniform magnetic field directed into the page, all moving toward the top of the page.";
+  var S_CYCLO = "Ernest Lawrence's cyclotron accelerated protons to a maximum energy of 8.0 x 10^4 eV. At that energy the protons moved in a circular path of radius 6.5 x 10^-2 m.";
+  var OUTS = ["into the page", "out of the page", "toward the top of the page", "toward the bottom of the page"];
+
+  var R7_ITEMS = [
+    { r: 6, src: "mextra", q: "7", page: 5, t: 29, kind: "Why the path is a circle", easy: true,
+      text: "A charged particle travels at right angles to a uniform magnetic field. Complete the statement: the particle's path is deflected due to ___, and the speed of the particle will ___.",
+      options: ["an unbalanced magnetic force; stay the same", "an unbalanced magnetic force; increase", "a balanced centripetal force; stay the same", "a balanced centripetal force; increase"], answer: 0,
+      hints: ["Two things to decide: what bends the path, and what happens to the speed.",
+              "A force at right angles to the motion changes the direction but not the speed. That's what makes a circle.",
+              "The magnetic force is the only force here, so it's unbalanced. Centripetal force isn't a separate force: it's the name for whatever force points to the centre.",
+              "Unbalanced magnetic force, and the speed doesn't change."] },
+    { r: 6, src: "own", q: "29e", t: 29, kind: "Radius of the path", from: "his notes, p. 58 (the example not in your book) and his recording of Topic 29 part 2",
+      text: "An electron moves at 4.0 x 10^5 m/s toward the right of the page through a 2.5 x 10^-2 T magnetic field directed into the page. Find the radius of its path, and say which way it bends.",
+      value: 9.11e-5, show: ["9.11", -5], units: ["m"], dir: "down",
+      hints: ["You want the radius of the circle the electron moves in, and which way it curves.",
+              "The question mentions radius, so his rule of thumb says: set the centripetal force equal to the magnetic force.",
+              "mv²/r = qvB, which becomes r = mv / (qB). Mass and charge of the electron are in the data booklet.",
+              "r = (9.11 x 10^-31)(4.0 x 10^5) / [(1.60 x 10^-19)(2.5 x 10^-2)]. Brackets on the bottom. For the direction: left hand, thumb right, fingers into the page."] },
+    { r: 6, src: "mws", q: "13", st: 28, page: 59, t: 29, kind: "Radius of the path",
+      text: "An alpha particle moves at 2.5 x 10^6 m/s at right angles to a 1.0 x 10^-1 T magnetic field. What is the radius of its path?",
+      value: 0.51953, show: ["5.2", -1], units: ["m"],
+      hints: ["Radius again, so the same equation as the last one. The particle is different.",
+              "An alpha particle has its own mass and charge in the data booklet: it isn't a proton.",
+              "r = mv / (qB), with m = 6.65 x 10^-27 kg and q = 3.20 x 10^-19 C.",
+              "r = (6.65 x 10^-27)(2.5 x 10^6) / [(3.20 x 10^-19)(0.10)]. The answer is about half a metre."] },
+    { r: 6, src: "mws", q: "15", st: 28, page: 59, t: 29, kind: "Field from the radius",
+      text: "What magnetic field makes a proton moving at 5.0 x 10^5 m/s follow a circular path of radius 2.0 x 10^-2 m?",
+      value: 0.26094, show: ["2.6", -1], units: ["T"],
+      hints: ["You know the speed and the radius. You want B.",
+              "Same balance, centripetal force equals magnetic force, rearranged for the field.",
+              "r = mv / (qB), so B = mv / (qr).",
+              "B = (1.67 x 10^-27)(5.0 x 10^5) / [(1.60 x 10^-19)(2.0 x 10^-2)]."] },
+    { r: 6, src: "notes", q: "82", page: 70, t: 29, kind: "Comparing two paths",
+      text: "A proton and an alpha particle follow identical circular orbits in the same magnetic field. The proton's speed is 4.4 x 10^5 m/s. The alpha particle's speed is",
+      options: ["1.1 x 10^5 m/s", "2.2 x 10^5 m/s", "4.4 x 10^5 m/s", "8.8 x 10^5 m/s"], answer: 1,
+      hints: ["Same radius, same field, two different particles. Which speed gives the alpha particle the same circle?",
+              "Write r = mv / (qB) for each. r and B are the same, so mv/q must be the same for both.",
+              "The alpha particle has about four times the proton's mass and twice its charge.",
+              "v_alpha = v_proton × (m_p / m_alpha) × (q_alpha / q_p) = 4.4 x 10^5 × (1/4) × 2."] },
+    { r: 6, src: "notes", q: "75", page: 67, t: 29, kind: "Hand rule for deflection", stem: S_WIND, fig: FIG_WIND,
+      text: "The protons in the solar wind feel a magnetic force",
+      options: ["into the plane of the page", "out of the plane of the page", "in the direction the solar wind is travelling", "opposite to the direction the solar wind is travelling"], answer: 1,
+      hints: ["Read the field's direction off the diagram where the solar wind arrives, then use the hand rule.",
+              "Field lines leave N and enter S. On the left side of the Earth, which way do they point?",
+              "The field at the solar wind is toward the top of the page. Protons are positive: right hand, thumb to the right, fingers up the page.",
+              "Which way does your right palm face? Toward you is out of the page."] },
+    { r: 6, src: "notes", q: "76", page: 67, t: 29, kind: "Radius of the path", stem: S_WIND, fig: FIG_WIND,
+      text: "The solar wind's protons move perpendicular to the field. Find the radius of the circular path they follow.",
+      value: 7.5909e4, show: ["7.59", 4], units: ["m"],
+      note: "His key gives 7594 for the a.bc × 10^d form. This was also the last written-response question on his 2021 unit test.",
+      hints: ["Radius, so the centripetal-force balance again.",
+              "mv²/r = qvB. Cancel one v and rearrange for r.",
+              "r = mv / (qB) with the proton's mass and charge, v = 8.00 x 10^5 m/s, B = 1.10 x 10^-7 T.",
+              "The field is tiny, so the radius is huge: tens of kilometres. Keep the brackets on the bottom."] },
+    { r: 6, src: "p16", q: "4", t: 29, kind: "Balancing magnetic and electric forces",
+      text: "An electric field of 1.5 x 10^4 N/C is perpendicular to a magnetic field of 3.0 x 10^-3 T. An electron moving perpendicular to both fields passes through undeflected. The electron's speed is",
+      options: ["2.0 x 10^-7 m/s", "2.0 x 10^-1 m/s", "5.0 x 10^6 m/s", "5.0 x 10^7 m/s"], answer: 2,
+      hints: ["Undeflected means the two forces on the electron cancel. Which two?",
+              "The electric force qE and the magnetic force qvB point opposite ways and are equal in size.",
+              "qE = qvB. The charge cancels, so v = E / B.",
+              "v = 1.5 x 10^4 / 3.0 x 10^-3."] },
+    { r: 6, src: "mws", q: "1", st: 29, page: 61, t: 30, kind: "Current from a count of electrons", easy: true,
+      text: "5.50 x 10^10 electrons flow past a point in a wire in 7.50 s. Find the electric current.",
+      value: 1.1733e-9, show: ["1.17", -9], units: ["A"],
+      hints: ["Current is the rate of flow of charge: how much charge passes per second.",
+              "I = q / t. But q here isn't the number of electrons, it's their total charge.",
+              "Total charge = number of electrons × 1.60 x 10^-19 C. Then divide by the time.",
+              "q = (5.50 x 10^10)(1.60 x 10^-19) = 8.80 x 10^-9 C. I = q / 7.50."] },
+    { r: 6, src: "own", q: "31a", t: 31, kind: "Hand rule for the force on a wire", from: "his Topic 30 example 1 (practice sheet p. 63) and his recording of Topics 30 and 31",
+      text: "A wire carries electron current into the page. It sits in a magnetic field that points toward the left of the page. The magnetic force on the wire points",
+      options: PAGE_DIRS, answer: 1,
+      hints: ["Same rule as for a single moving charge. The wire is just a lot of electrons moving together.",
+              "Electrons, so left hand: thumb along the electron current, straight fingers along the field, palm gives the force.",
+              "Left thumb into the page. Straight fingers toward the left of the page.",
+              "Which way does your left palm face?"] },
+    { r: 6, src: "mws", q: "1", st: 30, page: 64, t: 31, kind: "F = IlB", easy: true,
+      text: "A 10.0 cm length of wire carries a current of 0.500 A through a perpendicular magnetic field of 0.100 T. Find the magnetic force on the wire.",
+      value: 5.0e-3, show: ["5.00", -3], units: ["N"],
+      hints: ["You want the size of the force on a current-carrying wire in a field.",
+              "The wire is perpendicular to the field, so F = IlB.",
+              "I = 0.500 A, l in metres, B = 0.100 T.",
+              "10.0 cm = 0.100 m. Multiply the three."] },
+    { r: 6, src: "notes", q: "86", page: 71, t: 31, kind: "F = IlB",
+      text: "A wire 75.0 cm long carries 6.00 A at right angles to a uniform magnetic field and feels a magnetic force of 0.350 N. Find the magnitude of the field.",
+      value: 0.077778, show: ["7.78", -2], units: ["T"],
+      note: "His key gives 7.78 for the b × 10^-w form, so the field is 7.78 × 10^-2 T.",
+      hints: ["You know the force, the current and the length. You want B.",
+              "F = IlB, rearranged for the field.",
+              "B = F / (Il), with l in metres.",
+              "B = 0.350 / (6.00 × 0.750)."] },
+    { r: 6, src: "mws", q: "4", st: 30, page: 64, t: 31, kind: "Magnetic force balancing gravity",
+      text: "A 15.0 cm wire carrying 0.200 A sits in a perpendicular magnetic field of 0.300 T, with gravity pulling down on it. The wire is suspended: it hangs without falling. Find its mass.",
+      value: 9.1743e-4, show: ["9.17", -4], units: ["kg"],
+      hints: ["Suspended means it isn't accelerating. What does that tell you about the forces?",
+              "Gravity down, magnetic force up, and they balance: mg = IlB.",
+              "Rearrange for m: m = IlB / g.",
+              "m = (0.200)(0.150)(0.300) / 9.81."] },
+    { r: 6, src: "prerev", q: "5", page: 3, t: 31, kind: "Current from a count of electrons, then F = IlB",
+      text: "A conductor 4.00 x 10^-2 m long is placed perpendicular to a 6.00 x 10^-2 T magnetic field. During a 20.0 s interval, 7.00 x 10^19 electrons pass a point in the conductor. Find the magnitude of the average magnetic force on the conductor.",
+      value: 1.344e-3, show: ["1.34", -3], units: ["N"],
+      note: "His key gives 1343 for the a.bc × 10^-d form. The same question was written response #2 on his 2021 unit test.",
+      hints: ["Two steps: you need the current before you can find the force.",
+              "F = IlB needs I. I = q / t needs q, and q comes from the number of electrons.",
+              "q = (7.00 x 10^19)(1.60 x 10^-19). I = q / 20.0. Then F = IlB.",
+              "The current comes out to 0.560 A. F = (0.560)(4.00 x 10^-2)(6.00 x 10^-2)."] },
+    { r: 6, src: "notes", q: "93", page: 73, t: 31, kind: "Magnetic force balancing gravity",
+      text: "A segment of copper wire sits perpendicular to a horizontal 1.5 T magnetic field. The length of wire in the field is 3.0 cm, and the mass of that segment is 20 g. The smallest current that will suspend the segment is",
+      options: ["0.044 A", "0.23 A", "4.4 A", "44 A"], answer: 2,
+      hints: ["Suspended again: the magnetic force up equals the weight down.",
+              "mg = IlB, this time solved for the current.",
+              "I = mg / (lB). Convert grams to kilograms and centimetres to metres first.",
+              "I = (0.020)(9.81) / [(0.030)(1.5)]."] }
+  ];
+  R7_ITEMS.forEach(function (it) { ITEMS.push(it); });
+
+  var R8_ITEMS = [
+    { r: 7, src: "own", q: "t1", t: 29, kind: "Which particle made this path?", stem: S_PATHS, fig: FIG_PATHS, from: "his 2021 unit test walkthrough",
+      text: "Path V shows the path of",
+      options: ["a proton", "a neutron", "an electron", "an alpha particle"], answer: 2,
+      hints: ["Path V bends to the right. Which kind of charge gets pushed that way in this field?",
+              "Try the hand rule with each hand: thumb up the page (the way it enters), straight fingers into the page.",
+              "Right hand gives a palm to the left. Left hand gives a palm to the right.",
+              "The left hand matches, so the particle is negative. Only one option is negative."] },
+    { r: 7, src: "own", q: "t2", t: 29, kind: "Which particle made this path?", stem: S_PATHS, fig: FIG_PATHS, easy: true, from: "his 2021 unit test walkthrough",
+      text: "Path III shows the path of",
+      options: ["a proton", "a neutron", "an electron", "an alpha particle"], answer: 1,
+      hints: ["Path III isn't bent at all.",
+              "A magnetic field pushes only on charge that is moving across it.",
+              "A particle with no charge feels no magnetic force, however fast it moves.",
+              "Which option has no charge?"] },
+    { r: 7, src: "notes", q: "83", page: 70, t: 29, kind: "Speed from energy in eV", stem: S_CYCLO,
+      text: "The maximum speed of the protons in Lawrence's cyclotron was",
+      options: ["1.5 x 10^13 m/s", "1.7 x 10^8 m/s", "3.9 x 10^6 m/s", "9.8 x 10^15 m/s"], answer: 2,
+      hints: ["You're given energy and want speed. The radius isn't needed for this one.",
+              "Kinetic energy: Ek = ½mv². First convert the energy from electronvolts to joules.",
+              "1 eV = 1.60 x 10^-19 J, so Ek = (8.0 x 10^4)(1.60 x 10^-19) J. Then v = √(2Ek / m) with the proton's mass.",
+              "Two of the options are far too big for anything slower than light. Don't forget the square root."] },
+    { r: 7, src: "notes", q: "84", page: 70, t: 29, kind: "Field from the radius", stem: S_CYCLO,
+      text: "The magnitude of the magnetic field used by Lawrence was",
+      options: ["6.3 x 10^-1 T", "2.7 x 10^1 T", "2.4 x 10^6 T", "1.6 x 10^9 T"], answer: 0,
+      hints: ["Now you have the speed from the last question and the radius. You want B.",
+              "Centripetal force equals magnetic force: mv²/r = qvB.",
+              "B = mv / (qr), with the proton's mass and charge, v = 3.9 x 10^6 m/s, r = 6.5 x 10^-2 m.",
+              "Brackets on the bottom: (1.60 x 10^-19)(6.5 x 10^-2)."] },
+    { r: 7, src: "own", q: "t3", t: 29, kind: "Relationship between r and B", from: "his 2021 unit test walkthrough",
+      text: "A graph of the radius of a hydrogen ion's circular path against the strength of the magnetic field it moves through would be",
+      options: ["a straight line sloping up from the origin", "a curve that rises more and more steeply", "a curve that drops toward the axis as B grows, never reaching it", "a horizontal line"], answer: 2,
+      hints: ["To see how two quantities are related, get an equation that connects them.",
+              "mv²/r = qvB gives r = mv / (qB).",
+              "B is on the bottom. Double B and r halves. That's an inverse relationship.",
+              "An inverse relationship graphs as a curve falling toward the axis, like y = 1/x."] },
+    { r: 7, src: "own", q: "t4", t: 29, kind: "Relationship between r, v and B", from: "his 2021 unit test walkthrough",
+      text: "A stream of electrons enters a magnetic field at right angles. If both the field B and the speed v are changed, the radius of the circular path will always increase when",
+      options: ["B increases and v increases", "B increases and v decreases", "B decreases and v decreases", "B decreases and v increases"], answer: 3,
+      hints: ["Same equation as before. This time two things change at once.",
+              "r = mv / (qB). v is on top, B is on the bottom.",
+              "r grows if v grows. r also grows if B shrinks.",
+              "Only one option does both."] },
+    { r: 7, src: "own", q: "t5", t: 29, kind: "F = qvB", from: "his 2021 unit test walkthrough (written response #3)",
+      text: "An alpha particle moves perpendicular to a 1.6 T magnetic field and feels a magnetic force of 1.1 x 10^-13 N. How fast is it moving?",
+      value: 2.1484e5, show: ["2.15", 5], units: ["m/s"], tol: 0.03,
+      note: "His walkthrough rounds this to 2.1 × 10^5 m/s, two significant digits like the numbers given. Either is accepted here.",
+      hints: ["Force and field known, speed wanted. No radius mentioned.",
+              "No radius, so his rule of thumb says F = qvB, rearranged for v.",
+              "v = F / (qB). The charge of an alpha particle is 3.20 x 10^-19 C, not 1.60 x 10^-19 C.",
+              "v = 1.1 x 10^-13 / [(3.20 x 10^-19)(1.6)]. Brackets on the bottom."] },
+    { r: 7, src: "own", q: "t6", t: 31, kind: "Magnetic force balancing gravity", from: "his 2021 unit test walkthrough (written response #4)",
+      text: "A 10 A current through a wire of mass 0.85 g and length 1.3 cm produces just enough magnetic force to hold the wire up against gravity. Find the magnitude of the magnetic field.",
+      value: 0.064142, show: ["6.41", -2], units: ["T"],
+      hints: ["The key word is suspended, or held up: the forces balance.",
+              "mg = IlB, solved for B.",
+              "B = mg / (Il). Grams to kilograms, centimetres to metres.",
+              "B = (0.85 x 10^-3)(9.81) / [(10)(0.013)]."] },
+    { r: 7, src: "own", q: "t7", t: 26, kind: "Wire grasp rule", fig: FIG_LOOP, from: "his 2021 unit test walkthrough",
+      text: "Electrons flow around the loop as shown. The magnetic field at point P, just outside the loop, points",
+      options: OUTS, answer: 0,
+      hints: ["P is right beside one part of the wire. The field there comes mostly from that part.",
+              "Treat the nearest bit of wire as a straight wire and use the wire grasp rule. Electrons, so left hand.",
+              "On the right side of the loop the electrons move toward the bottom of the page. Left thumb down.",
+              "Your fingers wrap around the wire. On the far side from the loop, at P, which way do they point?"] },
+    { r: 7, src: "own", q: "t8", t: 27, kind: "Coil rule", from: "his 2021 unit test walkthrough",
+      text: "A solenoid lies on its side. Seen from the front, the electrons in the front of each turn of wire move toward the top of the page. Inside the solenoid, the magnetic field points",
+      options: PAGE_DIRS, answer: 3,
+      hints: ["This is the coil rule, not the wire grasp rule.",
+              "Electron current, so left hand. Bent fingers follow the electrons around the front of the coil; your thumb gives the field inside.",
+              "Left hand, fingers curling up the page in front of the coil.",
+              "Which way does your thumb point?"] }
+  ];
+  R8_ITEMS.forEach(function (it) { ITEMS.push(it); });
+
+  var R9_ITEMS = [
+    { r: 8, src: "own", q: "32a", t: 32, kind: "The generator effect", gate: true, easy: true, from: "his notes, p. 63, and his 2021 unit test walkthrough",
+      text: "A steel guitar string is magnetized by a permanent magnet underneath it. A coil of wire surrounds that magnet. When the string is plucked, a small current appears in the coil because",
+      options: ["the magnet pushes the string's electrons along the string", "the coil's own field magnetizes the string", "the string acts as a magnet moving toward and away from the coil", "the permanent magnet's field inside the coil never changes"], answer: 2,
+      hints: ["Faraday: a current is induced when a wire and a magnetic field move relative to each other, or the field changes.",
+              "Here the coil doesn't move. What does?",
+              "The string is magnetized, so it's a magnet. Plucked, it vibrates.",
+              "A moving magnet near a coil induces a current in the coil."] },
+    { r: 8, src: "own", q: "33a", t: 33, kind: "Lenz's law", gate: true, fig: FIG_LENZ, from: "his notes, p. 63, and his 2021 unit test walkthrough",
+      text: "The north pole of a bar magnet is pushed down into a coil of wire. While the magnet moves, the top of the coil acts as",
+      options: ["a north pole, so the coil pushes back on the magnet", "a south pole, so the coil pulls the magnet in", "a north pole, so the coil pulls the magnet in", "no pole: a moving magnet induces no field"], answer: 0,
+      hints: ["Lenz's law: the induced current makes a field that opposes the motion that caused it.",
+              "The magnet is moving down. To oppose that, the coil has to push it up.",
+              "A north pole coming toward the coil gets pushed away by a like pole.",
+              "Like poles repel. Which pole at the top of the coil repels a north pole?"] },
+    { r: 8, src: "own", q: "33b", t: 33, kind: "Lenz's law and the coil rule", gate: true, fig: FIG_LENZ, from: "his notes, p. 63, and his 2021 unit test walkthrough",
+      text: "Same situation: the north pole moves down into the coil, so the top of the coil becomes a north pole. Seen from the front, the induced electron current in the front of the coil moves toward the",
+      options: ["top of the page", "bottom of the page", "left of the page", "right of the page"], answer: 2,
+      hints: ["You know the field inside the coil. Run the coil rule backwards to get the current.",
+              "Inside the coil the field goes from its south end to its north end: upward.",
+              "Left hand for electron current: thumb up the page along the field inside the coil. Your bent fingers show the electrons.",
+              "In front of the coil, which way do your fingers point?"] }
+  ];
+  R9_ITEMS.forEach(function (it) { ITEMS.push(it); });
+
   ITEMS.forEach(function (it) {
     if (!it.src) it.src = it.r === 0 ? "ws" : "notes";
     if (!it.t) it.t = 21;
-    it.id = it.src + it.q;
+    it.id = it.src + (it.st ? it.st + "-" : "") + it.q;
   });
   var IDX = {}; ITEMS.forEach(function (it, i) { IDX[it.id] = i; });
 
@@ -1086,7 +1354,28 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     parallel: ["mHYjLmet-TM", 961, "Topics 28 and 29: Moving parallel to the field (no force)"],
     qvbEx:   ["mHYjLmet-TM", 1021, "Topics 28 and 29: Example 1 (size and direction)"],
     qvbCalc: ["mHYjLmet-TM", 1440, "Topics 28 and 29: Worksheet question 9 (F = qvB)"],
-    balance: ["mHYjLmet-TM", 1500, "Topics 28 and 29: Last example (magnetic force balancing gravity)"]
+    balance: ["mHYjLmet-TM", 1500, "Topics 28 and 29: Last example (magnetic force balancing gravity)"],
+    circ:    ["NzwSViUnsWU", 240,  "Topic 29, part 2: Path of a particle (why it goes in a circle)"],
+    rEq:     ["NzwSViUnsWU", 660,  "Topic 29, part 2: Path of a particle (the rule of thumb, and r = mv/qB)"],
+    rEx:     ["NzwSViUnsWU", 780,  "Topic 29, part 2: Path of a particle (the electron example)"],
+    rBend:   ["NzwSViUnsWU", 842,  "Topic 29, part 2: Path of a particle (which way it bends)"],
+    rCompare: ["NzwSViUnsWU", 900, "Topic 29, part 2: Path of a particle (comparing two radii: divide)"],
+    cur:     ["5mU5BfGYp6g", 0,    "Topics 30 and 31: Electric current (I = q/t)"],
+    curEx:   ["5mU5BfGYp6g", 242,  "Topics 30 and 31: Electric current (the example: electrons to coulombs to amps)"],
+    wireRule: ["5mU5BfGYp6g", 600, "Topics 30 and 31: Hand rule for the force on a wire"],
+    ilb:     ["5mU5BfGYp6g", 660,  "Topics 30 and 31: F = IlB"],
+    ilbEx:   ["5mU5BfGYp6g", 960,  "Topics 30 and 31: Example 1 (current from electrons, then F = IlB)"],
+    tCyclo:  ["n51BHZ_yEXI", 124,  "His 2021 Magnetism unit test (the cyclotron: speed from eV, then B)"],
+    tPaths:  ["n51BHZ_yEXI", 420,  "His 2021 Magnetism unit test (which particle made which path)"],
+    tLenz:   ["n51BHZ_yEXI", 570,  "His 2021 Magnetism unit test (Lenz's law: the magnet and the coil)"],
+    tSol:    ["n51BHZ_yEXI", 710,  "His 2021 Magnetism unit test (the field inside a solenoid)"],
+    tLoop:   ["n51BHZ_yEXI", 900,  "His 2021 Magnetism unit test (the field beside a wire loop)"],
+    tGraph:  ["n51BHZ_yEXI", 1230, "His 2021 Magnetism unit test (r against B, and when r increases)"],
+    tGuitar: ["n51BHZ_yEXI", 1380, "His 2021 Magnetism unit test (the guitar pickup)"],
+    tWr2:    ["n51BHZ_yEXI", 1540, "His 2021 Magnetism unit test (written response #2: electrons to current to F = IlB)"],
+    tWr3:    ["n51BHZ_yEXI", 1680, "His 2021 Magnetism unit test (written response #3: F = qvB for an alpha particle)"],
+    tWr4:    ["n51BHZ_yEXI", 1770, "His 2021 Magnetism unit test (written response #4: the suspended wire, mg = IlB)"],
+    tWind:   ["n51BHZ_yEXI", 1890, "His 2021 Magnetism unit test (written response #5: the solar wind)"]
   };
   var VMAP = {
     ws1: "point", ws3: "point", ws5: "fq", ws7: "fq", ws8: "net", ws9: "net", ws10: "plates", ws12a: "plates", ws12b: "fq", ws12c: "accel",
@@ -1099,7 +1388,11 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     own24a: "dom", own24b: "cut", own24c: "law3", notes66: "join", notes67: "nsout", notes68: "nsout", own25a: "earth", own25b: "inside",
     notes69: "graspDot", notes70: "circles", notes71: "graspAbove", mextra2: "sources", mextra3: "coilE", own27a: "coilOut",
     own28a: "parallel", notes74: "qvb", own28b: "deflRule", own28c: "qvbEx", own28d: "deflRule", own28e: "deflBack", own28f: "deflEarth",
-    notes72: "deflRule", mextra13: "qvbCalc", own29a: "qvbEx", mextra4: "qvbCalc", own29b: "qvbCalc", own29c: "balance"
+    notes72: "deflRule", mextra13: "qvbCalc", own29a: "qvbEx", mextra4: "qvbCalc", own29b: "qvbCalc", own29c: "balance",
+    mextra7: "circ", own29e: "rEx", "mws28-13": "rEq", "mws28-15": "rEq", notes82: "rCompare", notes75: "tWind", notes76: "tWind",
+    "mws29-1": "curEx", own31a: "wireRule", "mws30-1": "ilb", notes86: "ilb", "mws30-4": "tWr4", prerev5: "tWr2", notes93: "tWr4",
+    ownt1: "tPaths", ownt2: "tPaths", notes83: "tCyclo", notes84: "tCyclo", ownt3: "tGraph", ownt4: "tGraph", ownt5: "tWr3", ownt6: "tWr4",
+    ownt7: "tLoop", ownt8: "tSol", own32a: "tGuitar", own33a: "tLenz", own33b: "tLenz"
   };
   ITEMS.forEach(function (it) { if (VMAP[it.id]) it.v = V[VMAP[it.id]]; });
 
@@ -1107,7 +1400,13 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
   var SESSION = 4;            // cards in a daily review: one easy opener, two mixed, one paper problem
   var EXTRA = 2;              // cards added by "Two more"
   var GAPS = [2, 4, 7];       // days until an item returns after 1, 2, 3 first-time-right answers in a row
-  var TOPIC_ORDER = [29, 28, 27, 26, 25, 24, 23, 21, 20, 22, 19, 18];
+  var TOPIC_ORDER = [31, 30, 29, 28, 27, 26, 25, 24, 33, 32, 23, 21, 20, 22, 19, 18];
+  // The Magnetism unit test is Thursday, November 12. Until then the daily review leads with magnetism:
+  // the newest rounds' questions are dealt first, in the order he taught them, and a magnetism question
+  // that is due comes before an electricity one. After the test the normal rotation takes over again.
+  var TEST_DAY = dayNum(new Date(2026, 10, 12).getTime());
+  function preTest() { return today() <= TEST_DAY; }
+  function magRank(it) { return it.r >= 6 ? 0 : (it.t >= 24 ? 1 : 2); }
 
   // Test mode: open the page with #test on the end of its address. It keeps its own separate
   // answers and schedule, so trying things out never touches the real log.
@@ -1180,6 +1479,9 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     if (it.src === "ws" || it.src === "t23") return "His practice sheet · Topic " + it.t + " #" + it.q + " · p. " + it.page;
     if (it.src === "extra") return "His Electricity EXTRA Questions · #" + it.q + " · p. " + it.page;
     if (it.src === "mextra") return "His Magnetism EXTRA Questions · #" + it.q + " · p. " + it.page;
+    if (it.src === "mws") return "His Magnetism practice sheet · Topic " + it.st + " #" + it.q + " · p. " + it.page;
+    if (it.src === "prerev") return "His E&M Pre-Exam Review · #" + it.q + " · p. " + it.page;
+    if (it.src === "p16") return "His Practice #16, November 4 · question " + it.q;
     if (it.src === "own") return "Written for this page from " + it.from + " · Topic " + it.t;
     return "His notes · #" + it.q + " · p. " + it.page;
   }
@@ -1207,7 +1509,16 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     later.sort(function (a, b) { return S[a.id].due - S[b.id].due; });
     // New questions are dealt one topic at a time, and a different topic leads each day,
     // so the review keeps mixing the whole unit instead of working through it in order.
-    var lead = t % TOPIC_ORDER.length, order = TOPIC_ORDER.slice(lead).concat(TOPIC_ORDER.slice(0, lead));
+    var lead = preTest() ? 0 : t % TOPIC_ORDER.length, order = TOPIC_ORDER.slice(lead).concat(TOPIC_ORDER.slice(0, lead));
+    if (preTest()) {
+      // Before the unit test: Rounds 7 to 9 first, in the order he taught them, then the rotation.
+      var lastRounds = [];
+      Object.keys(byTopic).forEach(function (tp) { byTopic[tp] = byTopic[tp].filter(function (it) { if (it.r >= 6) { lastRounds.push(it); return false; } return true; }); });
+      lastRounds.sort(function (a, b) { return IDX[a.id] - IDX[b.id]; });
+      freshList = lastRounds;
+      var stable = function (list) { return list.map(function (it, k) { return [magRank(it), k, it]; }).sort(function (a, b) { return a[0] - b[0] || a[1] - b[1]; }).map(function (x) { return x[2]; }); };
+      due = stable(due); later = stable(later);
+    }
     for (var more = true; more;) {
       more = false;
       order.forEach(function (tp) { var l = byTopic[tp]; if (l && l.length) { freshList.push(l.shift()); more = true; } });
@@ -1440,6 +1751,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
       h += "</div><p>Nothing left to review today.</p>";
     }
     h += '<p class="muted small">Review sessions in the last 7 days: ' + week + ".</p>";
+    if (preTest()) h += '<p class="small"><strong>Magnetism unit test Thursday, November 12.</strong> Until then, today’s review leads with the newest magnetism questions. Rounds 7 and 8 below are the rest of the unit and his test review; do them in one sitting if you want the full set before Thursday.</p>';
     h += "</div>";
 
     h += '<h2 class="sub">Practice rounds</h2>';
