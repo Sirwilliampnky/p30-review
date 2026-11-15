@@ -158,7 +158,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
 (function () {
   "use strict";
 
-  var UNITS = ["N/C", "V/m", "N", "V", "C", "J", "m", "m/s²", "m/s", "T", "A", "kg", "no unit"];
+  var UNITS = ["N/C", "V/m", "N", "V", "C", "J", "m", "m/s²", "m/s", "T", "A", "kg", "Hz", "no unit"];
   var DIRS = ["left", "right", "up", "down"];
   var HINT_LABELS = ["What it's asking", "The idea", "The setup", "First step"];
   var SLIPS = ["concept", "setup", "algebra", "units", "direction"];
@@ -182,7 +182,11 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     { name: "Round 8: test review", set: "Magnetism test review (phone)",
       blurb: "The kinds of question his 2021 Magnetism unit test asked, rewritten with the same ideas: which particle made which path, the cyclotron (his notes #83 and #84), how r depends on B and v, the field near a wire and inside a coil, and two written-response types. Eight multiple choice and two on paper. About 15 minutes." },
     { name: "Round 9: induction and Lenz's law", set: "Magnetism, Topics 32-33 (phone)",
-      blurb: "Start this after Mr. Dickie teaches the generator effect (notes p. 63). Until you start it, these questions stay out of the daily review. Three multiple choice: the guitar pickup, and a magnet pushed into a coil. About 5 minutes." }
+      blurb: "What he taught November 9: the generator effect and Lenz's law (notes p. 63). Three multiple choice: the guitar pickup, and a magnet pushed into a coil. About 5 minutes." },
+    { name: "Round 10: what EMR is, and the spectrum", set: "EMR, Topic 34 (phone)",
+      blurb: "The new unit. What he taught November 13: accelerating charges make EMR, the two changing fields, why EMR is a wave, the seven types and how each is made, and the three frequency ranges to memorize. Fourteen multiple choice and three you work out: his notes #97 to #103 and #105, EMR EXTRA #5, #8, #13 and #31, the EMR Pre-Exam Review #2, and four written from his lesson. About 25 minutes." },
+    { name: "Round 11: Hertz, and measuring the speed of EMR", set: "EMR, Topics 34-37 (phone)",
+      blurb: "Start this after Mr. Dickie teaches Hertz's experiment and Galileo's and Michelson's ways of timing light (notes pp. 75 and 77 to 79). Until you start it, these questions stay out of the daily review. Six multiple choice and two you work out: EMR EXTRA #23 and #28, the EMR Pre-Exam Review #3, his Smartboard example, the example in his notes, and three written from his lessons. About 15 minutes." }
   ];
 
   var STEM12 = "An electron sits between two parallel plates 10.0 cm apart. The field between the plates is 2.50 x 10^3 N/C.";
@@ -1044,7 +1048,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
   // Review #5 (key: Practice Session Question ANSWERS) and Practice #16 (no key on file). Every
   // number computed in code from the data booklet; every direction checked as F = q(v x B).
   // Round 8: the kinds of question on his 2021 Magnetism unit test (n51BHZ_yEXI), rewritten.
-  // Round 9: induction and Lenz's law (notes p. 63), gated until he teaches it.
+  // Round 9: induction and Lenz's law (notes p. 63). Gated until he taught it (November 9); ungated November 15.
   var FIG_WIND =
     '<svg viewBox="0 0 320 200" role="img" aria-label="Earth drawn as a circle with a bar magnet inside it, S at the top and N at the bottom. Dashed field loops leave the bottom of the Earth, curve around each side and enter the top; on the left side of the Earth the loop arrows point toward the top of the page. From the left edge, a stream of arrows labelled solar wind moves right toward the Earth.">' +
     '<defs><marker id="ahw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="mk" d="M0 0 L10 5 L0 10 z"></path></marker></defs>' +
@@ -1275,21 +1279,21 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
   R8_ITEMS.forEach(function (it) { ITEMS.push(it); });
 
   var R9_ITEMS = [
-    { r: 8, src: "own", q: "32a", t: 32, kind: "The generator effect", gate: true, easy: true, from: "his notes, p. 63, and his 2021 unit test walkthrough",
+    { r: 8, src: "own", q: "32a", t: 32, kind: "The generator effect", easy: true, from: "his notes, p. 63, and his 2021 unit test walkthrough",
       text: "A steel guitar string is magnetized by a permanent magnet underneath it. A coil of wire surrounds that magnet. When the string is plucked, a small current appears in the coil because",
       options: ["the magnet pushes the string's electrons along the string", "the coil's own field magnetizes the string", "the string acts as a magnet moving toward and away from the coil", "the permanent magnet's field inside the coil never changes"], answer: 2,
       hints: ["Faraday: a current is induced when a wire and a magnetic field move relative to each other, or the field changes.",
               "Here the coil doesn't move. What does?",
               "The string is magnetized, so it's a magnet. Plucked, it vibrates.",
               "A moving magnet near a coil induces a current in the coil."] },
-    { r: 8, src: "own", q: "33a", t: 33, kind: "Lenz's law", gate: true, fig: FIG_LENZ, from: "his notes, p. 63, and his 2021 unit test walkthrough",
+    { r: 8, src: "own", q: "33a", t: 33, kind: "Lenz's law", fig: FIG_LENZ, from: "his notes, p. 63, and his 2021 unit test walkthrough",
       text: "The north pole of a bar magnet is pushed down into a coil of wire. While the magnet moves, the top of the coil acts as",
       options: ["a north pole, so the coil pushes back on the magnet", "a south pole, so the coil pulls the magnet in", "a north pole, so the coil pulls the magnet in", "no pole: a moving magnet induces no field"], answer: 0,
       hints: ["Lenz's law: the induced current makes a field that opposes the motion that caused it.",
               "The magnet is moving down. To oppose that, the coil has to push it up.",
               "A north pole coming toward the coil gets pushed away by a like pole.",
               "Like poles repel. Which pole at the top of the coil repels a north pole?"] },
-    { r: 8, src: "own", q: "33b", t: 33, kind: "Lenz's law and the coil rule", gate: true, fig: FIG_LENZ, from: "his notes, p. 63, and his 2021 unit test walkthrough",
+    { r: 8, src: "own", q: "33b", t: 33, kind: "Lenz's law and the coil rule", fig: FIG_LENZ, from: "his notes, p. 63, and his 2021 unit test walkthrough",
       text: "Same situation: the north pole moves down into the coil, so the top of the coil becomes a north pole. Seen from the front, the induced electron current in the front of the coil moves toward the",
       options: ["top of the page", "bottom of the page", "left of the page", "right of the page"], answer: 2,
       hints: ["You know the field inside the coil. Run the coil rule backwards to get the current.",
@@ -1298,6 +1302,241 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
               "In front of the coil, which way do your fingers point?"] }
   ];
   R9_ITEMS.forEach(function (it) { ITEMS.push(it); });
+
+  // Round 10: Topic 34, the first lesson of the Electromagnetic Radiation unit (taught November 13,
+  // recording Jwtp_IrQbg8). Notes #97 to #103 and #105 (key: notes p. 117), EMR EXTRA #5, #8, #13 and
+  // #31 (key: EXTRA QUESTIONS ANSWER KEY, 18 June update), the EMR Pre-Exam Review #2 (key: Practice
+  // Session Question ANSWERS, EMR column) and four written from his lesson.
+  // Round 11: Hertz, Galileo and Michelson (notes pp. 75 and 77 to 79, recordings zcDhGhUHpYY and
+  // a39cG077TOg), gated until he teaches them: EMR EXTRA #23 and #28, the EMR Pre-Exam Review #3, his
+  // Smartboard Example 1, the example on notes p. 79 (no key: worked for this page) and three written
+  // from his lessons. Every number computed in code with c = 3.00 x 10^8 m/s from the data booklet.
+  var FIG_GRAPHS = (function () {
+    var ink = ' style="stroke: var(--ink); stroke-width: 2; fill: none"', h = "";
+    var cells = [
+      ["I", "E", 22, 74, function (x, y) { return "M" + x + " " + (y - 16) + " H" + (x + 26) + " C" + (x + 36) + " " + (y - 16) + " " + (x + 36) + " " + (y - 38) + " " + (x + 46) + " " + (y - 38) + " H" + (x + 72); }],
+      ["II", "E", 128, 74, function (x, y) { return "M" + x + " " + (y - 36) + " H" + (x + 72); }],
+      ["III", "E", 234, 74, function (x, y) { return "M" + x + " " + (y - 28) + " q9 -24 18 0 t18 0 t18 0 t18 0"; }],
+      ["IV", "B", 22, 182, function (x, y) { return "M" + x + " " + (y - 36) + " H" + (x + 72); }],
+      ["V", "B", 128, 182, function (x, y) { return "M" + x + " " + y + " L" + (x + 72) + " " + (y - 46); }],
+      ["VI", "B", 234, 182, function (x, y) { return "M" + (x + 4) + " " + (y - 50) + " C" + (x + 10) + " " + (y - 14) + " " + (x + 30) + " " + (y - 6) + " " + (x + 72) + " " + (y - 4); }]
+    ];
+    cells.forEach(function (c) {
+      var x = c[2], y = c[3];
+      h += '<text x="' + (x + 38) + '" y="' + (y - 60) + '" text-anchor="middle" font-weight="600">' + c[0] + "</text>" +
+           '<path class="fine" d="M' + x + " " + (y - 54) + " V" + y + " H" + (x + 78) + '"></path>' +
+           '<text x="' + (x - 6) + '" y="' + (y - 24) + '" text-anchor="end">' + c[1] + "</text>" +
+           '<text x="' + (x + 74) + '" y="' + (y + 14) + '" text-anchor="middle">t</text>' +
+           "<path" + ink + ' d="' + c[4](x, y) + '"></path>';
+    });
+    return '<svg viewBox="0 0 320 202" role="img" aria-label="Six small graphs of field size against time. Graph I: an electric field that is steady, rises to a higher value, then is steady again. Graph II: an electric field that stays constant. Graph III: an electric field that goes up and down like a sine wave. Graph IV: a magnetic field that stays constant. Graph V: a magnetic field that rises in a straight line. Graph VI: a magnetic field that drops quickly and then levels off.">' + h + "</svg>";
+  })();
+  var FIG_MICH =
+    '<svg viewBox="0 0 320 170" role="img" aria-label="An 8-sided mirror on the left. Light from a source above it reflects off one face, travels to a fixed mirror 30.0 km away on the right, comes back to the next face of the 8-sided mirror and is reflected down to a detector.">' +
+    '<defs><marker id="ahm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="mk" d="M0 0 L10 5 L0 10 z"></path></marker></defs>' +
+    '<path class="fine" style="stroke: var(--ink); stroke-width: 1.5" d="M91.4 98 L73 116.4 L47 116.4 L28.6 98 L28.6 72 L47 53.6 L73 53.6 L91.4 72 Z"></path>' +
+    '<text x="60" y="90" text-anchor="middle">8 sides</text>' +
+    '<text x="82" y="12" text-anchor="middle">light source</text><text x="82" y="165" text-anchor="middle">detector</text>' +
+    '<path class="fine" d="M82 18 V61" marker-end="url(#ahm)"></path>' +
+    '<path class="fine" d="M82 62.6 L289 84.6" marker-end="url(#ahm)"></path>' +
+    '<path class="fine" d="M290 85.4 L84 107.2" marker-end="url(#ahm)"></path>' +
+    '<path class="fine" d="M82 107.4 V150" marker-end="url(#ahm)"></path>' +
+    '<path class="fine" style="stroke: var(--ink); stroke-width: 2" d="M292 64 V106"></path>' +
+    '<path class="fine" d="M292 68 l6 -5 M292 76 l6 -5 M292 84 l6 -5 M292 92 l6 -5 M292 100 l6 -5"></path>' +
+    '<text x="314" y="54" text-anchor="end">fixed mirror</text>' +
+    '<path class="fine" d="M92 124 V132 M292 124 V132 M92 128 H292"></path><text x="192" y="146" text-anchor="middle">30.0 km</text></svg>';
+  var S_GRAPHS = "Six graphs show the size of an electric field, E, or of a magnetic field, B, at one place as time goes by.";
+  var S_SOURCES = "Four sources of EMR: 1, outer electrons dropping to lower orbitals. 2, high-speed electrons slowing down suddenly. 3, radioactive nuclei decaying. 4, an armature turning in a generator.";
+  var S_REGIONS = "Five parts of the spectrum: I television, II AM radio, III gamma radiation, IV ultraviolet light, V visible light.";
+  var S_MICH = "In a Michelson-type experiment, light reflects off one face of an 8-sided mirror, travels 30.0 km to a fixed mirror, and comes back to the 8-sided mirror. With the mirror at rest, the detector shows a full signal. When the mirror starts to turn, the signal drops.";
+  var S_SPEEDS = "Galileo uncovered lanterns on distant hilltops, Fizeau used a toothed wheel to block and pass a beam, and Foucault and Michelson each used a rotating mirror. All of them were trying to measure the speed of light.";
+
+  var R10_ITEMS = [
+    { r: 9, src: "notes", q: "97", page: 104, t: 34, kind: "What produces EMR", easy: true,
+      text: "A charged particle gives off electromagnetic radiation when it is moving",
+      options: ["at the speed of light", "with no acceleration", "with a velocity that is changing", "alongside a fixed magnetic field"], answer: 2,
+      hints: ["One word from his lesson answers this.",
+              "Maxwell: EMR needs changing electric and magnetic fields. What does a charge have to be doing for its fields to change?",
+              "At rest: an electric field only. Steady speed: an electric and a magnetic field, but neither one changes. Accelerating: both change.",
+              "Accelerating means the velocity is changing. Which option says that?"] },
+    { r: 9, src: "own", q: "34a", t: 34, kind: "Which fields a charge makes", from: "his Topic 34 recording",
+      text: "An electron moves through empty space in a straight line at a constant speed. Leaving gravity aside, it produces",
+      options: ["an electric field only", "an electric field and a magnetic field, but no EMR", "an electric field, a magnetic field and EMR", "EMR only"], answer: 1,
+      hints: ["Three cases to keep straight: at rest, constant speed, accelerating.",
+              "A moving charge makes a magnetic field. That was the last unit.",
+              "EMR needs the fields to be changing, and that takes acceleration.",
+              "Constant speed in a straight line: is there any acceleration?"] },
+    { r: 9, src: "notes", q: "105", page: 105, t: 34, kind: "Maxwell's idea",
+      text: "The new idea in Maxwell's work was that",
+      options: ["a current in a wire makes a magnetic field that circles the wire", "moving a conductor across a magnetic field induces a current in it", "an electric field that changes with time produces a magnetic field", "two parallel wires carrying current push or pull on each other"], answer: 2,
+      hints: ["Three of these were known before Maxwell. You met all three in the magnetism unit.",
+              "A is the wire grasp rule. B is the generator effect. D is the force on a wire sitting in another wire's field.",
+              "It was already known that a changing magnetic field makes an electric field. Maxwell guessed that it works the other way round too.",
+              "Which option is the generator effect turned around?"] },
+    { r: 9, src: "eextra", q: "5", page: 4, t: 34, kind: "How the two fields are arranged",
+      text: "In an electromagnetic wave, the electric field and the magnetic field are",
+      options: ["parallel to each other and parallel to the direction the wave travels", "parallel to each other and perpendicular to the direction the wave travels", "perpendicular to each other and parallel to the direction the wave travels", "perpendicular to each other and perpendicular to the direction the wave travels"], answer: 3,
+      hints: ["His word for this unit: perpendicular.",
+              "Picture his diagram: the electric field on one axis, the magnetic field on a second, the wave travelling along the third.",
+              "Three axes: x, y and z. Each of the three things gets an axis to itself.",
+              "So the two fields are at 90° to each other. What about each field and the direction of travel?"] },
+    { r: 9, src: "eextra", q: "13", page: 6, t: 34, kind: "Direction of the electric field",
+      text: "An electromagnetic wave travels straight up from Earth's surface. Its magnetic field oscillates north and south. Its electric field oscillates",
+      options: ["east and west", "north and south", "straight up only", "straight down only"], answer: 0,
+      hints: ["Three directions, all at right angles to one another.",
+              "The wave's travel takes one axis and the magnetic field takes another. The electric field gets the one that is left.",
+              "Up and down is taken by the travel. North and south is taken by the magnetic field.",
+              "Which direction is perpendicular to both up-down and north-south?"] },
+    { r: 9, src: "eextra", q: "8", page: 4, t: 34, kind: "A steady current: a field, but no EMR",
+      text: "A car battery sends a steady DC current through a wire to a headlight. Around the wire, the current produces a circular",
+      options: ["electric field", "magnetic field", "gravitational field", "electromagnetic field"], answer: 1,
+      hints: ["Steady DC: the charges drift along the wire at a constant speed.",
+              "This is the wire grasp rule from the magnetism unit.",
+              "No acceleration means no changing fields, so no EMR. What does a steady current make around a wire?",
+              "Grasp the wire. Your fingers trace circles of which kind of field?"] },
+    { r: 9, src: "eprerev", q: "2", page: 1, t: 34, kind: "Which fields produce EMR", stem: S_GRAPHS, fig: FIG_GRAPHS,
+      text: "EMR would be produced in the situations shown by graphs",
+      options: ["III only", "II and IV", "I, III and VI only", "I, III, V and VI"], answer: 3,
+      hints: ["Don't look for a wave shape. Look for the word he underlined.",
+              "EMR needs a changing electric or magnetic field. Changing in any way counts, not just up and down.",
+              "Go through the six graphs one at a time. Is the line flat the whole way, or does the field's size change somewhere?",
+              "II and IV are flat the whole way. Every other graph changes somewhere."] },
+    { r: 9, src: "own", q: "34b", t: 34, kind: "Evidence that EMR is a wave", from: "his Topic 34 recording",
+      text: "You look at a lamp through two polarizing filters held together. When one filter is turned 90°, the lamp goes dark. This is evidence that light",
+      options: ["is made of particles", "is a wave", "needs a medium to travel through", "travels at 3.00 x 10^8 m/s"], answer: 1,
+      hints: ["This is the demonstration from his lesson with the two filters.",
+              "He listed four things EMR does that only waves do: diffraction, interference, refraction and polarization.",
+              "One filter passes only the up-and-down part of the wave. Turned 90°, the other passes only the side-to-side part. Nothing is left.",
+              "Polarization is a property of waves. So what must light be?"] },
+    { r: 9, src: "notes", q: "99", page: 104, t: 34, kind: "Order of the spectrum", easy: true,
+      text: "Which list runs from the longest wavelength to the shortest?",
+      options: ["X-ray, ultraviolet, visible, infrared, radio", "X-ray, infrared, visible, ultraviolet, radio", "radio, ultraviolet, visible, infrared, X-ray", "radio, infrared, visible, ultraviolet, X-ray"], answer: 3,
+      hints: ["You need the seven types in his order: radio, microwave, infrared, visible, ultraviolet, X-ray, gamma.",
+              "That order runs from the lowest frequency to the highest.",
+              "All EMR travels at the same speed, so in c = fλ a low frequency means a long wavelength.",
+              "Radio has the lowest frequency, so it has the longest wavelength. It goes first."] },
+    { r: 9, src: "notes", q: "100", page: 104, t: 34, kind: "Order of the spectrum", stem: S_REGIONS,
+      text: "In order of increasing wavelength, these are",
+      options: ["III, I, V, II, IV", "II, I, V, IV, III", "III, IV, V, I, II", "IV, V, III, I, II"], answer: 2,
+      hints: ["Increasing wavelength means the shortest wavelength first. That is the highest frequency first.",
+              "Gamma has the highest frequency of all, then ultraviolet, then visible.",
+              "Television and AM radio are both radio waves. AM radio has the lower frequency of the two: about 10^6 Hz, against about 10^8 Hz for television.",
+              "Start with III. End with the lowest frequency on the list."] },
+    { r: 9, src: "notes", q: "103", page: 105, t: 34, kind: "Period and frequency",
+      text: "Which type of radiation has the longest period?",
+      options: ["Radio waves", "Infrared light", "Ultraviolet light", "Gamma radiation"], answer: 0,
+      hints: ["Period is the time for one full wave to go by.",
+              "T = 1 / f. A long period means a low frequency.",
+              "Put the four in order of frequency.",
+              "Which of the seven types has the lowest frequency?"] },
+    { r: 9, src: "notes", q: "98", page: 104, t: 34, kind: "How each type is produced",
+      text: "Gamma radiation can be produced by",
+      options: ["radioactive decay", "solids hot enough to glow", "charges moving in a conductor", "electrons accelerating in a television picture tube"], answer: 0,
+      hints: ["His colour-coded chart: each type of EMR has its own kind of source.",
+              "Radio and microwaves: charge oscillating back and forth. Infrared, visible and ultraviolet: electrons dropping to lower energy levels. X-rays: fast electrons stopped suddenly. That leaves gamma.",
+              "Gamma rays come out of the nucleus.",
+              "Which option is something a nucleus does?"] },
+    { r: 9, src: "notes", q: "101", page: 104, t: 34, kind: "How each type is produced",
+      text: "X-rays are produced by",
+      options: ["an alternating current of about 10^18 Hz", "firing gamma rays at a tungsten electrode", "changing the speed of electrons in a magnetic field", "high-speed electrons hitting a metal target"], answer: 3,
+      hints: ["Think of the X-ray machine at the dentist.",
+              "Electrons are sped up across a large potential difference, then stopped almost instantly.",
+              "Rapidly decelerating electrons: their kinetic energy has to go somewhere, and it leaves as an X-ray.",
+              "What stops the electrons?"] },
+    { r: 9, src: "notes", q: "102", page: 105, t: 34, kind: "Matching sources to types", stem: S_SOURCES,
+      text: "Give the source number for each type, in this order: gamma rays, visible light, X-rays, extremely low frequency waves (AC). Type the four digits as one number, the way a diploma numerical response is recorded.",
+      value: 3124, show: ["3124", 0], units: ["no unit"], unitLabel: "(four digits)", tol: 0.00001,
+      hints: ["Four digits, one for each type, in the order the types are listed.",
+              "Each source is one of his four ways of making EMR: electrons changing levels, electrons stopped suddenly, the nucleus, and charge going back and forth.",
+              "Gamma comes from the nucleus. Visible light comes from electrons dropping levels. X-rays come from electrons stopped suddenly. AC is charge going back and forth.",
+              "Gamma rays are first in the list. Which numbered source is about nuclei? That is your first digit."] },
+    { r: 9, src: "own", q: "34c", t: 34, kind: "Naming the type from its frequency", from: "his Topic 34 recording",
+      text: "EMR has a frequency of 3.0 x 10^13 Hz. It is",
+      options: ["microwave", "infrared", "visible light", "ultraviolet"], answer: 1,
+      hints: ["He gave three frequency ranges to memorize. Everything else is filled in from the order of the spectrum.",
+              "Microwaves: 10^9 to 10^12 Hz. Visible light: 4.0 x 10^14 to 7.5 x 10^14 Hz. X-rays: 10^17 to 10^20 Hz.",
+              "3.0 x 10^13 Hz is above the microwave range and below the visible range.",
+              "Which type sits between microwaves and visible light?"] },
+    { r: 9, src: "own", q: "34d", t: 34, kind: "Wavelength to frequency", from: "his Topic 34 recording (his own example)",
+      text: "EMR has a wavelength of 6.0 x 10^-8 m in a vacuum. Find its frequency.",
+      value: 5.0e15, show: ["5.0", 15], units: ["Hz"],
+      note: "His example from the lesson. 5.0 x 10^15 Hz is above visible light and below X-rays, so this is ultraviolet.",
+      hints: ["You have a wavelength and you want a frequency.",
+              "The universal wave equation from Physics 20, with the speed of light: c = fλ.",
+              "f = c / λ, with c = 3.00 x 10^8 m/s from the data booklet.",
+              "3.00 x 10^8 ÷ 6.0 x 10^-8. Mind the negative exponent on the bottom."] },
+    { r: 9, src: "eextra", q: "31", page: 12, t: 34, kind: "Frequency to wavelength",
+      text: "A communication link uses EMR with a frequency of 18.0 GHz. Find its wavelength.",
+      value: 1.66667e-2, show: ["1.67", -2], units: ["m"],
+      note: "His key gives 1.67, the three digits a diploma numerical response records.",
+      hints: ["Frequency given, wavelength wanted. Watch the prefix.",
+              "c = fλ again, rearranged the other way.",
+              "λ = c / f, with f in hertz. Giga means 10^9.",
+              "18.0 GHz = 1.80 x 10^10 Hz. Then 3.00 x 10^8 ÷ 1.80 x 10^10."] }
+  ];
+  R10_ITEMS.forEach(function (it) { ITEMS.push(it); });
+
+  var R11_ITEMS = [
+    { r: 10, src: "own", q: "34h", t: 34, kind: "Hertz's experiment", gate: true, easy: true, from: "his notes, p. 75, and his Topic 34 review recording",
+      text: "Hertz's spark-gap experiment mattered because it",
+      options: ["measured the speed of light for the first time", "was the first to detect EMR, which supported Maxwell's theory", "showed that light is made of particles", "produced the first X-rays"], answer: 1,
+      hints: ["Maxwell predicted EMR on paper. Someone still had to find it.",
+              "Hertz made electrons accelerate across a gap, and an antenna some distance away picked something up.",
+              "The antenna detected EMR that had crossed the room, as Maxwell's theory said it would.",
+              "The waves he detected were named radio waves. Which option fits?"] },
+    { r: 10, src: "own", q: "36a", t: 36, kind: "Why Galileo's method failed", gate: true, easy: true, from: "his notes, p. 77, and his Topics 36 and 37 recording",
+      text: "Galileo and an assistant uncovered lanterns on hills 1 km apart and timed the light. The result was nowhere near the real speed of light, mainly because",
+      options: ["the hills were not exactly 1 km apart", "lantern light travels more slowly than sunlight", "human reaction time was far longer than the light's travel time", "the air between the hills slowed the light down"], answer: 2,
+      hints: ["Think about how long light takes to go 2 km, there and back.",
+              "At 3.00 x 10^8 m/s, 2 km takes about 7 millionths of a second.",
+              "Compare that with how long a person takes to see a light and uncover a lantern.",
+              "Which of the two times is bigger, and by how much?"] },
+    { r: 10, src: "eextra", q: "23", page: 10, t: 36, kind: "What the speed experiments assume", gate: true, stem: S_SPEEDS,
+      text: "These methods all use the principle of (i), which requires the nature of EMR to be (ii). The two blanks are",
+      options: ["(i) accelerated motion; (ii) wave-like only", "(i) accelerated motion; (ii) wave-like or particle-like", "(i) uniform motion; (ii) wave-like only", "(i) uniform motion; (ii) wave-like or particle-like"], answer: 3,
+      hints: ["Two blanks. Do the first one first: what equation does every one of these experiments use?",
+              "They all measure a distance and a time and divide: v = d / t. That is motion at a constant speed.",
+              "For the second blank: does v = d / t care whether the thing moving is a wave or a particle?",
+              "A ball and a water wave both obey v = d / t, so these experiments can't tell which one light is."] },
+    { r: 10, src: "eprerev", q: "3", page: 2, t: 36, kind: "Michelson's rotating mirror", gate: true, stem: S_MICH, fig: FIG_MICH,
+      text: "As the mirror spins faster, the lowest rotation frequency at which the detector shows a full signal again is",
+      options: ["6.25 x 10^2 revolutions per second", "1.25 x 10^3 revolutions per second", "5.00 x 10^3 revolutions per second", "1.00 x 10^4 revolutions per second"], answer: 0,
+      hints: ["The mirror has to turn exactly one face, 1/8 of a turn, while the light is away.",
+              "First find how long the light is away. It goes there and back.",
+              "t = d / c with d = 60.0 km. That is the time for 1/8 of a turn, so one full turn takes 8t.",
+              "t = 6.00 x 10^4 ÷ 3.00 x 10^8 = 2.00 x 10^-4 s. The period is T = 8t, and f = 1 / T."] },
+    { r: 10, src: "sbm", q: "1", t: 36, kind: "Michelson's rotating mirror", gate: true, srcLine: "His EMR Smartboard notes · Michelson, Example 1",
+      text: "A set of 8 rotating mirrors in a Michelson experiment turns at 600 Hz. The mirrors are 35.0 km from a curved mirror on a second hill. Find the speed of light this experiment gives.",
+      value: 3.36e8, show: ["3.36", 8], units: ["m/s"],
+      note: "Close to the accepted 3.00 x 10^8 m/s, but not equal to it: the question asks what this experiment's numbers give.",
+      hints: ["Speed is distance over time. The distance is the round trip. The time comes from the mirror.",
+              "The light is seen when the mirror turns one face, 1/8 of a turn, while the light is away.",
+              "One full turn takes T = 1 / f. The light's travel time is T / 8. The distance is 2 x 35.0 km, in metres.",
+              "T = 1 / 600 s, so t = 1 / 4800 s = 2.08 x 10^-4 s. Then v = 7.00 x 10^4 ÷ t."] },
+    { r: 10, src: "nex", q: "79", page: 79, t: 36, kind: "Michelson's rotating mirror", gate: true, srcLine: "His notes · the example on p. 79 (not in the textbook)",
+      text: "Students repeat Michelson's experiment with a 10-sided rotating mirror. The second mirror is 30.0 km away. Find the lowest rotation frequency at which the observer sees the reflected light.",
+      value: 500, show: ["5.00", 2], units: ["Hz"],
+      note: "Worked for this page. His notes leave the answer to this example blank.",
+      hints: ["Same idea as the 8-sided mirror, but one face is a smaller fraction of a turn.",
+              "The mirror turns 1/10 of a rotation while the light makes the round trip.",
+              "The round trip is 60.0 km. t = d / c. One full rotation takes 10t.",
+              "t = 2.00 x 10^-4 s, so T = 2.00 x 10^-3 s. Then f = 1 / T."] },
+    { r: 10, src: "own", q: "36b", t: 36, kind: "Michelson's rotating mirror", gate: true, from: "his Topics 36 and 37 recording",
+      text: "An 8-sided mirror first sends the light to the observer when it turns at a frequency f. As the frequency keeps rising, the observer next sees the light at",
+      options: ["1.5 f", "2 f", "4 f", "8 f"], answer: 1,
+      hints: ["At f, the mirror turns one face, 1/8 of a turn, while the light is away.",
+              "The light's travel time doesn't change. Only the mirror's speed does.",
+              "The light is seen again when the mirror turns exactly two faces in that same time.",
+              "Two faces in the time it used to turn one. How many times faster is that?"] },
+    { r: 10, src: "eextra", q: "28", page: 11, t: 36, kind: "Distance, speed and time", gate: true,
+      text: "A microwave generator sends a signal to a receiver 50.0 km away. The time the microwaves take to get there is",
+      options: ["6.00 x 10^-4 s", "5.10 x 10^-4 s", "3.33 x 10^-4 s", "1.67 x 10^-4 s"], answer: 3,
+      hints: ["One way only: from the generator to the receiver.",
+              "Microwaves are EMR, so they travel at the speed of light.",
+              "t = d / c, with d in metres.",
+              "50.0 km = 5.00 x 10^4 m. Divide by 3.00 x 10^8 m/s."] }
+  ];
+  R11_ITEMS.forEach(function (it) { ITEMS.push(it); });
 
   ITEMS.forEach(function (it) {
     if (!it.src) it.src = it.r === 0 ? "ws" : "notes";
@@ -1375,7 +1614,22 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     tWr2:    ["n51BHZ_yEXI", 1540, "His 2021 Magnetism unit test (written response #2: electrons to current to F = IlB)"],
     tWr3:    ["n51BHZ_yEXI", 1680, "His 2021 Magnetism unit test (written response #3: F = qvB for an alpha particle)"],
     tWr4:    ["n51BHZ_yEXI", 1770, "His 2021 Magnetism unit test (written response #4: the suspended wire, mg = IlB)"],
-    tWind:   ["n51BHZ_yEXI", 1890, "His 2021 Magnetism unit test (written response #5: the solar wind)"]
+    tWind:   ["n51BHZ_yEXI", 1890, "His 2021 Magnetism unit test (written response #5: the solar wind)"],
+    emrAccel:  ["Jwtp_IrQbg8", 63,   "Topic 34: Intro to EMR (at rest, constant speed, accelerating)"],
+    emrChange: ["Jwtp_IrQbg8", 240,  "Topic 34: Intro to EMR (why the fields have to be changing)"],
+    emrPerp:   ["Jwtp_IrQbg8", 420,  "Topic 34: Intro to EMR (perpendicular to each other and to the direction of travel)"],
+    emrPolar:  ["Jwtp_IrQbg8", 781,  "Topic 34: Intro to EMR (polarization and the two filters)"],
+    emrTypes:  ["Jwtp_IrQbg8", 1020, "Topic 34: Intro to EMR (the seven types in order)"],
+    emrMade:   ["Jwtp_IrQbg8", 1144, "Topic 34: Intro to EMR (how each type is produced)"],
+    emrXray:   ["Jwtp_IrQbg8", 1261, "Topic 34: Intro to EMR (how X-rays are produced)"],
+    emrGamma:  ["Jwtp_IrQbg8", 1381, "Topic 34: Intro to EMR (where gamma rays come from)"],
+    emrRanges: ["Jwtp_IrQbg8", 1442, "Topic 34: Intro to EMR (the three frequency ranges to memorize)"],
+    emrWaveEq: ["Jwtp_IrQbg8", 1560, "Topic 34: Intro to EMR (wavelength to frequency with c = fλ)"],
+    hertz:     ["zcDhGhUHpYY", 421,  "Topic 34: Intro to EMR, review (Hertz's spark-gap experiment)"],
+    galileo:   ["a39cG077TOg", 183,  "Topics 36 and 37: Michelson (why Galileo's result wasn't valid)"],
+    mich:      ["a39cG077TOg", 241,  "Topics 36 and 37: Michelson's rotating mirror (the setup)"],
+    michTime:  ["a39cG077TOg", 424,  "Topics 36 and 37: Michelson's rotating mirror (one eighth of a rotation, then the time)"],
+    michMore:  ["a39cG077TOg", 662,  "Topics 36 and 37: Michelson's rotating mirror (two eighths, three eighths)"]
   };
   var VMAP = {
     ws1: "point", ws3: "point", ws5: "fq", ws7: "fq", ws8: "net", ws9: "net", ws10: "plates", ws12a: "plates", ws12b: "fq", ws12c: "accel",
@@ -1392,7 +1646,11 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     mextra7: "circ", own29e: "rEx", "mws28-13": "rEq", "mws28-15": "rEq", notes82: "rCompare", notes75: "tWind", notes76: "tWind",
     "mws29-1": "curEx", own31a: "wireRule", "mws30-1": "ilb", notes86: "ilb", "mws30-4": "tWr4", prerev5: "tWr2", notes93: "tWr4",
     ownt1: "tPaths", ownt2: "tPaths", notes83: "tCyclo", notes84: "tCyclo", ownt3: "tGraph", ownt4: "tGraph", ownt5: "tWr3", ownt6: "tWr4",
-    ownt7: "tLoop", ownt8: "tSol", own32a: "tGuitar", own33a: "tLenz", own33b: "tLenz"
+    ownt7: "tLoop", ownt8: "tSol", own32a: "tGuitar", own33a: "tLenz", own33b: "tLenz",
+    notes97: "emrAccel", own34a: "emrAccel", notes105: "emrChange", eextra5: "emrPerp", eextra13: "emrPerp", eextra8: "emrAccel", eprerev2: "emrChange",
+    own34b: "emrPolar", notes99: "emrTypes", notes100: "emrTypes", notes103: "emrTypes", notes98: "emrGamma", notes101: "emrXray", notes102: "emrMade",
+    own34c: "emrRanges", own34d: "emrWaveEq", eextra31: "emrWaveEq",
+    own34h: "hertz", own36a: "galileo", eextra23: "mich", eprerev3: "michTime", sbm1: "michTime", nex79: "michTime", own36b: "michMore"
   };
   ITEMS.forEach(function (it) { if (VMAP[it.id]) it.v = V[VMAP[it.id]]; });
 
@@ -1400,7 +1658,11 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
   var SESSION = 4;            // cards in a daily review: one easy opener, two mixed, one paper problem
   var EXTRA = 2;              // cards added by "Two more"
   var GAPS = [2, 4, 7];       // days until an item returns after 1, 2, 3 first-time-right answers in a row
-  var TOPIC_ORDER = [31, 30, 29, 28, 27, 26, 25, 24, 33, 32, 23, 21, 20, 22, 19, 18];
+  var TOPIC_ORDER = [34, 36, 31, 30, 29, 28, 27, 26, 25, 24, 33, 32, 23, 21, 20, 22, 19, 18];
+  // The unit he is teaching now. Outside a pre-test run, each day's new cards start with the next new
+  // question from each of these topics (once taught) and its next new paper question; the older
+  // topics follow, one question each, with a different topic leading each day.
+  var CURRENT = [34, 36];
   // The Magnetism unit test is Thursday, November 12. Until then the daily review leads with magnetism:
   // the newest rounds' questions are dealt first, in the order he taught them, and a magnetism question
   // that is due comes before an electricity one. After the test the normal rotation takes over again.
@@ -1476,6 +1738,9 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
   function roundIdx(r) { var a = []; ITEMS.forEach(function (it, i) { if (it.r === r) a.push(i); }); return a; }
   function roundDone(r) { return roundIdx(r).filter(function (i) { return state.items[i].done; }).length; }
   function sourceLine(it) {
+    if (it.srcLine) return it.srcLine;
+    if (it.src === "eextra") return "His EMR EXTRA Questions · #" + it.q + " · p. " + it.page;
+    if (it.src === "eprerev") return "His EMR Pre-Exam Review · #" + it.q + " · p. " + it.page;
     if (it.src === "ws" || it.src === "t23") return "His practice sheet · Topic " + it.t + " #" + it.q + " · p. " + it.page;
     if (it.src === "extra") return "His Electricity EXTRA Questions · #" + it.q + " · p. " + it.page;
     if (it.src === "mextra") return "His Magnetism EXTRA Questions · #" + it.q + " · p. " + it.page;
@@ -1486,6 +1751,17 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     return "His notes · #" + it.q + " · p. " + it.page;
   }
   function first(st) { return st.solved && st.wrong === 0; }
+  function qLabel(it) { // how a question is named in the log
+    var s = it.src;
+    if (s === "notes") return "notes " + it.q;
+    if (s === "extra" || s === "mextra" || s === "eextra") return "extra " + it.q;
+    if (s === "prerev" || s === "eprerev") return "pre-exam " + it.q;
+    if (s === "own") return "own " + it.q;
+    if (s === "p16") return "practice16 " + it.q;
+    if (s === "sbm") return "smartboard ex " + it.q;
+    if (s === "nex") return "notes example p." + it.q;
+    return "sheet " + (it.t === 23 ? "T23 " : "") + it.q;
+  }
 
   /* ---------- review schedule ---------- */
   function sched(rv, id, st, when) {
@@ -1509,7 +1785,13 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     later.sort(function (a, b) { return S[a.id].due - S[b.id].due; });
     // New questions are dealt one topic at a time, and a different topic leads each day,
     // so the review keeps mixing the whole unit instead of working through it in order.
-    var lead = preTest() ? 0 : t % TOPIC_ORDER.length, order = TOPIC_ORDER.slice(lead).concat(TOPIC_ORDER.slice(0, lead));
+    var rest = TOPIC_ORDER.filter(function (tp) { return CURRENT.indexOf(tp) < 0; });
+    var lead = t % rest.length, order = preTest() ? TOPIC_ORDER.slice() : rest.slice(lead).concat(rest.slice(0, lead), CURRENT);
+    if (!preTest()) CURRENT.forEach(function (tp) {
+      var l = byTopic[tp]; if (!l || !l.length) return;
+      var head = l.shift(); freshList.push(head);
+      if (isMC(head)) for (var k = 0; k < l.length; k++) if (!isMC(l[k])) { freshList.push(l.splice(k, 1)[0]); break; }
+    });
     if (preTest()) {
       // Before the unit test: Rounds 7 to 9 first, in the order he taught them, then the rotation.
       var lastRounds = [];
@@ -1682,7 +1964,7 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
       if (e.flag) note.push("student flagged the key");
       if (e.video) note.push("opened the lesson video");
       if (e.wrong > 0) note.push(e.wrong + " wrong " + (e.wrong === 1 ? "try" : "tries"));
-      lines.push("| " + [ymd(e.at), e.set, (e.it.src === "notes" ? "notes " : e.it.src === "extra" ? "extra " : "sheet " + (e.it.t === 23 ? "T23 " : "")) + e.it.q, e.it.t, e.it.kind, e.first ? "yes" : "no", e.hints,
+      lines.push("| " + [ymd(e.at), e.set, qLabel(e.it), e.it.t, e.it.kind, e.first ? "yes" : "no", e.hints,
         e.wrong > 0 ? (e.slip || "not tagged") : "-", e.first ? "-" : (e.solved ? "yes" : "no"), note.join("; ")].join(" | ") + " |");
     });
     lines.push("");
@@ -1735,8 +2017,8 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
 
   function renderStart() {
     var d = state.rv.day, h = "", week = sessionsLast7();
-    h += '<p class="source">Physics 30 · Electric and magnetic forces and fields</p>' +
-         '<h1>Electricity and magnetism: seven minutes a day</h1>';
+    h += '<p class="source">Physics 30 · Electricity, magnetism and EMR</p>' +
+         '<h1>Physics 30: seven minutes a day</h1>';
 
     h += '<div class="panel round today"><div class="head"><h2>Today’s review</h2>';
     if (d && d.finished) {
@@ -1746,12 +2028,13 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     } else if (d) {
       h += '<span class="status">' + d.pos + " of " + d.ids.length + '</span></div><p>You’re partway through today’s questions.</p><button class="primary" id="review" type="button">Carry on</button>';
     } else if (buildSession().length) {
-      h += '<span class="status">' + SESSION + ' questions</span></div><p>Four questions from everything he’s taught so far, magnetism included. The first one is easy. One of them you work out on paper with your data booklet. If you miss a question, it comes back tomorrow.</p><button class="primary" id="review" type="button">Start today’s review</button>';
+      h += '<span class="status">' + SESSION + ' questions</span></div><p>Four questions from everything he’s taught so far, with at least one from the new EMR unit. The first one is easy. One of them you work out on paper with your data booklet. If you miss a question, it comes back tomorrow.</p><button class="primary" id="review" type="button">Start today’s review</button>';
     } else {
       h += "</div><p>Nothing left to review today.</p>";
     }
     h += '<p class="muted small">Review sessions in the last 7 days: ' + week + ".</p>";
     if (preTest()) h += '<p class="small"><strong>Magnetism unit test Thursday, November 12.</strong> Until then, today’s review leads with the newest magnetism questions. Rounds 7 and 8 below are the rest of the unit and his test review; do them in one sitting if you want the full set before Thursday.</p>';
+    else if (roundDone(9) < roundIdx(9).length) h += '<p class="small"><strong>New unit: electromagnetic radiation.</strong> Round 10 below is his first EMR lesson (Topic 34, November 13) in one sitting. Do it once before his first EMR quiz.</p><button class="ghost" id="gonew" type="button">' + (roundDone(9) > 0 ? "Carry on with Round 10" : "Start Round 10") + "</button>";
     h += "</div>";
 
     h += '<h2 class="sub">Practice rounds</h2>';
@@ -1763,9 +2046,9 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
     });
     if (entries().length) h += '<button class="ghost" id="tolog" type="button">See my log</button>';
     h += '<p class="muted small">If you get one wrong, you get a hint instead of the answer. You can ask for more hints, one at a time. Your answers stay on this phone unless you copy them.</p>';
-    h += '<p class="muted small">The numbers and question numbers match Mr. Dickie’s sheets, so you can find each question on your own copy. The wording and diagrams are different. Answers to the notes questions and the EXTRA Questions come from his keys. Answers to the practice-sheet questions were worked out for this page, so they aren’t his official key. A few magnetism questions say “Written for this page”: they follow his notes, but they aren’t his questions. If you think an answer here is wrong, tap “I think the key is wrong on this one” under that question.</p>';
+    h += '<p class="muted small">The numbers and question numbers match Mr. Dickie’s sheets, so you can find each question on your own copy. The wording and diagrams are different. Answers to the notes questions and the EXTRA Questions come from his keys. Answers to the practice-sheet questions were worked out for this page, so they aren’t his official key. Some questions say “Written for this page”: they follow his notes and lessons, but they aren’t his questions. If you think an answer here is wrong, tap “I think the key is wrong on this one” under that question.</p>';
     paint(h);
-    on("review", openReview); on("more", moreToday);
+    on("review", openReview); on("more", moreToday); on("gonew", function () { startRound(9); });
     ROUNDS.forEach(function (R, r) { on("go" + r, function () { startRound(r); }); });
     on("tolog", function () { state.screen = "end"; save(); render(); window.scrollTo(0, 0); });
   }
@@ -1888,13 +2171,13 @@ h2.sub { font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase
       if (e.wrong > 0 && e.slip) slips[e.slip] = (slips[e.slip] || 0) + 1;
     });
     all.slice(-40).reverse().forEach(function (e) {
-      rows += "<tr><td>" + ymd(e.at).slice(5) + "</td><td>" + (e.it.src === "ws" ? "sheet " : "notes ") + esc(e.it.q) + "</td><td>" + e.it.t + "</td><td>" + esc(e.it.kind) + "</td><td>" + (e.first ? "first time" : e.solved ? "after hints" : "shown") + "</td><td>" + e.hints + "</td><td>" + (e.wrong > 0 ? esc(e.slip || "-") : "-") + "</td></tr>";
+      rows += "<tr><td>" + ymd(e.at).slice(5) + "</td><td>" + esc(qLabel(e.it)) + "</td><td>" + e.it.t + "</td><td>" + esc(e.it.kind) + "</td><td>" + (e.first ? "first time" : e.solved ? "after hints" : "shown") + "</td><td>" + e.hints + "</td><td>" + (e.wrong > 0 ? esc(e.slip || "-") : "-") + "</td></tr>";
     });
     var slipLine = Object.keys(slips).map(function (k) { return k + " ×" + slips[k]; }).join(", ");
     var qs = ["Which question felt different after the hint, and why?",
               "More or less useful than your usual way of studying for a quiz?",
               "Would you do ten minutes of this on a normal day?"];
-    var h = '<p class="source">Electricity · your log</p><h1>Where you are so far</h1>';
+    var h = '<p class="source">Physics 30 · your log</p><h1>Where you are so far</h1>';
     h += '<div class="stats"><div class="stat"><b>' + f + '</b><span>right first time</span></div><div class="stat"><b>' + hinted + '</b><span>right after hints</span></div><div class="stat"><b>' + shown + "</b><span>answer shown</span></div></div>";
     h += '<p class="muted">Review sessions in the last 7 days: ' + sessionsLast7() + "." + (slipLine ? " Where the misses came from: " + esc(slipLine) + "." : "") + "</p>";
     h += '<div class="panel scroll"><table><thead><tr><th>Date</th><th>Q</th><th>Topic</th><th>Kind</th><th>Result</th><th>Hints</th><th>Slip</th></tr></thead><tbody>' + rows + "</tbody></table></div>";
